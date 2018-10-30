@@ -832,9 +832,9 @@ mission "FW Katya 2C"
 	on complete
 		payment 100000
 		conversation
-			`As soon as you land, Mr. Eyes fires up his sensors and begins collecting data. A few minutes later, Katya shows up. "Eyes!" she says. "It's great to see you again."`
+			`As soon as you land, Mr. Eyes fires up his sensors and begins collecting data. A few minutes later, Katya shows up. "Ijs!" she says. "It's great to see you again."`
 			`	"You too, Councilor," he says.`
-			`	Katya hands you a credit chip for another <payment>. "Thanks again, Captain. Did Eyes explain the plan to you?" You nod. "Well," she says, "if you've got space for the two of us and want to be a part of seeing justice done, let's meet up in the spaceport once Eyes is done analyzing his data."`
+			`	Katya hands you a credit chip for another <payment>. "Thanks again, Captain. Did Ijs explain the plan to you?" You nod. "Well," she says, "if you've got space for the two of us and want to be a part of seeing justice done, let's meet up in the spaceport once Ijs is done analyzing his data."`
 
 
 
@@ -848,10 +848,10 @@ mission "FW Katya 3"
 		has "chosen sides"
 	on offer
 		conversation
-			`You find Eyes and Katya sitting in the shade of one of the few trees in the port, drinking some sort of frozen milkshakes while they stare out at the desert and talk in hushed voices. When you join them, Katya says, "I was just filling Eyes in on the Navy's recent fleet mobilization. Half the Dirt Belt is swarming with cruisers and surveillance drones right now. It's hard to believe that we can find the attackers before they do, unless they're somewhere the Navy hasn't thought to look."`
-			`	"Agreed," says Eyes, "and to make matters worse, their sensors are probably much better than mine."`
+			`You find Ijs and Katya sitting in the shade of one of the few trees in the port, drinking some sort of frozen milkshakes while they stare out at the desert and talk in hushed voices. When you join them, Katya says, "I was just filling Ijs in on the Navy's recent fleet mobilization. Half the Dirt Belt is swarming with cruisers and surveillance drones right now. It's hard to believe that we can find the attackers before they do, unless they're somewhere the Navy hasn't thought to look."`
+			`	"Agreed," says Ijs, "and to make matters worse, their sensors are probably much better than mine."`
 			`	Katya appears to be struck by a sudden idea. "The sensors on their drones," she says, "their unmanned drones..."`
-			`	Eyes glances at her, sees her expression, and says, "No, Councilor, don't even think of it. That's a horrible idea."`
+			`	Ijs glances at her, sees her expression, and says, "No, Councilor, don't even think of it. That's a horrible idea."`
 			`	"No," she says, "it's brilliant. Captain <last>, are you familiar with the Dereliction and Salvage Act of 2976?"`
 			choice
 				`	"Of course. I read Parliamentary proceedings every night when I'm trying to fall asleep."`
@@ -893,7 +893,7 @@ mission "FW Katya 3"
 	on complete
 		outfit "Surveillance Pod" -1
 		conversation
-			`You hand over the "salvaged" equipment to Mr. Eyes and Katya. Eyes begins fiddling with it, and soon discovers how to work the atmospheric scanner. "This is really nice stuff!" he says, enthusiastically.`
+			`You hand over the "salvaged" equipment to Mr. Eyes and Katya. Ijs begins fiddling with it, and soon discovers how to work the atmospheric scanner. "This is really nice stuff!" he says, enthusiastically.`
 			`	Katya says, "We found a halfway decent restaurant in the spaceport village. If you want to keep working with us, meet us there this evening."`
 
 
@@ -903,7 +903,7 @@ mission "FW Katya 4"
 	description "Stop on <destination> and check the planet for signs of nuclear testing."
 	source Rand
 	destination Oblivion
-	blocked "You need bunks for both Katya and Eyes in order to continue this mission."
+	blocked "You need bunks for both Katya and Ijs in order to continue this mission."
 	passengers 2
 	to offer
 		has "FW Katya 3: done"
@@ -920,14 +920,14 @@ mission "FW Katya 4"
 				`	"How did you escape?"`
 			
 			`	"The eruption was on the other continent," she explains, "so no one was killed in the blast. It was a slow-moving disaster. We had six months or so to move two million settlers off-world before the temperatures would drop too low to be livable. More than half of the Navy was mobilized to ferry our people to other planets."`
-			`	"Here's the best part," says Eyes. "The Navy operates with a certain amount of autonomy. Turns out when they found out about the disaster, they mobilized without even waiting to clear it with Parliament. Which was technically within their mandate, this being a natural disaster. But the Navy is funded by taxes, and the Paradise Planets pay ten times as much in taxes as the Dirt Belt."`
+			`	"Here's the best part," says Ijs. "The Navy operates with a certain amount of autonomy. Turns out when they found out about the disaster, they mobilized without even waiting to clear it with Parliament. Which was technically within their mandate, this being a natural disaster. But the Navy is funded by taxes, and the Paradise Planets pay ten times as much in taxes as the Dirt Belt."`
 			`	"The Paradise Planets viewed the Navy as their own private security force," says Katya, "so they got really mad when half the Navy suddenly vanished to assist some dirty refugees. Because those admirals gave the order to assist us, millions of lives were saved. And then Parliament fired them."`
 			choice
 				`	"You're making the Navy sound like heroes. I thought they were your enemies."`
 				`	"You've almost convinced me to join the Navy."`
 			
 			`	"Our fight isn't with the Navy," says Katya. "Most of them are good people. I'm sure they don't want war any more than we do. They're like police officers who are suddenly being asked to fight against the very people they swore to protect and serve."`
-			`	"I was a child on Vinci while this was happening," says Eyes. "A paradise world. I would listen to the news and could never understand why all the adults around me were so very, very angry that the Navy had gone off to rescue two million people from freezing to death. But they told me that we lived in one little island of safety in a dangerous galaxy, and that without the Navy protecting us the pirates or even maybe aliens would sweep in and destroy our homes and take our money. That it was us against the whole galaxy."`
+			`	"I was a child on Vinci while this was happening," says Ijs. "A paradise world. I would listen to the news and could never understand why all the adults around me were so very, very angry that the Navy had gone off to rescue two million people from freezing to death. But they told me that we lived in one little island of safety in a dangerous galaxy, and that without the Navy protecting us the pirates or even maybe aliens would sweep in and destroy our homes and take our money. That it was us against the whole galaxy."`
 			`	"I'd hate to be rich," says Katya. "So much to fear."`
 			`	You finish your meal (Katya pays the tab), and agree to take off for <planet> first thing in the morning.`
 				accept
@@ -955,18 +955,18 @@ mission "FW Katya 5"
 					goto search
 			
 			label months
-			`	"You've got a point," says Eyes. "And we don't even know for sure that the terrorists originated from around here."`
+			`	"You've got a point," says Ijs. "And we don't even know for sure that the terrorists originated from around here."`
 				goto pirates
 			
 			label search
-			`	"No," says Eyes, "we've tried to keep this search a secret so the terrorists won't know we're looking for them. If they turn out to be Free Worlds sympathizers, and I assume they are, we'll have a better chance of infiltrating them if they think we're on their side."`
+			`	"No," says Ijs, "we've tried to keep this search a secret so the terrorists won't know we're looking for them. If they turn out to be Free Worlds sympathizers, and I assume they are, we'll have a better chance of infiltrating them if they think we're on their side."`
 				goto pirates
 			
 			label pirates
 			`	Katya says, "What we need is some leads to follow. I bet we could buy information on Greenrock. Whenever anyone is doing something illegal in this sector, there's a good chance the pirates are helping them."`
 			`	Mr. Eyes says, "Unless you've got boatloads of money to give the pirates, we need someone who's friendly with them, who can convince them to talk for free. We should go to the Brothers on Harmony."`
 			`	"That's not a bad idea," says Katya, "as long as they don't make me sit through one of their church services. I always fall asleep."`
-			`	"What do you say, Captain?" asks Eyes. "Want to visit a monastery?"`
+			`	"What do you say, Captain?" asks Ijs. "Want to visit a monastery?"`
 			choice
 				`	"Sure, sounds like fun."`
 					accept
@@ -976,12 +976,12 @@ mission "FW Katya 5"
 					goto shoot
 			
 			label friends
-			`	"When I grew up and left the paradise sector, as a young idealist," says Eyes, "I decided I wanted to take a vow of poverty, so I came to live with the Brothers. But it turns out they also wanted me to take a vow of obedience. And chastity. Not so much my cup of tea." He winks at Katya.`
+			`	"When I grew up and left the paradise sector, as a young idealist," says Ijs, "I decided I wanted to take a vow of poverty, so I came to live with the Brothers. But it turns out they also wanted me to take a vow of obedience. And chastity. Not so much my cup of tea." He winks at Katya.`
 			`	"Are the monks really as boring as Katya says?" you ask.`
 				goto shoot
 						
 			label shoot
-			`	"Sorry kid," says Eyes. "Take it from me, working for justice is not always exciting."`
+			`	"Sorry kid," says Ijs. "Take it from me, working for justice is not always exciting."`
 			choice
 				`	"Fine, I'm in."`
 					accept
@@ -1005,13 +1005,13 @@ mission "FW Katya 5B"
 	on offer
 		log "Factions" "Pirates" `Pirate ships are often crewed by children, the equivalent of street gangs or child soldiers. Many lawless worlds are so poor that joining a pirate gang is one of the only attractive options for earning a living.`
 		conversation
-			`Katya and Eyes lead you to the monastery. As you are approaching, you meet a monk who is wearing a long black robe and kneeling in a small vegetable garden, pulling weeds. When he looks up and sees you, he leaps to his feet and runs over. "Katya! And Ijs! Welcome back!" Then he turns to you. "I'm David," he says.`
+			`Katya and Ijs lead you to the monastery. As you are approaching, you meet a monk who is wearing a long black robe and kneeling in a small vegetable garden, pulling weeds. When he looks up and sees you, he leaps to his feet and runs over. "Katya! And Ijs! Welcome back!" Then he turns to you. "I'm David," he says.`
 			choice
 				`	"I'm <first>. Pleased to meet you."`
 			
 			`	Katya asks, "Is Brother Greg here?"`
 			`	"Sure," says David. "Come inside." The monastery building is a stone and brick structure that looks like pictures you have seen of ancient Earth. He leads you down a long hallway and into a sitting room with furniture that looks equally antique, and then leaves.`
-			`	As you are waiting, Eyes explains, "Brother Greg is in charge of the monastery's outreach and ministry to pirate crew members."`
+			`	As you are waiting, Ijs explains, "Brother Greg is in charge of the monastery's outreach and ministry to pirate crew members."`
 			choice
 				`	"That sounds even odder than being a vigilante nuclear inspector."`
 					goto odd
@@ -1019,7 +1019,7 @@ mission "FW Katya 5B"
 					goto outreach
 			
 			label odd
-			`	Eyes laughs. "Yes, the monks were a big influence in helping me to think creatively about my own vocation."`
+			`	Ijs laughs. "Yes, the monks were a big influence in helping me to think creatively about my own vocation."`
 			
 			label outreach
 			`	"Consider this," says Katya. "In the galactic south, the average age of a pirate crew member is seventeen years old. And many are much younger than that. They're more like street kids than like hardened criminals."`
@@ -1039,8 +1039,8 @@ mission "FW Katya 5B"
 			
 			label prayer
 			`	"Evening prayer" turns out to be a lengthy church service that apparently begins with the monks listing every bad thing they can possibly imagine and praying that it would not happen: "From lightning and tempest; from earthquake, fire, and flood; from plague, pestilence, and famine, good Lord, deliver us. From all oppression, conspiracy, and rebellion; from violence, battle, and murder; and from dying suddenly and unprepared, good Lord, deliver us..." It's very monotonous.`
-			`	At some point, they switch to praying for different people: for the Parliament of the Republic, and everyone in authority; for the governor of <origin>, their world; for the Quarg and all sentient species; for prisoners, for the homeless and poor, for orphans, for pregnant women and young children, for travelers, for starship crews and captains, for miners and oil crews, for mill and factory workers; for the abused; for the mentally ill; for pirates and street gangs; for all creatures and planets vulnerable to exploitation or ecological destruction. (Eyes, who is sitting next to you, responds to that last petition with a fervent "Amen!") The litany is so detailed and specific that you find it both exhausting and fascinating.`
-			`	When the service ends, the monks depart for their rooms in silence, and Eyes, with a brief nod to you, does the same.`
+			`	At some point, they switch to praying for different people: for the Parliament of the Republic, and everyone in authority; for the governor of <origin>, their world; for the Quarg and all sentient species; for prisoners, for the homeless and poor, for orphans, for pregnant women and young children, for travelers, for starship crews and captains, for miners and oil crews, for mill and factory workers; for the abused; for the mentally ill; for pirates and street gangs; for all creatures and planets vulnerable to exploitation or ecological destruction. (Ijs, who is sitting next to you, responds to that last petition with a fervent "Amen!") The litany is so detailed and specific that you find it both exhausting and fascinating.`
+			`	When the service ends, the monks depart for their rooms in silence, and Ijs, with a brief nod to you, does the same.`
 			
 			label morning
 			`	At breakfast in the monastery, Mr. Eyes tells you, "I'm going to be staying here until you get back. Greenrock is no place for a man with a price on his head. But Katya will be going with you." You bring Katya and Greg back to your ship and get ready to take off.`
@@ -1066,7 +1066,7 @@ mission "FW Katya 5C"
 			`	"A few. I talked to one friend who had done research into nuclear development 'for purely academic reasons,' and he said that only a fool would perform atmospheric tests; Intelligence would notice that immediately, no matter what world you were on. He said the ideal development location would be a sparsely populated planet with some abandoned deep underground mines."`
 			`	"Anything else?" you ask.`
 			`	"Just one more thing," says Greg. "Several people mentioned that they think the Navy itself may have a nuclear arsenal, and that a renegade may have stolen the weapons from them. Much easier than developing them yourself."`
-			`	"Well, let's head back to <planet> and see what Eyes thinks," says Katya, "but I can't imagine the Navy would have such an arsenal. Searching on mining planets sounds like our best bet for now."`
+			`	"Well, let's head back to <planet> and see what Ijs thinks," says Katya, "but I can't imagine the Navy would have such an arsenal. Searching on mining planets sounds like our best bet for now."`
 				accept
 	
 	on complete
@@ -1075,14 +1075,14 @@ mission "FW Katya 5C"
 			`When you land on <planet>, as Brother Greg is gathering his luggage, Katya hands you another credit chip for <payment>. "Thanks for risking your life with the pirates," she says. "You've got real guts."`
 			`	You return to the monastery and share your new information with Mr. Eyes. His reaction is the same as Katya's. "No way the Navy has nukes," he says. "Some other secret branch of the government, maybe, but not the Navy. That would offend their sense of honor."`
 			`	"Still," says Katya, "if there was such a program and the weapons were stolen from it, that would explain why Intelligence has not named a suspect yet. They would have to reveal the program's existence."`
-			`	Eyes shakes his head. "This isn't a productive line of investigation," he says. "If it was some local terrorists, we've got some hope of tracking them down. If it's some shadowy government organization, there's no way we can find them. So, the local terrorist angle is the only one worth pursuing."`
+			`	Ijs shakes his head. "This isn't a productive line of investigation," he says. "If it was some local terrorists, we've got some hope of tracking them down. If it's some shadowy government organization, there's no way we can find them. So, the local terrorist angle is the only one worth pursuing."`
 			`	"Very well," says Katya. "Captain <last>, meet us in the spaceport if you're willing to continue working with us."`
 
 
 
 mission "FW Katya 6"
 	name "The Hunt Continues"
-	description "Take Katya and Eyes to <destination>."
+	description "Take Katya and Ijs to <destination>."
 	source Harmony
 	destination Sinter
 	passengers 2
@@ -1106,7 +1106,7 @@ mission "FW Katya 6"
 mission "FW Katya 6B"
 	landing
 	name "The Hunt Continues"
-	description "Take Katya and Eyes to <destination>."
+	description "Take Katya and Ijs to <destination>."
 	source Sinter
 	destination Hopper
 	passengers 2
@@ -1125,7 +1125,7 @@ mission "FW Katya 6B"
 mission "FW Katya 6C"
 	landing
 	name "The Hunt Continues"
-	description "Take Katya and Eyes to <destination>."
+	description "Take Katya and Ijs to <destination>."
 	source Hopper
 	destination "New Iceland"
 	passengers 2
@@ -1135,7 +1135,7 @@ mission "FW Katya 6C"
 		has "chosen sides"
 	on offer
 		conversation
-			`Again, Eyes runs his tests, and again, nothing shows up. "One more planet to go," he says. "Time to try <planet>." You can tell that they are both starting to feel a bit discouraged, and you are overwhelmed by the thought of how many planets in this sector you may need to search unless you get a lucky break soon.`
+			`Again, Ijs runs his tests, and again, nothing shows up. "One more planet to go," he says. "Time to try <planet>." You can tell that they are both starting to feel a bit discouraged, and you are overwhelmed by the thought of how many planets in this sector you may need to search unless you get a lucky break soon.`
 				accept
 
 
@@ -1143,7 +1143,7 @@ mission "FW Katya 6C"
 mission "FW Katya 7"
 	landing
 	name "The Hunt Continues"
-	description "Take Katya and Eyes to <destination> to check for signs of underwater testing."
+	description "Take Katya and Ijs to <destination> to check for signs of underwater testing."
 	source "New Iceland"
 	destination Deep
 	passengers 2
@@ -1154,7 +1154,7 @@ mission "FW Katya 7"
 	on offer
 		conversation
 			`<origin> turns out no differently than the previous two. "We need a change in strategy," says Katya. "We've been talking about something while we were in transit."`
-			`	Eyes says, "It occurred to me that underwater testing might be even easier than underground: no need to dig or find a mine shaft. And, the Navy's sensors are for atmosphere, not oceans. But I've still got my old test kits with me for seawater."`
+			`	Ijs says, "It occurred to me that underwater testing might be even easier than underground: no need to dig or find a mine shaft. And, the Navy's sensors are for atmosphere, not oceans. But I've still got my old test kits with me for seawater."`
 			`	Katya says, "So then we wondered, what sort of world would you go to if you wanted rumblings in the ocean to go unnoticed? Either an unpopulated one, or one with lots of meteorite activity. And that leads us to... Deep." She points out the system on your map. "Mild tidal surges on almost a weekly basis, due to impacts from all the asteroids in system. Perfect place to hide an undersea explosion."`
 			choice
 				`	"Sounds like a good possibility. Let's give it a try!"`
@@ -1167,7 +1167,7 @@ mission "FW Katya 7"
 mission "FW Katya 7B"
 	landing
 	name "The Hunt Continues"
-	description "Take Katya and Eyes to the mining moon <planet>."
+	description "Take Katya and Ijs to the mining moon <planet>."
 	source Deep
 	destination Clink
 	passengers 2
@@ -1177,7 +1177,7 @@ mission "FW Katya 7B"
 		has "chosen sides"
 	on offer
 		conversation
-			`After landing, you go for a walk along the beach with Katya and Eyes. They both go barefoot, walking in the surf. Eyes is collecting pebbles and shells from under the water, and at one point instead of grabbing a pebble he surreptitiously reaches down and fills a small vial with seawater.`
+			`After landing, you go for a walk along the beach with Katya and Ijs. They both go barefoot, walking in the surf. Ijs is collecting pebbles and shells from under the water, and at one point instead of grabbing a pebble he surreptitiously reaches down and fills a small vial with seawater.`
 			`	Back at your ship he runs his tests, with you and Katya watching eagerly. He looks at the results, frowns, and then repeats the whole procedure with a second test kit. Finally he sighs. "Nothing," he says.`
 			`	Katya shouts in frustration and bangs her fists against the bulkheads. "I was so certain this would be the right system," she says. "Forget it, I'm going for a walk." She leaves your ship.`
 			`	Mr. Eyes packs up his instruments, and then you walk outside and find her sitting on the landing pad near your ship, watching the moon rise over the ocean. She seems much calmer.`
@@ -1188,7 +1188,7 @@ mission "FW Katya 7B"
 					goto ask
 			
 			label sit
-			`	You sit on one side of her, and Eyes sits on the other. "It's really admirable, what you're doing," you say. "You're trying to work for peace, and for justice. It's valuable work. Don't lose heart."`
+			`	You sit on one side of her, and Ijs sits on the other. "It's really admirable, what you're doing," you say. "You're trying to work for peace, and for justice. It's valuable work. Don't lose heart."`
 				goto last
 			
 			label ask
@@ -1197,7 +1197,7 @@ mission "FW Katya 7B"
 			
 			label last
 			`	"One more try," she says. "One last world, and then we give up. I want you to take me... there." She points at the moon, hanging just above the horizon.`
-			`	Eyes says, "Mining world. Dusty atmosphere. Frequent meteorite impacts. You could set off a nuke on the far side of that world and the miners would probably sleep right through it."`
+			`	Ijs says, "Mining world. Dusty atmosphere. Frequent meteorite impacts. You could set off a nuke on the far side of that world and the miners would probably sleep right through it."`
 			choice
 				`	"Okay, I'll take you to this one last world, and then we're done."`
 					accept
@@ -1208,7 +1208,7 @@ mission "FW Katya 7B"
 
 mission "FW Katya 7C"
 	landing
-	name "Bring Eyes to <planet>"
+	name "Bring Ijs to <planet>"
 	description "While Katya is undercover on <origin>, bring Mr. Eyes to <destination> to report to the Free Worlds."
 	source Clink
 	destination Zug
@@ -1221,30 +1221,30 @@ mission "FW Katya 7C"
 		log "Found evidence of nuclear testing on Clink, a mining moon on the edge of Free Worlds territory. It's strange that the perpetrators left such clear evidence behind; the Navy's drones will certainly have discovered it before we did. Katya stayed behind to try to infiltrate the mining compound and collect more information."
 		conversation
 			`You land some distance from the mining settlement, and Mr. Eyes goes into the airlock in a pressure suit, cycling it to bring in some of the moon's thin atmosphere for him to test. "Firing up my instruments now," he says through the comm link. There is a long pause, and then he starts spouting a long string of creative profanity. Katya runs over to the airlock window to see what is happening.`
-			`	Finally, Eyes calms down enough to say, "It's a match! Not only has there been a recent test here, but the signature matches the one we took on Geminus. This is it."`
-			`	He cycles the airlock and comes back inside. "Let's fly around and see if we can find the site," he says. After a few hours of flying low over the surface and scanning for radiation signatures, you find a spot that looks like all the other meteorite craters but is full of radiation. Katya and Eyes look at the images of the surface almost in disbelief.`
-			`	"Based on the isotopic decay rates, this explosion happened in mid-June," says Eyes. "Just before the attacks happened."`
+			`	Finally, Ijs calms down enough to say, "It's a match! Not only has there been a recent test here, but the signature matches the one we took on Geminus. This is it."`
+			`	He cycles the airlock and comes back inside. "Let's fly around and see if we can find the site," he says. After a few hours of flying low over the surface and scanning for radiation signatures, you find a spot that looks like all the other meteorite craters but is full of radiation. Katya and Ijs look at the images of the surface almost in disbelief.`
+			`	"Based on the isotopic decay rates, this explosion happened in mid-June," says Ijs. "Just before the attacks happened."`
 			`	"It makes no sense," says Katya. "It's a blatant atmospheric test. No way the Navy hasn't found this. The Navy could act on this at any moment. Captain, is the outpost reporting any miner's jobs open?"`
 			choice
 				`	(Check what my computer says.)`
 			
 			`	You check your computer. "One job opening, for a janitor in the mess hall."`
-			`	She grimaces. "Okay, it's better than nothing. I'll take the job to go undercover and see what I can find out. You take Eyes to <planet>, where he can get in touch with the Free Worlds council. I'll find a way to send you a message once I've found the perpetrators."`
-			`	"Katerina," says Eyes, "this is way too dangerous."`
+			`	She grimaces. "Okay, it's better than nothing. I'll take the job to go undercover and see what I can find out. You take Ijs to <planet>, where he can get in touch with the Free Worlds council. I'll find a way to send you a message once I've found the perpetrators."`
+			`	"Katerina," says Ijs, "this is way too dangerous."`
 			`	"There's no other way," she says. "We have no time to lose. I'm willing to risk it."`
-			`	With deep reservations, you drop her off at the outpost, where she is quickly offered the job. "Not many folks care to work up here," says the foreman, "so your help would be much appreciated." You and Eyes return to your ship and get ready to travel to <planet> with the evidence.`
+			`	With deep reservations, you drop her off at the outpost, where she is quickly offered the job. "Not many folks care to work up here," says the foreman, "so your help would be much appreciated." You and Ijs return to your ship and get ready to travel to <planet> with the evidence.`
 				accept
 	
 	on complete
 		"assisted free worlds" ++
 		payment 250000
 		conversation
-			`Eyes has been really quiet for the whole journey; you're sure that he's worried about Katya. When you land, he hands you <payment> and says, "Thank you for all your help, Captain. I hope that this leads to justice being done."`
+			`Ijs has been really quiet for the whole journey; you're sure that he's worried about Katya. When you land, he hands you <payment> and says, "Thank you for all your help, Captain. I hope that this leads to justice being done."`
 			`	He starts to walk off, then comes back. "By the way, Katya wanted to keep this a secret, but I think you should know." He points to the credit chips he just handed you. "Katya's been funding this out of her own pocket. That's the last of her savings that she just paid you."`
 			choice
 				`	"I had no idea."`
 				`	"Wow, she really is dedicated to this work, isn't she?"`
-			`	"She's a unique woman," says Eyes. "I hope we see her again soon. Goodbye for now, <first>."`
+			`	"She's a unique woman," says Ijs. "I hope we see her again soon. Goodbye for now, <first>."`
 
 
 
