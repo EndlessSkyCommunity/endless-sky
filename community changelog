@@ -1,0 +1,24 @@
+Community Version 0.9.9
+  * Bug fixes:
+    * Properly centered Pointedstick's person ship (@Czartrak)
+    * Properly capitalized the names of some ships in their descriptions (@Nescio0)
+    * Fixed an error in one of the hostile militia hails (@KiLEdEnNis)
+  * Game content:
+    * Outfits and Ships:
+      * Added three new Hai ships; an interceptor, a transport, and a heavy freighter (@Brick63)
+      * Added a hand to hand weapon for the Remnant (@Brick63)
+      * Added an electron rifle for the Navy during the war (@Brick63)
+    * Missions:
+      * Added two new transport mission strings, one found in the Syndicate and one in the Paradise Worlds (@TheUnfetteredOne)
+      * Added special jobs for the Free Worlds for extra cash during the war (@Amazinite)
+      * Added four new transport missions that relate to blockade running in the South, North, Core, and on a pirate world (@Amazinite)
+      * Added a set of new transport missions for Hai space (@Amazinite)
+      * Added regional flavor jobs for the South, Rim, Dirt Belt, Near Earth, and Frontier planets (@Amazinite)
+      * Locked the Bactrian behind a miniature campaign found in the Deep (@Amazinite)
+        * 26 new missions in total, but only 13 *need* to be done to unlock the Bactrian
+      * Added two trinkets, the Brig and Luxury Accommodations, with special jobs only offered to those with the trinkets (@Pointedstick)
+      * Added a continuation to the Terraforming string of missions (@Amazinite)
+    * Other
+      * Added a new image for Lagrange, the Quarg station in human space (@Pointedstick)
+      * Added events to the Free Worlds campaign that handle the neutrality of certain planets during and after the war (@Amazinite)
+      * Added a new dialog option for "FW Albatross 1" for the player to respond to the "Alondo is gay" revelation (@elgeonmb, @Amazinite)
