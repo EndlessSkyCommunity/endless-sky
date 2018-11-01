@@ -1765,7 +1765,7 @@ ship "Hawk"
 		"fuel capacity" 300
 		"cargo space" 30
 		"outfit space" 200
-		"weapon capacity" 40
+		"weapon capacity" 50
 		"engine capacity" 70
 		weapon
 			"blast radius" 30
@@ -1811,7 +1811,7 @@ ship "Headhunter"
 		"fuel capacity" 400
 		"cargo space" 50
 		"outfit space" 250
-		"weapon capacity" 60
+		"weapon capacity" 70
 		"engine capacity" 80
 		weapon
 			"blast radius" 44
