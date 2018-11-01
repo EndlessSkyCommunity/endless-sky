@@ -930,8 +930,8 @@ ship "Corvette"
 	attributes
 		category "Medium Warship"
 		"cost" 4400000
-		"shields" 6100
-		"hull" 1200
+		"shields" 6800
+		"hull" 800
 		"required crew" 8
 		"bunks" 32
 		"mass" 150
@@ -953,7 +953,7 @@ ship "Corvette"
 		
 		"NT-200 Nucleovoltaic"
 		"LP072a Battery Pack"
-		"D67-TM Shield Generator"
+		"D94-YV Shield Generator"
 		"Large Radar Jammer"
 		
 		"X3700 Ion Thruster"
@@ -1266,8 +1266,8 @@ ship "Firebird"
 	attributes
 		category "Medium Warship"
 		"cost" 3700000
-		"shields" 6400
-		"hull" 2800
+		"shields" 5800
+		"hull" 3400
 		"required crew" 7
 		"bunks" 22
 		"mass" 290
