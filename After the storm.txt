@@ -1,0 +1,519 @@
+-Context Wanderers` war
+
+Omega: <Syndicate>
+Description: `After the Pug conflict, it was clear to the Syndicate that a new ship that can withstand any alien force on its own is necessary in the future. With the advent of a possible assault by the Pugs, the Syndicate had asked the Free World and the Republic to participate in this venture, resulting in the creation of the “Omega” Battle Carrier. It offers cutting edge and experimental technologies together with three fighter bays and eight turret hardpoints, all while cutting down crew cost with automation technologies.`
+
+`The engineers in the Deep saw the potential of the Nest’s fighter docking arms and have made a variant of it, allowing for easier access to the ship for fighter pilots. This variant also allows for bigger fighters to be docked onto the arms, allowing for a new fighter, the “Phoenix”, to be made for this task.`
+
+//Stats ATM;
+	Cost: 21450000
+	Shields 29800
+	Hull 10000
+	Required crew 84
+	Bunks 115
+	Mass 1200
+	Drag 20
+	Heat dissipation .65
+	Fuel capacity 800
+	Cargo space 110
+	Outfit space 890
+	Weapon capacity 400
+	engine capacity 220
+
+weapon
+Blast radius 900
+Shield damage 9000
+Hull damage 4500
+Hit force 9000
+
+Outfits
+
+
+		"Armageddon Core" 2
+        "Liquid Helium Cooler" 2
+
+        "S-970 Regenerator"
+        "D94-YV Shield Generator" 3
+
+        "A860 Atomic Thruster"
+        "A865 Atomic Steering"
+
+        "Scram Drive"
+ 
+Attributes: Ramscoop 5? Maybe? IDFK for now.
+
+
+Omega Kryes:
+Description: `The Omega is a powerful ship that only authorised members of the three factions can use. This Variant holds more fighter and additional drone slots to carry more ships into battle. However, to sustain this increase, the ability to carry the phoenix had to be removed, though some do not mind this change.`
+
+Phoenix: (Tarazed`s)
+	Description:`Fighters saw limited use during the Pug-Human war, where most of them quickly became cannon fodder. The Phoenix is larger than other fighters and can carry more armaments than any of its predecessors. It hosts four gun ports and more weapons space allowing it to dish out more firepower. It also holds just enough engine space to carry the latest generation of hybrid engines, the X2050, making it slightly faster than ordinary fighters.`
+(Will self destruct)
+We could give the fighters the swarming personality so they stick near allied ships.
+
+Phoenix (heavy): (Southbound)
+	Description:`Southbound’s idea when making the Phoenix was to focus on a heavier hitting variant of the already powerful ship. This variant cramps a single turret into the back section of the fighter, adding a deadly menace to its already dangerous arsenal.`
+
+
+Phoenix (agile): (Maybe Navy)
+            Description: `The Navy decided that, instead of a stronger fighter, it needed an extension to its vast surveillance network. Removing some of the Phoenix’s armour while adding atomic engines and scanner devices, this variant is the fastest and most maneuverable fighter that the navy has ever produced, though at a cost of losing some of its hull.`
+
+Knight drone: 
+	Description: `The knight drone is a proof of concept drone that attempts to add a turret mount to an offensive drone. The design is based off of an old aerodynamic design from the past to allow the drone to operate better in atmospheric conditions. It is capable of carrying heavier weapons with its increased weapons capacity and an increased engine capacity.`
+
+
+X2050 Ion Engines:
+	Description: `“The Phoenix is so heavy that fitting in the X1050 Ion Engines only proved to allow the fighter to move at a crawl. The new X2050 Ion Engines is too big to be fitted inside most smaller fighters, but its thrust and steering are unparalleled in providing the speed that the phoenix is now renowned for.”` ( 34T
+
+Caster Anti Missile turret:
+	Description: `Railgun technology has been in the background for a half a millenium now, with most designs adopting a gunpowder approach, or using a missile after the shields was invented to stop railgun slugs effectively. The Caster is the first dedicated anti missile railgun created by Lovelace Labs that can destroy most missiles at an unseen before range. Unfortunately, the energy costs for this technology outweighs the benefit, causing it to fire periodically.`
+
+50AM
+Outfit space 30
+Mass 30
+Velocity 1500
+
+Archer railgun turret:
+Description: `The Archer changes the original idea of the “Caster,” which uses a single solid slug against missiles and instead, modify it to allow for multiple slugs to be loaded into a single tube, allowing it to spread it’s damage against multiple ships, or do massive damage against a single one. However, its energy constraints forces all but the most powerful ships to run out of energy within moments.`
+
+Lancer laser rifle:
+Description: `The Lancer is an improved design of the laser rifle, capable of doing more damage at the same range, though, at a higher price tag.`
+
+Brawler:<Betelgeuse>
+Description: `Betelgeuse Shipyards saw the chance to upgrade the Berserker in light of the recent developments of the Omega and other human crafts. Its successor, the Brawler, possesses more engine capacity to carry an X3700 instead of the X2200 Thrusters. It also hosts more weapons capacity than its predecessors, though the number of gunports has been scaled back to two.
+
+Saber Coilgun:
+Description: `The Deep’s idea for the Saber was to try and solve the energy issue of the railgun while delivering as much damage as possible. The result was an extremely precise coilgun that takes up only half of a railgun’s energy needs and deals more damage than any known human weapon. Unfortunately, the Saber raises another problem that was unseen in the railgun. The heat produced after firing can sometimes overheat any ship that it is mounted on, causing many to question its feasibility.`
+
+Assassin:<lionheart>
+Description: `The Assassin is a Lionheart production that takes advantage of recent railgun technologies. Instead of the usual gunports of most designs, it has three turret hardpoints and a higher than average engine capacity. However, it does not leave much room for any other customisations once the weapons and engines are filled.`
+
+Centaur:<Megaparsec>
+	Description: `The Centaur is the fastest interceptor that Megaparsec has created. Outfitted with stronger engines and steering than a light warship and with four gunports, it's a wonder that this isn't classified as a warship, but instead, an interceptor.`
+
+Ortega:(DK as of now)
+	Description: `The Ortega is a new cluster bomb meant for use in space. It’s Warhead holds explosive bomblets which spread/disperse into a fan shape after the original has released its payload.
+ammo "Ortega bombs"
+        icon "icon/Ortega"
+        "submunition" "Ortega bombs" 4
+        "split range" 100
+        "fire effect" "meteor fire"
+        "die effect" "missile death"
+        "hit effect" "medium explosion"
+no repeat
+        "inaccuracy" 0
+        "velocity" 4
+        "lifetime" 400
+        "reload" 0
+        "firing energy" 0
+        "firing heat" 0
+        "acceleration" 1
+        "drag" .1
+        "turn" 0
+        "homing" 0
+        "infrared tracking" 0
+        "radar tracking" 0
+        "missile strength" 20
+
+
+
+Avenger Railgun:
+Description: `The Avenger is the latest anti ship fighter weaponry that (Maybe kraz cybernetics? I have a few outfitters not yet used) developed. It accelerates a neodymium shell with a tungsten projectile core at massive speeds, crashing against the shields of a ship and dealing massive damage to a small portion of the target. However, its power needs are too much for a mere fighter to handle, leading many to avoid installing it.
+
+Ruler(no comment.)
+
+
+//avg(X1200 + X1700) = X(1200 + 1700)/2 = X 2900/2 = X1450.(False info, blade… false info…)
+//Probably too big for fighters, but oh well.
+//That's maybe a 14 ton engine?
+//and of course you have to keep the 5:4 thrust:steering ratio, or something like that.
+//round it to 55 and 45
+
+//Correction:
+//27720 thrust ("thrust" 7.7)
+//12660 turn ("turn" 211)
+
+
+
+//Ionic flamethrower
+//uses very little fuel, does some ion damage
+
+
+`As you make your final approach, you notice something out of place. The once bustling spaceport is devoid of life and machinery, cleared out as if as it’s the plague. You shudder at the thought of whole villages disappearing from the face of the planet, to find that an epidemic had completely wiped them out. As your ship touches down onto the landing pad and your engines shut down, without warning, military personnel pour out of almost every opening you see, all pointing a variety of weapons at your craft. You even spot a couple of anti ship weaponry in the mix and you know that it's best not to do anything rash…
+<continue>`
+
+
+`“Come out with your hands out or we will turn your ship into your personal graveyard!” A man shouts through a microphone. You take a look at the weapons that these men have brought along and considered your options. With the number of weapons, it’d be laughable compared to your ship’s weaponry. Shooting them all down while they stand would be easy. However, you sweat at the thought of those anti ship weapons. Those look like the stationary kind that Danforth had on his base, though these  are smaller and portable.`
+
+	choice 
+`<shoot them down.>`
+goto dead
+`<try to escape>`
+goto escape
+`<do as the man says and surrender yourself>`
+goto live
+    	label dead
+`As you startup your craft, the anti-ship guns open fire, tearing through the hull like paper. You could only watch on helplessly as your ship explodes around you…`
+
+
+	Label live
+`You open the airlock and do exactly what the man said. As they slam handcuffs onto your wrists, though, multiple gasps are heard. The man who shouted the order looks at you with wide eyes, his mouth wide open as if it would hit the floor. “Release them! It's Captain  <first> <last>.” He says, his face turning white with fear.`
+	
+	`As the handcuffs are being removed from your wrists, you hear a familiar voice calling from one of the entrances to the port. “Getting arrested again, Captain <last>?” You turn towards the source of the voice and see Danforth walking over to your ship. You notice a smile on his lips as you think back to the last time you were arrested.`
+
+Choice
+	`“It's good to see you, Danforth”`
+	goto see
+	`“I blame your man for arresting me just for landing, Danforth”`
+	goto blame
+	`“Really, Danforth!? What do you need me arrested for?”`
+
+	`“Well, sorry for getting you arrested, <last>. But rules are rules, and you landed in a restricted area without our permission,” he says, his expression blank.`
+	goto perms
+
+	label blame
+	`“Well, you did land here without  permission, so it's quite understandable that my men wanted you in for questioning,” he says, a slight seriousness in his expression.`
+	goto perms
+
+	label see
+	`”Good to see you too, <first>. Landing in a restricted area without permission is a punishable offense, though since you weren't here for the announcement, I guess you get a free `get out of jail` card,” he says with a grin.`
+
+
+label perms
+	`“What do you mean, `permission,` Danforth?” You ask”`
+
+	`Danforth turns toward the exit he came from, saying, “Why don't you follow me and find out, captain?”`
+
+	`You follow him inside the Spaceport and as he guides you  through the winding passageways to the Shipyard, you couldn’t help noticing the number of personnel moving through the passage. At the end of the last passageway, however, Danforth stopped.`
+
+	`“Captain, what are your thoughts on the Pug war?”`
+
+Choice
+	`“The Pugs were weak, they couldn't do much to us.”
+
+	`“I must admit that they were strong.”`
+
+	`“I don't really know… there's a lot of things that we don`t know about them…”`
+
+`“I understand,” He said, contemplating your answer, “the war cost us much, I'll give you that. But with the Pug’s intervention, they managed to unite us, and now, we’re enjoying good relations with each other.”`
+
+`”But enough with my monologue, here’s the reason why we decided to lock down one of the biggest spaceports in human space,” Danforth said, pushing his hand on the biometric sensors.`
+
+`As the door opens slowly, the massive ship unfolds before you, showing off its bulky, yet beautifully made hull. Engineers are fitting the last turret into the turret mount, scrambling to keep it steady while ensuring that it lines up perfectly to the turret mount. The turrets are of a new design, looking a lot like the electron turrets made by the deep, though with a dual barreled cannon design which you suspect to be an improved particle cannon. But what further amazed you is the number of turrets on the ship. It has eight turrets, more than any human ship you’ve ever seen.`
+
+choice
+      `<continue>`
+
+`As you continue to admire the ship, a voice from behind call out, “Impressed, Sir?” You turn around to see a man standing a few metres away from you, leaning against the wall of the corridor. The man looks young, around the age of thirty, his skin tan from being exposed to the sun. He looks at you with a bright smile as he continues, “It’s not usual for someone to casually be escorted here and look at our newest ships. Makes you feel special, eh?” he says, his grin broadening.”`
+
+Insert choice here.
+
+
+
+
+
+`"The name's Lloyd Lowe. Captain and Senior advisor to Oathkeeper Command, and also captain of the ship you were just looking at, the Omega." He quickly moves towards the door, giving a quick salute to Danforth. Danforth returns the salute before allowing Lowe to take the lead. Lowe brings both you and Danforth to the bridge of the ship. While passing by the hangar on the way up you notice that there’s a new design for the docking points before reaching the bridge. In the bridge, Lowe brings you and Danforth some tea. “Fresh from New Britain,” he says pouring himself a cup, “the last shipment was attacked by the pirates and the crew dumped most of the tea leaves. What you have is the last tea supplies I have left.”`
+
+Insert another choice pertaining to something to piss off british and/or americans.(May or may not relate to the American revolution)
+
+
+`”Well, I called you here not for the tea, though I do usually make some Earl Grey tea for the crew,” he said, taking a sip from his tea, “the reason why I called you here is because we are short of ships to transport the sensitive parts here from the other shipyards. The pirates are becoming more aggressive in trying to capture our convoys and I do not want them to have any share of our work.”`
+
+	`”Of course, we’ll pay you for the escort,” Danforth interrupted, “but if you want to know what the convoy is transporting, all I can say at the moment is that they carry items relating to new fighter technology and new weaponry like the ones on this ship.”`
+
+Choice. Again.
+
+`”Excellent, Captain. Meet me here when you're ready,” Danforth says`
+
+
+
+
+
+Choice
+	
+
+
+`As you are allowed into the bridge, you see Lowe under an oversized table, messing with wiring underneath. As you approach the table, you see it light up with a blue glow before shorting out.`
+
+
+`”Ah bloody hell, this damn thing won't work with the cabling…” Lloyd mumbles from under the table before he pokes his head out to see you and gives you a smile, “Hello there, Captain, I'm sorry for looking like a pitiful lass, but I take it that you’re here for the escort. Captain Danforth had to leave on an emergency summon.” He gets out and brushes his singlet, before reaching over to a drawer in the table. “The planets that you have to visit are Tarazed, Geminus, and Zug. Once you’ve met the representatives for each of the ships you’re escorting, you’ll rendezvous at Sol and wait for all three ships to arrive before heading back here. Our ships are valuable assets, we’ll need you to ensure that they reach Hephaestus safely.”` 
+
+choice(Yes, no, fuck it all :P)
+
+
+Mission name mission start
+Blah blah blah
+
+
+
+`You land in the hangar assigned to you by the spaceport traffic controller and see a figure waving at you from the tarmac. As you get a closer look at the individual, you realise that it's none other than your friend and fellow councilmember Freya Winters. You open the airlock and go down to greet her. “Good to see you after so long, <First>,” she says, “I didn’t think they would send you to arrange for the escort.”`
+
+	`”Good to see you too, Freya,” you say, “why are you here?”
+
+`Freya smiles at you as you greet her, “I was supposed to be back on Pugglemug, researching on the wormhole and seeing if we could replicate the hologram technology that we found. But when I got a rather lucrative offer to build a new fighter, I couldn't refuse it.”`
+
+`”A new fighter?” you ask.`
+
+`”Ah… I wasn’t supposed to say it,”
+
+
+
+
+
+`The sounds of shouting is apparent as you are directed to a private room off to the side of the spaceport. You catch words of “Hacks” and “Cheater” as you knock on the door leading into the room. Silence greets you as you wait for any response from the people inside before you hear Lloyd asking you to come in. Once inside, you see a fair skinned man standing over a pile of broken bottles, his hands resting on a curved sword as he stares you down. “I take it that you’re Captain <First> <Last>?” he scowls at you before turning back to Lloyd who looks as if someone burned down his tea stockpile.`
+
+	`”As I was saying, you idiot,” Lloyd yells out at the man in front of you, his fists clenched as he says, “you don’t just come and edit the fucking game files, Zearth, you know that would break the game and give you an overwhelming advantage against me.”`
+
+	`”Relax Lloyd,” Zearth says, his hands not leaving from his weapon, “at least the CPU didn't crash after I rushed your base-”
+
+	`”You made all your fighters have battleship stats! How the hell am I supposed to relax here when you caused the emergency power system to trip and half the ship to lose power?”`
+
+choice
+``”What's going on?”`
+
+`”Can you guys stop it?”`
+
+`Lloyd takes a moment to compose himself before he looks at you. “Sorry, <First>, I asked you here to discuss another job prospect, not listen to our argument over a petty issue.” He moves behind the man who greeted you and placed his hands on his neck, his grip slowly tightening as he says: “This is Zearth. You've probably heard of what he's been doing as you came in so I’m going to say this once, don't be like him and do things by the book.”`
+
+`At this point, Zearth is tapping on Lloyd's arm, trying desperately to get out of the stranglehold. As Lloyd releases him, he cusses before yelling, “don't you do that again, for god's sake.” His eyes are staring daggers into you as Lloyd continues, “I called you here today to ask you to get this S-O-B to <destination>. Since we don't have anyone here who is available, I thought you'd be interested.”`
+choice
+Accept
+Defer/reject
+
+`”Excellent Captain,” Lloyd says, smiling as if a burden has been released from his shoulder, “the man’s all yours.”`
+
+`On the way to your ship, you hoped that the man you're asked to transport won't cuss all the way to <planet> with the mouth that he has…`
+
+`As the ramp lowers down, Zearth look back at you and says: “I'm sorry for pushing my attitude onto you, Captain <last>, I should have known better than to keep my grudge going for so long. So i'll introduce myself this time.”`
+
+`”I’m Commander Zearth Goh. Commanding officer of the Oathkeeper’s fighter divisions. I'm also the lead test pilot for the Phoenix Fighter and squadron leader on the Omega.” He walks down the ramp and says: “See you again Captain, I'll be seeing you soon.”`
+
+
+(Time jump shit)
+
+`As you sit down with Lloyd, an explosion rocks the shipyard, causing his teacup to shatter on the floor. As Lloyd spits out a mountain of curses, he rushes over to the holo table and activates it, searching and switching to the outdoor security feed. What you see next surprises you…`
+
+	`A mushroom cloud. The sign of a nuclear explosion.`
+
+`While chaos erupts across the entire hangar, you see Lloyd quickly tapping the table, inputting commands and requests to the crew. He pushes a button on the side of the table before the blue light fizzle out, before it glows again, this time in a red hue. “This is an emergency sortie,” he says, his voice ringing through the entire hangar, “the crew of the Omega and the Phoenix squadron pilots are to report to your stations immediately. All other personnel, you are to assist in the departure of the ship before moving to an emergency bunker. Other than that, all other ships are to take off before us and secure the Omega’s departure before we begin the defense of the shipyard.”`
+
+`While the ground crew scrambles to finish emergency checks, Lloyd turns to you. “Captain <first> <last>, I ask for your help. The Omega will be able to escape on its own from here, but at the cost of the entire naval armada. My request to you would be to assist the fleet in orbit and destroy the enemy fleet. You should also know that the enemy may be using nuclear weaponry, as our sensors were tripped by an extremely fast re-entering object. Since there wasn't a meteor showers forecast for today, we can assume that it's the nukes.” He says, giving you a smile. His face seemed to age as he sighed, looking at the crew on the ground. “Don’t worry about us, Captain, we’ll make it out of here. So please, save the people here.”`
+
+choice
+	`”I will, Captain.”`
+
+`You rush out of the bridge and make your way to your ship. As you reach your craft, you see the Omega leaving the hangar, its anti-missile system firing at an incoming projectile, destroying it before it hits the ground and disintegrating it into fragments that rains down onto the tarmac. As you start up your craft, the nuclear missile warning system lights up, confirming Lloyd’s statement and reminding you of the nukes used during the war.`
+
+`You couldn't help but wonder how the enemy obtained the nuclear weapons as you prepare your ship for combat...`
+launch
+
+
+
+
+You've completed routing BLAH BLAH BLAH DO THIS LATER BLAH
+
+
+`As an STC instructs you to land on the farthest landing pad from the shipyard, you feared the worst during your re-entry into the atmosphere.`
+
+`It is the worst.`
+
+`The entire shipyard of Hephaestus has been obliterated, now replaced with two large craters. Men in hazmat suits are rushing about, looking for wounded, and directing many to decontamination units. Once your ship touches down on the concrete ground, the ground crew instructs you not to leave your vessel as they quickly proceed to fuel the ship, washing it down with anti-radiation liquids. As you wait for your ship to be refilled, your communication systems beeps as it receives a message from Captain Lloyd. “Please come to Geminus, <first>, we need to discuss our options before we proceed with our next course of action.”`
+	launch
+
+
+Landing on Geminus
+
+`Once you land on <planet> a Navy officer escorts you to the conference room where Admiral Danforth and Captain Lloyd sit with Admirals and Commanders from the other governmental organisations. Once you take your seat, Admiral Sean Kingston stands up and starts the briefing, “I’m sure most of you, if not all of you know what had happened. But I’m going to say it again. Hephaestus was attacked with nuclear weaponry days ago,” he says, pausing to see if there are any interruptions before continuing, “the entire shipyard and part of the countryside have been obliterated completely.”`
+
+`Lloyd stands up and takes over the briefing: "As most of you are aware, there were some rumours, but none of them explained how the target of the attack was chosen, which leads to what I’m going to show you next." He says moving towards the projector screen and switching it on. 
+
+The screen lights up, showing a photograph of the Omega with cuts crossing throughout the hull, some stretching out like spider webs across the ship. The largest of such webs stretched from fore to aft, cutting a big gash into the ship.`
+
+"This, is the Omega. The ship that was under development on Hephaestus."
+Before he can utter another word, representatives from the Syndicate and Free Worlds deafen the room with questions; "What is this?", "Why is this so secretive?", "Who authorized this?"...
+
+
+`Lloyd grumbles as he waits for the room to quiet down. However, after five minutes of trying to calm the room, he suddenly slams his fist into the table, leaving a hole where his fist connected it.`
+
+`“Bloody hell, can you people shut up for a moment and give me a damn chance to talk? Maybe then, your questions would be answered,” he yells at the now quiet room, all attention given to either Lloyd, or the hole that he made in the table.`
+
+	`”Now, two reasons as to why I’m releasing this information to you lot,” Lloyd said, “one, we need an escort for the Omega after we can repair it from the nuclear assault. Two, this information is to be announced in Parliament next week when it convenes, so you don't have to worry about signing any confidentiality agreements about this meeting.”`
+ 
+`”Now. Any questions?” He says to the room. No one seems eager to say anything after his show of force.`
+
+choice
+Ask something
+Say something
+
+	`Before you could say anything, however, the door slams open as Zearth rushes in, his swords hanging from his side as he pants in the doorway. He looks extremely tired as he looks up and yells
+
+ “What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in the Navy Fighter Program, and I’ve been involved in numerous secret raids on Pirates, and I have over 300,000 confirmed kills. I am trained in gorilla warfare and I’m the top gunner in the entire Republic Navy Fleet. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before in this Universe, mark my fucking words. You think you can get away with saying that shit to me over the galactic Internet? Think again, fucker. As we speak I am contacting my secret network of spies across Human space and your location is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You’re fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that’s just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the Republic Navy Fleet and I will use it to its full extent to wipe your miserable ass off the face of the galaxy, you little shit. If only you could have known what unholy retribution your little ‘clever’ invasion was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn’t, you didn’t, and now you’re paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You’re fucking dead, kiddo.”`
+
+
+
+
+	`After you’ve led the trio into the bridge, Lloyd closes the door while Zearth proceeds to check every corner of the room. He looks up to Lloyd and nods to him, continuing to search every nook and cranny of the bridge.`
+
+choice
+	`”You know you can't find any porn mags here, right?”`
+
+	`”What are the two of you doing?”`
+
+	`”Just making sure, captain <Last>,` Lloyd says, leaning against a panel of the wall.`
+	
+	`”But why?” you ask.`
+	
+	`”Because the following statement I’m going to make pertains to our next course of action,” Lloyd says, pausing and making one final glancing sweep of the bridge, “there are two backup servers for the three projects we were doing on hephaestus. The Knight project, the Phoenix, and the Omega. One of said backups is on the Omega, though that’s only known among us here.”`
+
+	`”Here’s the catch, when I returned to Hephaestus days ago, I couldn't find a trace of the other server,” Zearth says, looking uncomfortably at the floor, “I know you’re going to ask if the server vaporised in the subsequent nuclear explosions, but I guarantee that the servers were far enough from the spaceport to not be affected.”`
+
+`”This is why I requested for us four to be here,” Danforth says, his face grimacing as he speaks, “we have a massive problem now that we know that someone other than us took the very item that contains all our research. What's more, it also means that we have a traitor in our midst, most likely the same person who killed the late Commander Nguyen.”`
+
+choice
+	`”So what are we going to do next?”`
+
+	`(“YOU TOOK THE RESEARCH. GUARDS! SEIZE THEM!”)`
+
+
+
+
+`You meet up with Zearth as he leads you over to an obscure side building near the spaceport. The building gives you a sense of dread before you see the sign on the door itself which reads “Interrogation.”`
+
+
+Choice
+`”Please tell me you aren't going to interrogate me.”`
+
+
+`”Why are we here?”`
+
+`Zearth only gives you a smile as he palms open the door, leading you through the maze of hallways before you arrive in front of a plain looking door. Zearth knocks twice before he enters, giving you no choice but to follow.`
+
+`In the comfortably furnished room, you see two familiar individuals. The person on your left sits confidently on her chair as she questions the well dressed man on the right who’s leaning comfortably on the sofa. Raven pauses as she looks up with a grin on her face as she says: “Hello gentlemen, what can I do for you today?” 
+
+`Zearth looks at the man in front of him, Alastair Korban, the ex-CEO of the Syndicated systems and begins to frown: “Why did you call us here, Raven? And why is this man here? He’s not worth our time given the recent incidents”`
+
+`Korban looks up at Zearth, smirking as he says, “really now, Commander Goh? If you want to use that analogy, then you shouldn't be here either, given your role in the navy.” 
+
+`Zearth looks as if he is about to show Korban how sharp his sword is. “Now listen here, Kerbal-” he says before Raven interrupts him, “Zearth, let's keep it at that and go on to why you’re here.”`
+
+`Korban looks at you and smiles, “How are you, Captain <Last>? I’ve seen that you’ve been using our gift to good use?”
+
+choice
+	`”It’s been good, thank you.”`
+
+	`”About that...I lost it’`
+	goto lost
+
+`”That’s good then,” his smile widening, “it’s good that you put it to good use.”`
+goto next
+
+label lost
+	`The smile on his face quickly turned into a grimace. “It’s unfortunate, but we can’t change the past.”`(OH YES WE CAN, SNAP SHOT BITCH-)
+
+label next
+	`Raven sighs as she grabs a small tablet by the table, scrolling through it until she finds a folder in it, taping it and showing you and Zearth it’s content. “A week ago, I got a lucky break trying to find this man,” she taps the file attached to it, showing a mug shot of the very inmate sitting right in front of you. “He had information regarding the nukes used against hephaestus, which, you might find interesting.”`
+
+	`”The information you want,” Korban says, interrupting Raven, “Is that the Syndicate had a small stockpile of nukes that I was uninformed about. Only after the nukes were used did I find out about this.”`
+
+	`”You mean the same stockpile that destroyed the Geminus shipyard?” Zearth says, his clenched fist turning white from gripping the scabbard. The room grew silent once more before Raven says, “Yes, the Syndicate are to blame for the nuclear missiles. But they weren’t the ones who used them.”
+
+
+
+
+
+
+
+//- navy<Nothing, they`re already op>{strike that}<Phoenix (Agile)>
+//- lionheart (deep)<Assassin>
+//- syndicate<Omega>
+//- betelgeuse<Berserker Nova>
+//- megaparsec (syndicate)<Rider>
+//- southbound<Phoenix (Heavy)>
+//- tarazed<Phoenix>
+//Change font to ubuntu
+
+
+
+
+
+
+//Tomek Voigt<Presumably still under house arrest in Recon, so ya>
+//Jean-Jacques Soleau<Recon>
+//Freya Winters<Engineer>
+//Alondo Gruyere<Diplomat>
+//Katerina Reynolds<A prof, so she’s not doing escorts>
+
+//"Edward Tivrusky" `Barmy Edward is the Chief Offensive Engineer at Kraz Cybernetics,
+//So I'll have him work on a ship with eh
+
+//"My name is Charles Atinoda," he says, "the chief starship designer for Tarazed Corporation.
+
+
+//Alastair Korban. <CEO of the syndicates, if he didn't resign in Recon, ofc.>
+//But yes, call him Kerbal.
+
+//Notes; new Iceland, southern pirate worlds, paradise planets
+//these are places worthy of note for potential story ideas when you return to human space
+//its also possible to write a mission string to investigate the wormhole on the other side, if MZ doesnt beat me to it, of course.
+
+Log: Lloyd was born on New Britain to blue-collar parents. He lived in poverty through his childhood, mixing in with bad influences and constantly getting into trouble. When he was twenty, he was arrested for trying to smuggle crates of drugs into the black market after being betrayed by one of his “friends.” After leaving jail on parole years later, Lloyd looked around for a job to support himself, but to no avail. Fortunately, by a stroke of luck, he managed to join the Navy and rose through the ranks. He later became one of the best captains in the “Oathkeeper” regiment.`
+
+Log: Zearth was born on New China, where the excitement for adventure spurred him to join the Navy and enlist as a fighter pilot. Assigned to a fighter wing in a carrier group during the Free world’s northern expansion, he was one of the handful who refused to swear an oath to the Free Worlds and was released only under the condition that he would join the newly formed “Oathkeeper” regiment. During the next set of prisoner transfer, he met the current members of the Phoenix Squadron, and before long, they became one of the most proficient fighter squadron that the Navy has ever had, with not a single pilot shot down, and over 90% of missions successfully completed.  
+
+Months after the Pug war, the Phoenix squadron was roped in to test the Phoenix and to serve under the command of Captain Lloyd Lowe. Zearth, now a commander, often spend his time with Lloyd and playing wargames against the captain. He proves to be the only person who’s a match for Lloyd in wargames.
+
+//@Wank off, MI6(Marksman) It would be STC. The abbreviation isn't mentioned, but there's a spaceport traffic controller on Zug.
+
+
+
+
+
+//As if it was on the ground they would have been picked up on sensors
+
+//Yeah, I've always thought they were placed there, but what you write makes sense. Still, this means nukes can be launched at a planet from its orbit, yay.
+
+//It also explains their health vs AM turrets
+//And also, while on Earth during checkmate they say they have missile defences in place
+//GL using them against tungsten trunks
+//And those rods can do as much damage as a nuke
+
+//TheMarksmanToday at 10:10 PM
+//Sorry if I seem to be on the attack, but I remembered something from the # route
+///Back then, you sould sell uranium to a pirate lord for the nukes
+//So if i were Tomek and the wolfpack, i would buy the nukes from that pirate
+//and now that i think more on it
+//The Republic could also be made aware about the existence of such a stockpile(edited)
+//Recon has CEO kerbal reign out of shame
+//# has him be still in power, but unable to voice out his opinions/thoughts
+
+
+
+
+//Route: land on Hephaestus, get arrested, then released, then shown the Omega. After that, get to Tarazed, Zug and Geminus to get to experimental versions of the Phoenix. Once done idk about this part, and maybe get data from beyond the wormhole? Getting back you get the report done and maybe hunt pirates
+//At one point after you return, you'll get nuked from orbit, and getting to Geminus to a briefing and an angry British
+//After the angry British leaves a hole in the table and completely baffled the people in the room, you'll be tasked to head over to parliament and get the politicians up to date with Danforth, after which, you'll go to Deneb and to across the wormhole to get data for the planet so that the navy can prepare a spaceport to hide the Omega
+//Obviously, information is leaked through the traitor and Geminus gets attacked (without nukes)
+//Once that's done, Raven would drag CEO Kerbal out and have him tell you how the fuck they have that small stockpile of nukes
+//If you've done the #route, he'll also explain that the syndicates nuked Geminus and Martini
+
+//when I need to escort Three Bulk freighter The extra ship is a Behemoth, loaded to the brim with tea. Once it lands and opens hatches, the smell permeates the whole goddamn spaceport
+
+//Btw; I decided to expand all the operations
+//Operation Knight-mare: First use of the knight drones.
+//Operation Phoenix Rising: First use of the Phoenix fighters.
+//Operation Black Flag: Direct rebellion against the orders of Admiral Sean Kingston
+//Operation Endless Sky: Operation Endless Sky is a High Risk mission involving the combined forces of the three human factions. The combined forces lead under the banner of Admiral Danforth are to assault the main enemy armada in Pug space and to return with the capture of the enemy Admiral.
+//Operation Broken Phantasm:
+//Operation Noble Phantasm:
+//Operation Skies Unknown:
+//Operation Shattered Skies:
+
+
+//The Wizard of Oz took a field trip over the bifröst.
+//22:02
+
+//"Omega, this is Phoenix leader, requesting permission to dock."
+//"Phoenix Leader, delay that docking, we got hostiles around."
+//"Wilco, we'll go sweep them under the table."
+//"Copy, providing covering fire for your advance."
+
