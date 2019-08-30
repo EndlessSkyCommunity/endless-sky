@@ -20,8 +20,8 @@ mission "Deep: Syndicate Convoy"
 	to offer
 		"combat rating" > 65
 		not "Deep: Mystery Cubes 4: done"
-		or
-			random < 20
+                or
+randm < 20
 			and
 				"deep convoy" == 1
 				random < 30
