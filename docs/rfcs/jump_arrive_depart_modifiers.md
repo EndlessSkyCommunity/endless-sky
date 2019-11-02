@@ -25,12 +25,22 @@ Content creators need to be aware of blocking jumps if constraints are conflicti
 ## Ship Arrival/departure modifiers
 
 ```
-arrival <min> ["link"] ["jump"]
-departure <min> ["link"] ["jump"]
+arrival [<min>] ["link"] ["jump"]
+	modifier <nr>
+
+departure [<min> [<max>]] ["link"] ["jump"]
+	modifier <nr>
 ```
 Ships properties. <min> gives the minimum arrival and departure distances for ships. If a system or planet also has minimum arrival and departure distances then the maximum of all distances will be used for the actual distance.
-I considered to also allow ship properties to override (or modify by a multiplier) the planet and system properties, but I expect that we will not want to do that in the end. If some content creator has a good reason not to allow jumps within range of a certain planet, then I expect the story immersion to be more imporant than being able to override the ranges.
-(And if overriding by explicit number or modifier is very much desired, then it can just be added using this keyword anyway.)
+Ships can also have a maximum departure distance (if a minimum is set).
+The min property is optional; it is also possible that only a modifier gets set.
+A modifier can be given to "widen" or "narrow" the windows at which ships can depart, where positive numbers widen the range.
+New ranges get calculated as:
+```
+min_distance_modified = min_distance * (1-modifier)
+max_distance_modified = max_distance * (1+modifier)
+```
+Modifiers also work on the properties of the ship itself, this allows for creation of a "navigation computer" that does not actually perform jumps, but that does affect jump distances.
 
 ## Combat jump behaviours
 
