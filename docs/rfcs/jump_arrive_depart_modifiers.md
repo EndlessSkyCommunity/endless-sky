@@ -17,7 +17,15 @@ departure <min> [<max>] ["link"] ["jump"]
 
 System property and/or planet property. The <min> indicates the minimum distance that a ships needs to be away from respectively the system center or planet center before the ship can start a jump.
 If a maxium is given, then a ship needs to be no more than distance away from the centers to be able to leave.
-If an angle is given, then the ship needs to be at the proper distance, but also in the proper direction of leaving (within the range given by angle).
+
+### Angle
+
+If an angle is given, then the ship needs to be at the proper distance, but also in the proper direction of leaving (within the range given by angle). Angle is a number between 0 (which would make it impossible to jump) and 180 (which would remove any angle restrition).
+For example if planet Amazon would have a angle restriction of 45 degrees for jumps, then a jump to Almach (on the right) could only happen from the Area marked "Jump Area" in this picture.
+![Jump Area Example](./jump_arrive_depart_modifiers_angle.png)
+
+### Multiple properties
+
 If multiple properties are given, then all departure constraints need to be fullfilled before a ship can make the jump.
 Content creators need to be aware of blocking jumps if constraints are conflicting, they might also acutally want to use this, for example by having a system where jumps are only possible once every four days (due to planet alignments).
 
@@ -63,7 +71,7 @@ The ability (strength) of a ship to detect combat and combatants (in general or 
 
 
 ```
-arrive focusable
+arrive focusable <value>
 ```
 (Planet property)
-Allow automatically aiming for this planet when arriving in the system.
+Allow automatically aiming for this planet when arriving in the system. The default value if this value is not given is true.
