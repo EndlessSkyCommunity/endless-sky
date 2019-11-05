@@ -137,7 +137,6 @@ Meaning of the keywords
 
 
 ## Examples
-For examples see formations.txt in https://github.com/endless-sky/endless-sky/pull/4471 (and provide review-feedback on those directly there).
+For examples of formation defintions see formations.txt in https://github.com/endless-sky/endless-sky/pull/4471 (and provide review-feedback on those directly there).
 
-The screenshots and movie in this PR also show how the formations will look in-game.
-
+The screenshots and movie in that PR also show how the formations will look in-game.
