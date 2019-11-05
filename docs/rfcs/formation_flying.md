@@ -14,7 +14,8 @@ Players to set formations on their ships use (in-game by using pre-defined forma
 Out of scope for this request is an in-game (or out-of-game) graphical formations editor (as discussed in https://github.com/endless-sky/endless-sky/issues/4606)
 
 
-## Currently implemented functionality (in https://github.com/endless-sky/endless-sky/pull/4471)
+## Currently implemented functionality
+(implemented in https://github.com/endless-sky/endless-sky/pull/4471)
 - Formations on NPC fleets (and 1 example of a group of ships actually flying in formation)
 - Ships going to formation positions when they are `idle`, and breaking formation in any other situation.
 - Ships taking formation-positions based on the formation and leader set for them.
@@ -131,7 +132,7 @@ Meaning of the keywords
 - `reference mission`: Form formation around mission (NPC) ships. Ships are evenly distributed around mission ships.
 - `reference planet <name>`: Form formation around planet with name `<name>`. Not to be used by players, but can be usefull for defense fleets around a planet. Note that planets need to have a `direction` to make this option work nicely. Direction can be random (easy) or based on orbit around the star (a little bit more complex).
 - `reference planets <nr1> [<nr2>]`: Form formation around the `<nr1>`th planet in the system. If two numbers are given, then form formations around all planets in the range `<nr1>-<nr2>`. If <nr2> is -1, then form formations around the <nr1>th planet up to the last planet in the system.
-- `reference wormholes <nr1> [<nr2>]`: Form formation around the `<nr1>`th wormhole in the system, similar to planets (with ranges). This allows for pirate formations setting an ambush around a wormhole.
+- `reference wormholes <nr1> [<nr2>]`: Form formation around the `<nr1>`th wormhole in the system, similar to planets (with ranges). This allows for NPC pirates to form an ambush around a wormhole.
 
 
 
