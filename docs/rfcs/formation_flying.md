@@ -118,6 +118,21 @@ ship
 		reference planets <nr>
 ```
 
+The additional keyword on a (NPC) fleet is:
+```
+fleet
+	variant
+		"<type-name>" <nr>
+			formation <name>
+				ring <nr>
+				reference center
+				reference ship <name>
+				reference ships <class>
+				reference mission
+				reference planet <name>
+				reference planets <nr>
+```
+
 Actual formation positions are determined by the order in which ships are in the ships-list and only applies to ships in the system. If formation-flying ships from outside the system join, then they take their relative positions causing other ships already in formation to move to their new relative positions.
 
 Meaning of the keywords
@@ -133,8 +148,6 @@ Meaning of the keywords
 - `reference planet <name>`: Form formation around planet with name `<name>`. Not to be used by players, but can be usefull for defense fleets around a planet. Note that planets need to have a `direction` to make this option work nicely. Direction can be random (easy) or based on orbit around the star (a little bit more complex).
 - `reference planets <nr1> [<nr2>]`: Form formation around the `<nr1>`th planet in the system. If two numbers are given, then form formations around all planets in the range `<nr1>-<nr2>`. If <nr2> is -1, then form formations around the <nr1>th planet up to the last planet in the system.
 - `reference wormholes <nr1> [<nr2>]`: Form formation around the `<nr1>`th wormhole in the system, similar to planets (with ranges). This allows for NPC pirates to form an ambush around a wormhole.
-
-
 
 ## Examples
 For examples of formation defintions see formations.txt in https://github.com/endless-sky/endless-sky/pull/4471 (and provide review-feedback on those directly there).
