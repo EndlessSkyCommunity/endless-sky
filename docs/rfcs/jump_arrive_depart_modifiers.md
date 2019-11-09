@@ -53,7 +53,7 @@ Modifiers also work on the properties of the ship itself, this allows for creati
 ## Combat jump behaviours
 
 ```
-combat visibility
+combat visibility <value>
 ```
 (System property)
 Allow ships to arrive at the most appropriate distance for combat (based on their personality).
