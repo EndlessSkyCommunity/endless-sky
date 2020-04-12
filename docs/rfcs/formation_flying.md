@@ -151,7 +151,7 @@ Meaning of the keywords
 - `reference ships <class>`: Form formation around the ships with class `<class>`. Can be given multiple times, for example for `Transport` and `Heavy Freighter` to form protective formations around transportships.
 - `reference mission`: Form formation around mission (NPC) ships. Ships using this reference are evenly distributed around mission ships.
 - `reference planet <name>`: Form formation around planet with name `<name>`. Not to be used by players, but can be usefull for defense fleets around a planet. Note that planets need to have a `direction` to make this option work nicely. Direction can be random (easy) or based on orbit around the star (a little bit more complex).
-- `reference planets <nr1> [<nr2>]`: Form formation around the `<nr1>`th planet in the system. If two numbers are given, then form formations around all planets in the range `<nr1>-<nr2>`. If <nr2> is -1, then form formations around the <nr1>th planet up to the last planet in the system.
+- `reference planets <nr1> [<nr2>]`: Form formation around the `<nr1>`th planet in the system. If two numbers are given, then form formations around all planets in the range `<nr1>-<nr2>`. If `<nr2>` is -1, then form formations around the `<nr1>`th planet up to the last planet in the system.
 - `reference wormholes <nr1> [<nr2>]`: Form formation around the `<nr1>`th wormhole in the system, similar to planets (with ranges). This allows for NPC pirates to form an ambush around a wormhole.
 
 ## Examples
