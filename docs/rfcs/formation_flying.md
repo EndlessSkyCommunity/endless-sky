@@ -3,11 +3,13 @@
 This is a proposal for specifying formations for ships (as discussed in [ES-#4438](https://github.com/endless-sky/endless-sky/issues/4438), [ES-#302](https://github.com/endless-sky/endless-sky/issues/302) and others). This proposed specification works with lines that are moved, rotated, extended and repeated.
 
 
-## Intended audience and scope
+## Intended users of the proposed feature
 
 Scenario writers that use formations for NPC fleets in missions (by editing datafiles directly).
 
 Players that set formations on ships they own (in-game by using pre-defined formations).
+
+## Scope limit
 
 Out of scope for this proposal are:
 - An in-game (or out-of-game) graphical formations editor (as discussed in [ES-#4606](https://github.com/endless-sky/endless-sky/issues/4606))
