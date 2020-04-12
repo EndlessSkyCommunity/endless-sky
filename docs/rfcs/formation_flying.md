@@ -142,8 +142,6 @@ Using reference for government would be a bit odd, unless we want to have govern
 
 Meaning of the keywords
 - `formation <name>`: Name of the formation to form (around the lead-ship)
-
-(The following keywords are not implemented in https://github.com/endless-sky/endless-sky/pull/4471, but given as possible future extentions)
 - `ring <nr>`: Area in the formation where the ship should appear (higher numbers is more outwards on most formations).
 - `reference <...>`: Reference keyword to form the formation around something else than the ships leader. Multiple reference keywords can be given, if multiple are given, then the ships for a formation are split and spread over the different targets to form a formation around.
 - `reference center`: Form the formation around the center of the system.
