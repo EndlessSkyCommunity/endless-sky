@@ -69,7 +69,7 @@ Meaning of the keywords:
 - `arc`: Begins a partial or full circle.
    - The first (starting) slot on the arc and the last slot on the arc are not filled unless the arc is a full arc of 360 degrees.
       - Formation designers can fill those first and last positions with line-segments of 1 slot if required.
-   - Numbers are always interpreted clockwise from start to end.
+   - Angle start and end positions are always interpreted clockwise from start to end (to avoid ambiguity).
 - `start [polar] <x#> <y#> [<angle#>]` The location where to start a line or an arc within a formation.
    - x and y give the coordinate in carthesian coordinates.
       - If the keyword `polar` is given, then this coordinate is given as polar coordinate with x being the angle (using the default Endless Sky conventions) and y being a distance (in ship-sizes as described above).
