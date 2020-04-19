@@ -18,11 +18,18 @@ Out of scope for this specification are:
 
 
 # Formation definitions
-## Signs and coordinate systems
-- Coordinate signs (plus/minus) in formation definitions follow the default Endless Sky convention of X, Y signage.
-   - Coordinates are relative to the center (and align with the front) of the formation.
-- Coordinate axis lengths in formation definitions are relative to ship sizes, where 1 corresponds to the radius of the largest ship actively participating in the formation.
-   - Using those relative coordinates allows for using a single definition that can scale for active formations for multiple sizes of ships (fighters to city ships).
+## Signs and axis units for formation coordinates
+- Coordinates are relative to the center of the formation(pattern), with coordinate 0,0 being the center.
+- Coordinate signs (plus/minus) in formation definitions follow the default Endless Sky convention;
+   - a positive first coordinate (usually called X in Endless Sky) indicates the right side of a formation(pattern).
+   - a negative first coordiante indicates the left side of a formation.
+   - a positive second coordinate (usually called Y in Endless Sky) indicates the back of a formation(pattern).
+   - a negative second coordinate indicates the front of the formation(pattern).
+- Polar coordinates in formation definitions start with an angle and then have a distance.
+   - Angle 0 is towards the front of the formation.
+   - Angle 90 is towards the right of the formation.
+- Coordinate axis lengths (both for carthesian as well as distances in polar coordinates) in formation definitions are measured in ship sizes, where 1 corresponds to the radius of the largest ship actively participating in a formation.
+   - Using coordinates measured in ship sizes allows for using a single formation definition for multiple sizes of ships (fighters to city ships).
 
 
 ## Keywords and definitions
@@ -54,45 +61,47 @@ formation <name>:
 
 Meaning of the keywords:
 - `formation <name>`: Begins a new definition for a formation with name `<name>`.
-   - `symmetry [transverse] [longitudinal]`: Indicates if a formation should be considered symmetric. Symmetric formations allow for nicer and more desired behaviour on turns.
+- `symmetry [transverse] [longitudinal]`: Indicates if a formation should be considered symmetric. Symmetric formations allow for nicer and more desired behaviour on turns.
    - `rotational <nr#>`: Indicates rotational symmetry (nr is in range 0 to 360). Rotational symetric formations don't need to turn fully to become aligned with the leadship/reference again.
+   - Example: A delta (triangluar) formation would have a 120 degrees rotational symmetry. It can turn 120 degrees and still have roughly the same shape as when turning 0 degrees.
+   - Example: A delta (trianular) formation would also have longitudinal symmetry, it can be mirrored along the longitudinal axis and would still be roughly the same shape.
 - `line`: Begins a line.
 - `arc`: Begins a partial or full circle.
    - The first (starting) slot on the arc and the last slot on the arc are not filled unless the arc is a full arc of 360 degrees.
       - Formation designers can fill those first and last positions with line-segments of 1 slot if required.
-   - Numbers are always interpreted clockwise from start to end. Ranges is 0 to 360 for both parameters (although negative numbers up to -360 also should work).
+   - Numbers are always interpreted clockwise from start to end.
 - `start [polar] <x#> <y#> [<angle#>]` The location where to start a line or an arc within a formation.
-   - x and y give the coordinate in carthesian coordinates (using the default sign directions of Endless Sky).
-      - If the keyword `polar` is given, then this coordinate is given as polar coordinate with x being angle (using the default Endless Sky conventions) and y being a distance (in ship-sizes as described above).
-   - For lines this coordinate is relative to the center of the formation.
-      - The very first ship in the line is at exactly x,y, the line stretches into the direction of `<direction>` with ships `<spacing>` distance apart. The last ship in the line is at `<slot> * <spacing>` distance from the first.
+   - x and y give the coordinate in carthesian coordinates.
+      - If the keyword `polar` is given, then this coordinate is given as polar coordinate with x being the angle (using the default Endless Sky conventions) and y being a distance (in ship-sizes as described above).
+    - For lines this coordinate is relative to the center of the formation.
+      - The very first ship in the line is at exactly x,y.
       - For repeat lines this coordinate is relative to the previous start coordinate.
-   - For arcs this is relative to the anchor point for the arc.
-      - For repeat arcs this coordinate contains the differences (in angle and distance) compared to the previous coordinate.
-      - For repeat arcs the new coordinate is relative to the repeat anchor location.
    - For lines, if an angle is given then this gives the direction in which the line grows.
+      - Ships are `<spacing#>` distance apart. The last ship in the line is at `<slot#> * <spacing#>` distance from the first.
       - For repeat lines, if an angle is given then this gives the direction change for repeat lines.
+   - For arcs this is coordinate is relative to the anchor point for the arc.
+      - For repeat arcs this coordinate contains the differences (in angle and distance) compared to the previous coordinate.
+      - For repeat arcs the newly calculated coordinate is relative to the repeat anchor location.
    - For arcs, if an angle is given then this specifies the end-angle at which to stop.
       - For repeat arcs, if an angle is given then this gives the delta for the end-angle at which to stop.
 - `end [polar] <x#> <y#>` The location where to end a line or an arc.
    - For lines this is relative to the center of the formation.
       - For repeat lines this coordinate is relative to the previous end coordinate.
    - For arcs this is relative to the anchor point for the arc.
-   - If the keyword `polar` is given, then this coordinate is given as polar coordinate (with x being angle and y being a distance in ship-sizes).
+   - The keyword `polar` works the same as for the `start` keyword.
    - For arcs only the angle of the polar coordinate is used (the radius/distance was already determined based on the anchor and the start).
    - If a line has an end-coordinate and slots and spacing set, then the end coordinate is only used to determine the direction.
-- `anchor [polar] <x#> <y#>` (arc only): The anchor for the arc (the center of the circle if the arc were a full circle).
-   - If given in a repeat section, then this gives the anchor to apply on top of the anchor of the previous arc.
+- `anchor [polar] <x#> <y#>` (arc only): The location of the anchor for the arc (the center of the circle if the arc were a full circle).
+   - If given in a repeat section, then this gives the delta to apply to the anchor compared to the previous arc.
    - Defaults to 0,0 if not given, except for repeat sections where the default is applying the original anchor again.
-   - For repeat arcs this provides the deltas relative to the original anchor location.
 - `slots <nr#> (line only)`: The amount of slots on a line.
    - Or the amount of slots to increase/decrease on each growth step when given in a line repeat section.
-- `spacing <nr#>`: The amount of space between slots/ships on a line or arc.
-   - This number is in "ship sizes", so 2 is twice the radius of the largest ship in the formation.
+- `spacing <nr#>`: The amount of space between slots/ships on a line or arc (measured in ship sizes as described above).
+   - The default spacing is 2; so twice the radius of the largest ship in the formation.
+     - If a line has an end-coordinate, slots and no spacing, then spacing is automatically calculated (instead of the default being used).
    - For lines this gives the exact spacing between slots/ships.
    - For arcs the ships/slots are evenly spaced among the arc, with at least the minimum as given here.
-   - It is possible that an arc contains 0 ships if the arc is too small. This can be used for arcs where the repeat sections are larger.
-   - If a line has an end-coordinate and slots and no spacing, then spacing is automatically calculated.
+   - It is possible that an arc contains 0 ships if the arc is too small. This can be usefull for arcs where the repeat sections are larger than the original.
 - `repeat`: Section for repeating a line or arc when the formation needs to grow. The contents of this section are applied each growth step, except for lines and arcs that reach 0 size.
 
 
