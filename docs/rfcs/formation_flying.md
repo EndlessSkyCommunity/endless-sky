@@ -111,8 +111,10 @@ The additional keyword on a (NPC) fleet is:
 ```
 fleet
 	formation <name>
+		class <shipclass>
 		ring <nr#>
 		reference <...> ...
+	...
 ```
 This is used when instantiating fleets. All fleet variants use this formation, unless the variant specifies another one.
 
@@ -131,6 +133,7 @@ The additional keyword on a government is:
 ```
 government
 	formation <name>
+		class <shipclass>
 		ring <nr#>
 		reference <...> ...
 ```
@@ -140,9 +143,10 @@ Using reference for government would be a bit odd, unless we want to have govern
 
 Meaning of the keywords
 - `formation <name>`: Name of the formation to form (around the lead-ship)
+- `class <shipclass>`: Indicates for fleets/governments that the given formation should only be applied to the given class of ships. (TODO: attributes filter instead of class?)
 - `ring <nr#>`: Area in the formation where the ship should appear (higher numbers is more outwards on most formations).
 - `reference <...>`: Reference keyword to form the formation around something else than the ships leader. Multiple reference keywords can be given, if multiple are given, then the ships for a formation are split and spread over the different targets to form a formation around.
-- `reference center`: Form the formation around the center of the system.
+- `reference point [<x#> <y#>] [<direction#>]`: Form the formation around a specific fixed point in the system (direction indicates the formation direction). If x and y are not given, then use system center (point 0,0).
 - `reference ship <name>`: Form the formation around the ship with name `<name>`.
 - `reference ships <class>`: Form formation around the ships with class `<class>`. Can be given multiple times, for example for `Transport` and `Heavy Freighter` to form protective formations around transportships.
 - `reference mission`: Form formation around mission (NPC) ships. Ships using this reference are evenly distributed around mission ships.
