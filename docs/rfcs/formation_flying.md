@@ -70,7 +70,7 @@ Meaning of the keywords:
    - The first (starting) slot on the arc and the last slot on the arc are not filled unless the arc is a full arc of 360 degrees.
       - Formation designers can fill those first and last positions with line-segments of 1 slot if required.
    - Angle start and end positions are always interpreted clockwise from start to end (to avoid ambiguity).
-- `start [polar] <x#> <y#> [<angle#>]` The location where to start a line or an arc within a formation.
+- `start [polar] <x#> <y#> [<angle#>]` The location where to start a line or an arc within a formation. (Defaults are x=0, y=0 and angle=180.)
    - x and y give the coordinate in carthesian coordinates.
       - If the keyword `polar` is given, then this coordinate is given as polar coordinate with x being the angle (using the default Endless Sky conventions) and y being a distance (in ship-sizes as described above).
     - For lines this coordinate is relative to the center of the formation.
@@ -84,7 +84,7 @@ Meaning of the keywords:
       - For repeat arcs the newly calculated coordinate is relative to the repeat anchor location.
    - For arcs, if an angle is given then this specifies the end-angle at which to stop.
       - For repeat arcs, if an angle is given then this gives the delta for the end-angle at which to stop.
-- `end [polar] <x#> <y#>` The location where to end a line or an arc.
+- `end [polar] <x#> <y#>` The location where to end a line or an arc. (Default for an arc is to make a full circle, so start == end, default for a line is angle 180 and length based on nr of slots.)
    - For lines this is relative to the center of the formation.
       - For repeat lines this coordinate is relative to the previous end coordinate.
    - For arcs this is relative to the anchor point for the arc.
@@ -94,7 +94,7 @@ Meaning of the keywords:
 - `anchor [polar] <x#> <y#>` (arc only): The location of the anchor for the arc (the center of the circle if the arc were a full circle).
    - If given in a repeat section, then this gives the delta to apply to the anchor compared to the previous arc.
    - Defaults to 0,0 if not given, except for repeat sections where the default is applying the original anchor again.
-- `slots <nr#> (line only)`: The amount of slots on a line.
+- `slots <nr#> (line only)`: The amount of slots on a line. (Default is 1, meaning that the line is a single point.)
    - Or the amount of slots to increase/decrease on each growth step when given in a line repeat section.
 - `spacing <nr#>`: The amount of space between slots/ships on a line or arc (measured in ship sizes as described above).
    - The default spacing is 2; so twice the radius of the largest ship in the formation.
