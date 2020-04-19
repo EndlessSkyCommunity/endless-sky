@@ -1,56 +1,77 @@
 # Formation flying
 
-This is a proposal for specifying formations for ships (as discussed in [ES-#4438](https://github.com/endless-sky/endless-sky/issues/4438), [ES-#302](https://github.com/endless-sky/endless-sky/issues/302) and others). This proposed specification works with lines that are moved, rotated, extended and repeated.
+This is a specification for a feature to create formations and apply such formations to groups of ships (as discussed in [ES-#4438](https://github.com/endless-sky/endless-sky/issues/4438), [ES-#302](https://github.com/endless-sky/endless-sky/issues/302), [ES-#4471](https://github.com/endless-sky/endless-sky/pull/4471) and others). The formations themselves are named and specified using lines and arcs that are moved, rotated, extended and repeated. The formations are used on ships and fleets by referring to the formation-name from the ships or fleet.
 
 
-## Intended users of the proposed feature
+## Intended users of the feature
+Intended users:
+- Content creators that want to create new formations.
+- Scenario writers that use formations for NPC fleets in missions (by editing datafiles directly).
+- Players that set formations on ships they own (in-game by using pre-defined formations).
 
-Scenario writers that use formations for NPC fleets in missions (by editing datafiles directly).
-
-Players that set formations on ships they own (in-game by using pre-defined formations).
 
 ## Scope limit
-
-Out of scope for this proposal are:
-- An in-game (or out-of-game) graphical formations editor (as discussed in [ES-#4606](https://github.com/endless-sky/endless-sky/issues/4606))
-- Behaviours for when to break formations (through ship personalities or otherwise, this is a topic that deserves its own separate proposal/RFC)
-
-## Currently implemented functionality
-(implemented in [ES-#4471](https://github.com/endless-sky/endless-sky/pull/4471))
-- Formations on NPC fleets (and 1 example of a group of ships actually flying in formation)
-- Ships going to formation positions when they are `idle`, and breaking formation in any other situation.
-- Ships taking formation-positions based on the formation and leader set for them.
-- Possibility for multiple formations around a single leader (possibly with different ships having different formations)
-- Ships automatically filling up positions of killed ships (by moving to the earliest formation-position available to the ship).
-- Ships in a formation will sync based on the movement vector of the reference/lead ship (not the facing vector of the reference/lead ship).
-
-## Highly desired but currently not implemented functionaly
-- UI elements to assign ships to formations.
-- Ships going to formation positions when they are `gathering`.
-- Automatic spacing between ships in formation based on ship sizes; currently not implemented, `double activeScalingFactor = 80` used as placeholder in [ES-#4606](https://github.com/endless-sky/endless-sky/pull/4471). The value of 80 works nicely for sparrows and other small ships.
-- Gracious direction/facing alignment for ships close to their formation position, similar to how the station-keeping code works. (The current code aggresively moves to positions, without any direction/facing alignment.)
-
-## Nice to have, but not so critical not implemented functionality
-- Formations not just around formation leader, but also around other ships/planet/stellar bodies.
+Out of scope for this specification are:
+- Behaviours for when to break formations (through ship personalities or otherwise, this is a topic that deserves its own separate specification/RFC).
+- The actual UI elements for players to assign ships to formations. In scope is that is should be possible to create such UI elements, but the actual UI is not in this base specification.
+- An in-game (or out-of-game) graphical formations editor (as discussed in [ES-#4606](https://github.com/endless-sky/endless-sky/issues/4606)).
 
 
-## Flying behaviour
+## Formation specifications
+- Coordinate signs (plus/minus) in formation definitions follow the default Endless Sky convention of X, Y signage.
+- Coordinate axis lengths in formation definitions are relative to ship sizes, where 1 corresponds to the radius of the largest ship actively participating in the formation.
+   - Using those relative coordinates allows for using a single definition that can scale for active formations for multiple sizes of ships (fighters to city ships).
 
-### Formation turning
-The positions in a formation as implemented in [ES-#4471](https://github.com/endless-sky/endless-sky/pull/4471) exclusively depend on the position and movement direction of the lead ship.
-If the lead ships movement direction changes 180 degrees (because the lead ship is reversing course), then all ships in the formation will immediately fly to their new positions exactly on the other side of the lead ship, causing the formation to collapse towards the lead-ship and then expand from the lead-ship again.
 
-This collapsing and re-expanding looks somewhat unprofessionally and can be undesired for protective formations that are around one or more targets to be protected. If the formation is used to screen for missiles, then a single missile just after collapsing the formation can do damage to a large number of formation members (including the protected ships in the middle of the formation).
+## Formation flying behavior
+- Ships should go into formation when they have a formation set and when their personaly behaviour indicates to go into formation.
+   - Default behaviours to go into formation are when idle or when ordered to gather.
+   - Default behaviour to break the formation is when no longer idle and no longer ordered to gather.
+- Ships should go into formation around the ship/object/planet/point they are assigned to (also in case of gather).
+   - A single ship/object/planet/point can have multiple formations around it (possibly from different governments).
+   - Ships form by default formations around their parent ship (if no specific ship/object/planet/point was given).
+      - This is the players flagship for player-owner ships and the first ship in the fleet for NPC fleets.
+- Formations for ships can be set for individual ships, for fleets and for governments.
+   - If formations are set on multiple levels, then the most specific level applies, so a formation set on fleet level overrules a formation set on government level.
 
-Possible improvements to make the turn behavior of the formation nicer:
-- Let the formation itself have some memory of its heading and turn the formation at the turn-speed of the lead-ship, some default minimum turn-speed value, or at a speed based on the maximum speed of the outer formation members. This will result in the formation staying more intact, but increases the time to align the formation to a new movement direction of the lead-ship.
-- If the heading of the lead-ship doesn't match it's movement direction, then let the formation still use the movement direction as base heading, but apply 1/3rd of the movement-heading difference of the lead-ship (with a maximum of 30 degrees) as heading-delta for the formation to move to. This allows the formation to already apply some turning while the lead-ship is preparing a course change, but also keeps the formation mostly pointed in the movement direction.
 
-Using symmetry (rotational or mirrored) of a formation can also allow for other nice turn behaviors.
+## Formation positions
+- Positions in a formation are sequentially assigned.
+   - Actual formation positions are determined by the order in which ships are in the ships-list
+      - If new ships join a formation, then they take their relative positions causing other ships already in formation to move to their new later relative positions.
+      - The use of the ships-list order allows players some control over which ships appear where in the formations.
+   - The first ship that starts in formation starts on the first position.
+   - Ships that are killed are no longer considered.
+      - Ships with higher assigned positions automatically move to earlier positions of killed ships.
+   - Formation members only consider other alive ships that are close to their formation positions when choosing their own position.
+   - Positions are based on the formation definition and on the size of the largest ship actively participating in a formation.
+      - If a larger ship enters the formation, then all positions are updated based on the larger size.
+      - If the largest ship leaves a formation, then all positions are updated based on the second-largest ship.
+   - Ships that are at their formation position align their facing direction with the ship/object/planet/point that leads the formation
+      - If the lead has no facing direction, then the ships align with the front of the formation.
 
-### Formation positions
 
-Actual formation positions are determined by the order in which ships are in the ships-list and only applies to ships in the system. If formation-flying ships from outside the system join, then they take their relative positions causing other ships already in formation to move to their new relative positions.
+## Turning behaviour
+- The front of an active formation is aligned with the movement vector of the ship/object/planet/point that the formation is formed around.
+   - If the formation is around a lead ship that has a facing, then one third of a degree delta is added for every degree that the lead ship turns.
+      - This is up to a maximum of 90 degrees for the lead-ship (and thus 30 degrees for the formation).
+   - If the formation is formed around a ship/object that is not moving, then the front is aligned with the facing direction of the lead-ship/object.
+      - Planets have an orbit specified, the facing direction could be calculated based on the orbit.
+   - If the lead ship/object is not moving and not having a facing direction, then the front is in the direction of the system center.
+   - If the lead ship/object is the system center, then the front is in a random direction.
+- Formations have a maximum turning speed, if the front of the formation changes faster than that, then the turning of the formation lags behind.
+   - The maximum turning speed is 110% of the speed that the slowest formation member would need to stay in position during a turn when the formation would not be moving.
+      - This will result in some formation deformation during turns
+   - Formations that have rotational symmetry should choose another suitable point in the formation as front if that results in a smaller turn.
+      - An example is a delta-formation, it has 3 pointy corners, each one could function as front of the formation.
+      - Another example is a hexagon-formation, it has 6 different flat fronts that could act as front.
+   - Formations that are traverse or longitudinal should mirror according to their symmetry if that helps to perform the rotation faster
+
+### Fast turning behaviour background
+If the lead ships movement direction changes 180 degrees (because the lead ship is reversing course), then it would be undesired that all ships in the formation would immediately fly to their new positions, since each ship would then pass through the center of the formation (causing the formation to collapse and expand around the lead-ship).
+
+This collapsing and re-expanding looks somewhat unprofessional and can be undesired for protective formations that are around one or more targets to be protected. If the formation is used to screen for missiles, then a single missile just after collapsing the formation can do damage to a large number of formation members (including the protected ships in the middle of the formation).
+
 
 ## Data format and keywords
 
@@ -140,7 +161,6 @@ government
 This indicates that all ships from this government should use the specified formation (with the specified starting ring) unless the NPC fleets specify otherwise.
 Using reference for government would be a bit odd, unless we want to have governments where ships automatically form formations around planets.
 
-
 Meaning of the keywords
 - `formation <name>`: Name of the formation to form (around the lead-ship)
 - `class <shipclass>`: Indicates for fleets/governments that the given formation should only be applied to the given class of ships. (TODO: attributes filter instead of class?)
@@ -155,5 +175,4 @@ Meaning of the keywords
 - `reference wormholes <nr1#> [<nr2#>]`: Form formation around the `<nr1>`th wormhole in the system, similar to planets (with ranges). This allows for NPC pirates to form an ambush around a wormhole.
 
 ## Examples
-For examples of formation defintions see formations.txt in [ES-#4471](https://github.com/endless-sky/endless-sky/pull/4471).
-The screenshots and movie in that PR also show how the formations will look in-game.
+For examples of formation defintions see formations.txt in [ES-#4471](https://github.com/endless-sky/endless-sky/pull/4471). The screenshots and movie in that PR also show how the formations will look in-game.
