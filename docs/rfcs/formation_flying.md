@@ -161,16 +161,6 @@ This collapsing and re-expanding looks somewhat unprofessional and can be undesi
 
 ## Data format and keywords for flying
 
-The additional keyword on a ship is:
-```
-ship
-	formation <name>
-		ring <nr#>
-		reference <...> ...
-```
-This is used in savegames to store the formation used by the ship.
-
-
 The additional keyword on a (NPC) fleet is:
 ```
 fleet
