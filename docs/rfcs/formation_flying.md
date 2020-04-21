@@ -61,7 +61,9 @@ formation <name>:
 
 Meaning of the keywords:
 - `formation <name>`: Begins a new definition for a formation with name `<name>`.
-- `symmetry [transverse] [longitudinal]`: Indicates if a formation should be considered symmetric. Symmetric formations allow for nicer and more desired behaviour on turns.
+- `symmetry [x] [y]`: Indicates if a formation should be considered symmetric. Symmetric formations allow for nicer and more desired behaviour on turns.
+   - `x`: Indicates that a formation can be mirrored along the x(/horizontal/transverse)-axis and still be the same formation.
+   - `y`: Indicates that a formation can be mirrored along the y(/vertical/longitudinal)-axis and still be the same formation.
    - `rotational <nr#>`: Indicates rotational symmetry (nr is in range 0 to 360). Rotational symetric formations don't need to turn fully to become aligned with the leadship/reference again.
    - Example: A delta (triangluar) formation would have a 120 degrees rotational symmetry. It can turn 120 degrees and still have roughly the same shape as when turning 0 degrees.
    - Example: A delta (triangular) formation would also have longitudinal symmetry, it can be mirrored along the longitudinal axis and would still be roughly the same shape.
