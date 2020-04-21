@@ -38,7 +38,7 @@ The basic structure of a definition of a formation in the data-files would look 
 formation <name>:
 	symmetry [transverse] [longitudinal]
 		rotational <nr#>
-	line <direction#>
+	line
 		start [polar] <x#> <y#> [<angle#>]
 		end [polar] <x#> <y#>
 		slots <nr#>
@@ -47,7 +47,7 @@ formation <name>:
 			anchor [polar] <x#> <y#>
 			slots <nr#>
 	...
-	arc <radius#>
+	arc
 		anchor [polar] <x#> <y#>
 		start [polar] <x#> <y#> [<angle#>]
 		end [polar] <x#> <y#>
@@ -64,13 +64,15 @@ Meaning of the keywords:
 - `symmetry [transverse] [longitudinal]`: Indicates if a formation should be considered symmetric. Symmetric formations allow for nicer and more desired behaviour on turns.
    - `rotational <nr#>`: Indicates rotational symmetry (nr is in range 0 to 360). Rotational symetric formations don't need to turn fully to become aligned with the leadship/reference again.
    - Example: A delta (triangluar) formation would have a 120 degrees rotational symmetry. It can turn 120 degrees and still have roughly the same shape as when turning 0 degrees.
-   - Example: A delta (trianular) formation would also have longitudinal symmetry, it can be mirrored along the longitudinal axis and would still be roughly the same shape.
+   - Example: A delta (triangular) formation would also have longitudinal symmetry, it can be mirrored along the longitudinal axis and would still be roughly the same shape.
+   - Mirror, flip and rotate actions are all around the center of the formation, so only symmetric properties around the center should be considered.
+   - Example: A delta-tailing (triangle behind the flagship) formation should only be considered `transverse` symmetric.
 - `line`: Begins a line.
 - `arc`: Begins a partial or full circle.
    - The first (starting) slot on the arc and the last slot on the arc are not filled unless the arc is a full arc of 360 degrees.
       - Formation designers can fill those first and last positions with line-segments of 1 slot if required.
    - Angle start and end positions are always interpreted clockwise from start to end (to avoid ambiguity).
-- `start [polar] <x#> <y#> [<angle#>]` The location where to start a line or an arc within a formation. (Defaults are x=0, y=0 and angle=180.)
+- `start [polar] <x#> <y#> [<angle#>]` The location where to start a line or an arc within a formation. (Default for a line is x=0, y=0 and angle=180.)
    - x and y give the coordinate in carthesian coordinates.
       - If the keyword `polar` is given, then this coordinate is given as polar coordinate with x being the angle (using the default Endless Sky conventions) and y being a distance (in ship-sizes as described above).
     - For lines this coordinate is relative to the center of the formation.
@@ -79,7 +81,7 @@ Meaning of the keywords:
    - For lines, if an angle is given then this gives the direction in which the line grows.
       - Ships are `<spacing#>` distance apart. The last ship in the line is at `<slot#> * <spacing#>` distance from the first.
       - For repeat lines, if an angle is given then this gives the direction change for repeat lines.
-   - For arcs this is coordinate is relative to the anchor point for the arc.
+   - For arcs this is coordinate is relative to the anchor point for the arc (and provides the angle as well as the radius).
       - For repeat arcs this coordinate contains the differences (in angle and distance) compared to the previous coordinate.
       - For repeat arcs the newly calculated coordinate is relative to the repeat anchor location.
    - For arcs, if an angle is given then this specifies the end-angle at which to stop.
@@ -209,11 +211,9 @@ Meaning of the keywords
 - `reference <...>`: Reference keyword to form the formation around something else than the ships leader. Multiple reference keywords can be given, if multiple are given, then the ships for a formation are split and spread over the different targets to form a formation around.
 - `reference point [<x#> <y#>] [<direction#>]`: Form the formation around a specific fixed point in the system (direction indicates the formation direction). If x and y are not given, then use system center (point 0,0).
 - `reference ship <name>`: Form the formation around the ship with name `<name>`.
-- `reference ships <class>`: Form formation around the ships with class `<class>`. Can be given multiple times, for example for `Transport` and `Heavy Freighter` to form protective formations around transportships.
-- `reference mission`: Form formation around mission (NPC) ships. Ships using this reference are evenly distributed around mission ships.
-- `reference planet <name>`: Form formation around planet with name `<name>`. Not to be used by players, but can be usefull for defense fleets around a planet. Note that planets need to have a `direction` to make this option work nicely. Direction can be random (easy) or based on orbit around the star (a little bit more complex).
-- `reference planets <nr1#> [<nr2#>]`: Form formation around the `<nr1>`th planet in the system. If two numbers are given, then form formations around all planets in the range `<nr1>-<nr2>`. If `<nr2>` is -1, then form formations around the `<nr1>`th planet up to the last planet in the system.
-- `reference wormholes <nr1#> [<nr2#>]`: Form formation around the `<nr1>`th wormhole in the system, similar to planets (with ranges). This allows for NPC pirates to form an ambush around a wormhole.
+- `reference ships <class>`: Form formation around the ships with class `<class>`. Can be given multiple times, for example for `Transport` and `Heavy Freighter` to form protective formations around transportships (TODO: filter similar as above?).
+- `reference planet [<system-name>] <name>`: Form formation around planet with name. Not to be used by players, but can be usefull for defense fleets around a planet. Note that planets need to have a `direction` to make this option work nicely. Direction can be random (easy) or based on orbit around the star (a little bit more complex).
+- `reference wormhole [<system-name>] <name>`: Form formation around the named wormhole in the system, similar to planets. This allows for NPC pirates to form an ambush around a wormhole.
 
 # Examples
 ## External examples
