@@ -18,17 +18,10 @@ Out of scope for this specification are:
 
 
 # Formation definitions
-## Signs and axis units for formation coordinates
-- Coordinates are relative to the center of the formation(pattern), with coordinate 0,0 being the center.
-- Coordinate signs (plus/minus) in formation definitions follow the default Endless Sky convention;
-   - a positive first coordinate (usually called X in Endless Sky) indicates the right side of a formation(pattern).
-   - a negative first coordiante indicates the left side of a formation.
-   - a positive second coordinate (usually called Y in Endless Sky) indicates the back of a formation(pattern).
-   - a negative second coordinate indicates the front of the formation(pattern).
-- Polar coordinates in formation definitions start with an angle and then have a distance.
-   - Angle 0 is towards the front of the formation.
-   - Angle 90 is towards the right of the formation.
-- Coordinate axis lengths (both for carthesian as well as distances in polar coordinates) in formation definitions are measured in ship sizes, where 1 corresponds to the radius of the largest ship actively participating in a formation.
+## Signs and axis units for formation position coordinates.
+- (x,y) coordinates are relative to the center of the formation(pattern), with coordinate 0,0 being the center, with positive x being towards the right side of the formation and positive y being towards the front of the formation.
+- (angle, distance) polar coordinates have angle 0 facing towards the front of the formation and angle 90 towards the right of the formation.
+- Coordinate axis lengths (for carthesian x and y as well as for polar distances) are measured in ship sizes, where 1 corresponds to the radius of the largest ship actively participating in a formation.
    - Using coordinates measured in ship sizes allows for using a single formation definition for multiple sizes of ships (fighters to city ships).
 
 
