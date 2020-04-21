@@ -167,7 +167,8 @@ The additional keyword on a (NPC) fleet is:
 ```
 fleet
 	formation <name>
-		class <shipclass>
+		filter
+			<...>
 		ring <nr#>
 		reference <...> ...
 	...
@@ -189,7 +190,8 @@ The additional keyword on a government is:
 ```
 government
 	formation <name>
-		class <shipclass>
+		filter
+			<...>
 		ring <nr#>
 		reference <...> ...
 ```
@@ -198,12 +200,12 @@ Using reference for government would be a bit odd, unless we want to have govern
 
 Meaning of the keywords
 - `formation <name>`: Name of the formation to form (around the lead-ship)
-- `class <shipclass>`: Indicates for fleets/governments that the given formation should only be applied to the given class of ships. (TODO: attributes filter instead of class?)
+- `filter`: Gives filter criteria to select only ships that match the filter criteria (filtering on things like attributes, ship-class and specific outfits) according to locationFilter syntax.
 - `ring <nr#>`: Area in the formation where the ship should appear (higher numbers is more outwards on most formations).
 - `reference <...>`: Reference keyword to form the formation around something else than the ships leader. Multiple reference keywords can be given, if multiple are given, then the ships for a formation are split and spread over the different targets to form a formation around.
 - `reference point [<x#> <y#>] [<direction#>]`: Form the formation around a specific fixed point in the system (direction indicates the formation direction). If x and y are not given, then use system center (point 0,0).
 - `reference ship <name>`: Form the formation around the ship with name `<name>`.
-- `reference ships <class>`: Form formation around the ships with class `<class>`. Can be given multiple times, for example for `Transport` and `Heavy Freighter` to form protective formations around transportships (TODO: filter similar as above?).
+- `reference ships <filter ...>`: Form formation around the ships which match filter criteria according to locationFilter syntax.
 - `reference planet [<system-name>] <name>`: Form formation around planet with name. Not to be used by players, but can be usefull for defense fleets around a planet. Note that planets need to have a `direction` to make this option work nicely. Direction can be random (easy) or based on orbit around the star (a little bit more complex).
 - `reference wormhole [<system-name>] <name>`: Form formation around the named wormhole in the system, similar to planets. This allows for NPC pirates to form an ambush around a wormhole.
 
