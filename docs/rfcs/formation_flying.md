@@ -177,6 +177,7 @@ fleet
 		filter
 			<...>
 		ring <nr#>
+		instance <nr#>
 		reference <...> ...
 	...
 ```
@@ -189,6 +190,7 @@ fleet
 		<type-name> <nr#>
 			formation <name>
 				ring <nr#>
+				instance <nr#>
 				reference <...> ...
 ```
 This is used when instantiating a specific fleet variant.
@@ -200,6 +202,7 @@ government
 		filter
 			<...>
 		ring <nr#>
+		instance <nr#>
 		reference <...> ...
 ```
 This indicates that all ships from this government should use the specified formation (with the specified starting ring) unless the NPC fleets specify otherwise.
@@ -209,6 +212,8 @@ Meaning of the keywords
 - `formation <name>`: Name of the formation to form (around the lead-ship)
 - `filter`: Gives filter criteria to select only ships that match the filter criteria (filtering on things like attributes, ship-class and specific outfits) according to locationFilter syntax.
 - `ring <nr#>`: Area in the formation where the ship should appear (higher numbers is more outwards on most formations).
+- `instance <nr#>`: It is possible that multiple instances of a single formation exists around a single leader. For example a delta formation for small ships and one for large ships.
+     The instance number indicates which of the instances should be joined by the ships affected by the formation specification.
 - `reference <...>`: Reference keyword to form the formation around something else than the ships leader. Multiple reference keywords can be given, if multiple are given, then the ships for a formation are split and spread over the different targets to form a formation around.
 - `reference point [<x#> <y#>] [<direction#>]`: Form the formation around a specific fixed point in the system (direction indicates the formation direction). If x and y are not given, then use system center (point 0,0).
 - `reference ship <name>`: Form the formation around the ship with name `<name>`.
