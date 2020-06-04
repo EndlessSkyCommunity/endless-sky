@@ -32,23 +32,29 @@ formation <name>:
 	symmetry [x] [y]
 		rotational <nr#>
 	line
-		start [polar] <x#> <y#> [<angle#>]
+		start [polar] <x#> <y#>
 		end [polar] <x#> <y#>
+		angle [<angle#>]
 		slots <nr#>
 		spacing <nr#>
+		skip [first] [last]
 		repeat
-			start [polar] <x#> <y#> [<angle#>]
+			start [polar] <x#> <y#>
 			end [polar] <x#> <y#>
+			angle [<angle#>]
 			slots <nr#>
+			spacing <nr#>
 	...
 	arc
 		anchor [polar] <x#> <y#>
-		start [polar] <x#> <y#> [<angle#>]
+		start [polar] <x#> <y#>
 		end [polar] <x#> <y#>
+		angle [<angle#>]
 		spacing <nr#>
+		skip [first] [last]
 		repeat
 			anchor <x#> <y#>
-			start [polar] <x#> <y#> [<angle#>]
+			start [polar] <x#> <y#>
 			end [polar] <x#> <y#>
 	...
 ```
@@ -64,44 +70,49 @@ Meaning of the keywords:
    - Mirror, flip and rotate actions are all around the center of the formation, so only symmetric properties around the center should be considered.
    - Example: A delta-tailing (triangle behind the flagship) formation should only be considered `transverse` symmetric.
 - `line`: Begins a line.
-- `arc`: Begins a partial or full circle.
-   - The first (starting) slot on the arc and the last slot on the arc are not filled unless the arc is a full arc of 360 degrees.
-      - Formation designers can fill those first and last positions with line-segments of 1 slot if required.
-   - Angle start and end positions are always interpreted clockwise from start to end (to avoid ambiguity).
-- `start [polar] <x#> <y#> [<angle#>]` The location where to start a line or an arc within a formation. (Default for a line is x=0, y=0 and angle=180.)
-   - x and y give the coordinate in carthesian coordinates.
-      - If the keyword `polar` is given, then this coordinate is given as polar coordinate with x being the angle (using the default Endless Sky conventions) and y being a distance (in ship-sizes as described above).
-    - For lines this coordinate is relative to the center of the formation.
-      - The very first ship in the line is at exactly x,y.
-      - For repeat lines this coordinate is relative to the previous start coordinate.
-   - For lines, if an angle is given then this gives the direction in which the line grows.
+   - `start [polar] <x#> <y#>` The location where to start a line within a formation. (The default value is x=0 and y=0.)
+      - x and y give the coordinate in carthesian coordinates.
+         - If the keyword `polar` is given, then this coordinate is given as polar coordinate with x being the angle (0 to 360 degrees) and y being a distance (in ship-sizes as described above).
+         - For the first ring lines this coordinate is relative to the center of the formation.
+         - For repeat ring lines this coordinate is relative to the start coordinate of the previous ring.
+   - `end [polar] <x#> <y#>` The location where to end a line. (Default is angle 180 and length based on nr of slots.)
+      - If a line has an end-coordinate and slots and spacing set, then the end coordinate is only used to determine the direction.
+      - For lines this is relative to the center of the formation.
+         - For repeat lines this coordinate is relative to the previous end coordinate.
+      - The keyword `polar` works the same as for the `start` keyword.
+   - `angle [<angle#>]` Gives the direction in which the line grows (0 to 360 degrees). (The default value is 180.)
+      - An angle can also be implicitly given by specifying a begin and end-point.
+      - Repeat lines are normally in the same direction as the original line, but if an angle is given for repeat lines, then this gives the additional direction change for repeat lines.
+   - `spacing <nr#>`: The amount of space between slots/ships on a line (measured in ship sizes).
+      - The default spacing is 2; so twice the radius of the largest ship in the formation.
+         - If a line has an end-coordinate, slots and no spacing, then spacing is automatically calculated (instead of the default being used).
       - Ships are `<spacing#>` distance apart. The last ship in the line is at `<slot#> * <spacing#>` distance from the first.
-      - For repeat lines, if an angle is given then this gives the direction change for repeat lines.
-   - For arcs this is coordinate is relative to the anchor point for the arc (and provides the angle as well as the radius).
-      - For repeat arcs this coordinate contains the differences (in angle and distance) compared to the previous coordinate.
-      - For repeat arcs the newly calculated coordinate is relative to the repeat anchor location.
-   - For arcs, if an angle is given then this specifies the end-angle at which to stop.
+   - `slots <nr#>`: The amount of slots on a line. (Default is 1, meaning that the line is a single point.)
+      - Or the amount of slots to increase/decrease on each growth step when given in a line repeat section.
+   - `skip [first] [last]` Indicates if the first and/or last slot in the line needs to be skipped.
+   - `repeat`: Section for repeating a line when the formation needs to grow.
+      - Repeat lines that reach a size of 0 will not repeat further.
+- `arc`: Begins a partial or full circle.
+   - Angle start and end positions are always interpreted clockwise from start to end (to avoid ambiguity).
+   - `start [polar] <x#> <y#>` The location where to start an arc within a formation.
+      - This is coordinate is relative to the anchor point for the arc and provides the angle as well as the radius.
+        - For repeat arcs this coordinate contains the differences (in angle and distance) compared to the previous coordinate.
+        - For repeat arcs the newly calculated coordinate is relative to the repeat anchor location.
+   - `end [polar] <x#> <y#>` The location where to end an arc. (Default is to make a full circle, so start == end.)
+      - For arcs this is relative to the anchor point for the arc.
+      - The keyword `polar` works the same as for the `start` keyword.
+      - For arcs only the angle of the polar coordinate is used (the radius/distance was already determined based on the anchor and the start).
+   - `angle [<angle#>]` Gives the partial angle at which to stop the arc.
       - For repeat arcs, if an angle is given then this gives the delta for the end-angle at which to stop.
-- `end [polar] <x#> <y#>` The location where to end a line or an arc. (Default for an arc is to make a full circle, so start == end, default for a line is angle 180 and length based on nr of slots.)
-   - For lines this is relative to the center of the formation.
-      - For repeat lines this coordinate is relative to the previous end coordinate.
-   - For arcs this is relative to the anchor point for the arc.
-   - The keyword `polar` works the same as for the `start` keyword.
-   - For arcs only the angle of the polar coordinate is used (the radius/distance was already determined based on the anchor and the start).
-   - If a line has an end-coordinate and slots and spacing set, then the end coordinate is only used to determine the direction.
-- `anchor [polar] <x#> <y#>` (arc only): The location of the anchor for the arc (the center of the circle if the arc were a full circle).
-   - If given in a repeat section, then this gives the delta to apply to the anchor compared to the previous arc.
-   - Defaults to 0,0 if not given, except for repeat sections where the default is applying the original anchor again.
-- `slots <nr#> (line only)`: The amount of slots on a line. (Default is 1, meaning that the line is a single point.)
-   - Or the amount of slots to increase/decrease on each growth step when given in a line repeat section.
-- `spacing <nr#>`: The amount of space between slots/ships on a line or arc (measured in ship sizes as described above).
-   - The default spacing is 2; so twice the radius of the largest ship in the formation.
-     - If a line has an end-coordinate, slots and no spacing, then spacing is automatically calculated (instead of the default being used).
-   - For lines this gives the exact spacing between slots/ships.
-   - For arcs the ships/slots are evenly spaced among the arc, with at least the minimum as given here.
-   - It is possible that an arc contains 0 ships if the arc is too small. This can be usefull for arcs where the repeat sections are larger than the original.
-- `repeat`: Section for repeating a line or arc when the formation needs to grow. The contents of this section are applied each growth step, except for lines and arcs that reach 0 size.
-
+   - `anchor [polar] <x#> <y#>` (arc only): The location of the anchor for the arc (the center of the circle if the arc were a full circle).
+      - If given in a repeat section, then this gives the delta to apply to the anchor compared to the previous arc.
+      - Defaults to 0,0 if not given, except for repeat sections where the default is applying the original anchor again.
+   - `spacing <nr#>`: The minimum amount of space between slots/ships on an arc (measured in ship sizes as described above).
+      - The default spacing is 2; so twice the radius of the largest ship in the formation.
+      - For lines this gives the exact spacing between slots/ships, but for arcs the ships/slots are evenly spaced among the arc, with at least the minimum as given here.
+   - `skip [first] [last]` Indicates if the first and/or last slot in the arc needs to be skipped.
+   - `repeat`: Section for repeating an arc when the formation needs to grow.
+      - Repeat arcs that reach a size of 0 will not repeat further.
 
 
 # Formations usage (flying behavior)
