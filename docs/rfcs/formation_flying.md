@@ -29,7 +29,7 @@ Out of scope for this specification are:
 The basic structure of a definition of a formation in the data-files would look like:
 ```
 formation <name>:
-	symmetry [transverse] [longitudinal]
+	symmetry [x] [y]
 		rotational <nr#>
 	line
 		start [polar] <x#> <y#> [<angle#>]
@@ -37,7 +37,8 @@ formation <name>:
 		slots <nr#>
 		spacing <nr#>
 		repeat
-			anchor [polar] <x#> <y#>
+			start [polar] <x#> <y#> [<angle#>]
+			end [polar] <x#> <y#>
 			slots <nr#>
 	...
 	arc
@@ -117,7 +118,9 @@ Meaning of the keywords:
 
 
 ## Taking formation positions
-- Positions in a formation are sequentially assigned.
+- Ships can have a formation-pattern and a formation-ring set to indicate their position in the formation.
+   - If a ring is set, then the ship will not appear in the formation before that ring. (But it can appear after it if other ships fill the ring.)
+- Positions in a formation are furthermore sequentially assigned.
    - Actual formation positions are determined by the order in which ships are in the ships-list
       - If new ships join a formation, then they take their relative positions causing other ships already in formation to move to their new later relative positions.
       - The use of the ships-list order allows players some control over which ships appear where in the formations.
