@@ -21,7 +21,7 @@ Out of scope for this specification are:
 ## Signs and axis units for formation position coordinates.
 - (x,y) coordinates are relative to the center of the formation(pattern), with coordinate 0,0 being the center, with positive x being towards the right side of the formation and positive y being towards the front of the formation.
 - (angle, distance) polar coordinates have angle 0 facing towards the front of the formation and angle 90 towards the right of the formation.
-- Coordinate axis lengths (for carthesian x and y as well as for polar distances) are measured in ship sizes, where 1 corresponds to the radius of the largest ship actively participating in a formation.
+- Coordinate (x,y and distance) axises are by default in pixels, but there are also keywords that allos the radius, the width and/or the height of the largest ship in the formation to be used as axis unit.
    - Using coordinates measured in ship sizes allows for using a single formation definition for multiple sizes of ships (fighters to city ships).
 
 
@@ -32,18 +32,18 @@ formation <name>:
 	symmetry [x] [y]
 		rotational <nr#>
 	line
-		start [polar] <x#> <y#>
-		end [polar] <x#> <y#>
+		start [polar] [radius|width|height] <x#> <y#>
+		end [polar] [radius|width|height] <x#> <y#>
 		angle [<angle#>]
 		slots <nr#>
-		spacing <nr#>
+		spacing [radius|width|height] <nr#>
 		skip [first] [last]
 		repeat
-			start [polar] <x#> <y#>
-			end [polar] <x#> <y#>
+			start [polar] [radius|width|height] <x#> <y#>
+			end [polar] [radius|width|height] <x#> <y#>
 			angle [<angle#>]
 			slots <nr#>
-			spacing <nr#>
+			spacing [radius|width|height] <nr#>
 	...
 	arc
 		anchor [polar] <x#> <y#>
@@ -54,8 +54,9 @@ formation <name>:
 		skip [first] [last]
 		repeat
 			anchor <x#> <y#>
-			start [polar] <x#> <y#>
-			end [polar] <x#> <y#>
+			start [polar] [radius] [width] [height] <x#> <y#>
+			end [polar] [radius] [width] [height] <x#> <y#>
+			spacing [radius] [width] [height] <nr#>
 	...
 ```
 
@@ -71,10 +72,16 @@ Meaning of the keywords:
    - Example: A delta-tailing (triangle behind the flagship) formation should only be considered `transverse` symmetric.
 - `line`: Begins a line.
    - `start [polar] <x#> <y#>` The location where to start a line within a formation. (The default value is x=0 and y=0.)
-      - x and y give the coordinate in carthesian coordinates.
-         - If the keyword `polar` is given, then this coordinate is given as polar coordinate with x being the angle (0 to 360 degrees) and y being a distance (in ship-sizes as described above).
-         - For the first ring lines this coordinate is relative to the center of the formation.
-         - For repeat ring lines this coordinate is relative to the start coordinate of the previous ring.
+      - x and y give the coordinate in carthesian coordinates in pixels.
+         - If the keyword `polar` is given, then this coordinate is given as polar coordinate with x being the angle (0 to 360 degrees) and y being a distance.
+         - If the keyword `radius` is given, then this coordinate is not in pixels, but in radiusses of the largest ship in the formation.
+         - If the keyword `width` is given, then this coordiate is not in pixels, but in widths of the largest ship in the formation.
+         - If the keyword `height` is given, then this coordinate is not in pixels, butin heights of the largest ship in the formation.
+      - For the first ring lines this coordinate is relative to the center of the formation.
+      - For repeat ring lines this coordinate is relative to the start coordinate of the previous ring.
+      - If the start keyword is given multiple times, then the values will be added.
+         - This can be usefull if the coordinates should be calculated partially based on pixels and partially on ship sizes.
+         - This can also be usefull if the x-coordinates should depend on ships-width and y-coordinates on ships-height.
    - `end [polar] <x#> <y#>` The location where to end a line. (Default is angle 180 and length based on nr of slots.)
       - If a line has an end-coordinate and slots and spacing set, then the end coordinate is only used to determine the direction.
       - For lines this is relative to the center of the formation.
@@ -83,7 +90,7 @@ Meaning of the keywords:
    - `angle [<angle#>]` Gives the direction in which the line grows (0 to 360 degrees). (The default value is 180.)
       - An angle can also be implicitly given by specifying a begin and end-point.
       - Repeat lines are normally in the same direction as the original line, but if an angle is given for repeat lines, then this gives the additional direction change for repeat lines.
-   - `spacing <nr#>`: The amount of space between slots/ships on a line (measured in ship sizes).
+   - `spacing <nr#>`: The amount of space between slots/ships on a line (by default in pixels, unless `radius`, `width` or `height` was given).
       - The default spacing is 2; so twice the radius of the largest ship in the formation.
          - If a line has an end-coordinate, slots and no spacing, then spacing is automatically calculated (instead of the default being used).
       - Ships are `<spacing#>` distance apart. The last ship in the line is at `<slot#> * <spacing#>` distance from the first.
@@ -107,7 +114,7 @@ Meaning of the keywords:
    - `anchor [polar] <x#> <y#>` (arc only): The location of the anchor for the arc (the center of the circle if the arc were a full circle).
       - If given in a repeat section, then this gives the delta to apply to the anchor compared to the previous arc.
       - Defaults to 0,0 if not given, except for repeat sections where the default is applying the original anchor again.
-   - `spacing <nr#>`: The minimum amount of space between slots/ships on an arc (measured in ship sizes as described above).
+   - `spacing <nr#>`: The minimum amount of space between slots/ships on an arc (measured the same as for lines).
       - The default spacing is 2; so twice the radius of the largest ship in the formation.
       - For lines this gives the exact spacing between slots/ships, but for arcs the ships/slots are evenly spaced among the arc, with at least the minimum as given here.
    - `skip [first] [last]` Indicates if the first and/or last slot in the arc needs to be skipped.
