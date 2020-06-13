@@ -47,15 +47,14 @@ formation <name>:
 	arc
 		anchor [polar] [radius|width|height] <x#> <y#>
 		start [polar] [radius|width|height] <x#> <y#>
-		end [polar] [radius|width|height] <x#> <y#>
 		angle [<angle#>]
-		spacing <nr#>
+		slots <nr#>
 		skip [first] [last]
 		repeat
 			anchor [polar] [radius|width|height] <x#> <y#>
 			start [polar] [radius|width|height] <x#> <y#>
-			end [polar] [radius|width|height] <x#> <y#>
-			spacing [radius|width|height] <nr#>
+			angle [<angle#>]
+			slots <nr#>
 	...
 ```
 
@@ -87,9 +86,9 @@ Meaning of the keywords:
       - For lines this is relative to the center of the formation.
          - For repeat lines this coordinate is relative to the previous end coordinate.
       - The keywords `polar`, `radius`, `width` and `height` work the same as for the `start` keyword.
-   - `slots <nr#>`: The amount of slots on a line. (Default is 1, meaning that the line is a single point.)
+   - `slots <nr#>`: The amount of slots on a line. (Default is 1, meaning that the line is just a single point on the start location.)
       - Or the amount of slots to increase/decrease on each growth step when given in a line repeat section.
-      - Ships are distributed evenly over the slots between the start and the end coordiate.
+      - Ships/slots are distributed evenly over the line between the start and the end coordiate.
    - `skip [first] [last]` Indicates if the first and/or last slot in the line needs to be skipped.
    - `repeat`: Section for repeating a line when the formation needs to grow.
       - Repeat lines that reach a size of 0 will not repeat further.
@@ -99,18 +98,17 @@ Meaning of the keywords:
       - This is coordinate is relative to the anchor point for the arc and provides the angle as well as the radius.
         - For repeat arcs this coordinate contains the differences (in angle and distance) compared to the previous coordinate.
         - For repeat arcs the newly calculated coordinate is relative to the repeat anchor location.
-   - `end [polar] [radius|width|height] <x#> <y#>` The location where to end an arc. (Default is to make a full circle, so start == end.)
-      - For arcs this is relative to the anchor point for the arc.
-      - The keyword `polar` works the same as for the `start` keyword.
-      - For arcs only the angle of the polar coordinate is used (the radius/distance was already determined based on the anchor and the start).
-   - `angle [<angle#>]` Gives the partial angle at which to stop the arc.
+   - `angle [<angle#>]` Gives the partial (or full) angle at which to stop the arc. (range is -360 to 360)
+      - Default is zero, meaning that the arc statement describes only a single point.
+      - The arc is clockwise if the number is in the range between 0 and 360.
+      - The arc is counter-clockwise if the number is in the range between -360 and 0.
       - For repeat arcs, if an angle is given then this gives the delta for the end-angle at which to stop.
-   - `anchor [polar] [radius|width|height] <x#> <y#>` (arc only): The location of the anchor for the arc (the center of the circle if the arc were a full circle).
+   - `anchor [polar] [radius|width|height] <x#> <y#>`: The location of the anchor for the arc (the center of the circle if the arc were a full circle).
       - If given in a repeat section, then this gives the delta to apply to the anchor compared to the previous arc.
       - Defaults to 0,0 if not given, except for repeat sections where the default is applying the original anchor again.
-   - `spacing [radius|width|height] <nr#>`: The minimum amount of space between slots/ships on an arc (measured the same as for lines).
-      - The default spacing is 2; so twice the radius of the largest ship in the formation.
-      - For lines this gives the exact spacing between slots/ships, but for arcs the ships/slots are evenly spaced among the arc, with at least the minimum as given here.
+   - `slots <nr#>`: The amount of slots on an arc. (Default is 1, meaning that the arc is a single point at the start location.)
+      - Or the amount of slots to increase/decrease on each growth step when given in an arc repeat section.
+      - Ships/slots are distributed evenly over the arc between the start and the end coordiate.
    - `skip [first] [last]` Indicates if the first and/or last slot in the arc needs to be skipped.
    - `repeat`: Section for repeating an arc when the formation needs to grow.
       - Repeat arcs that reach a size of 0 will not repeat further.
