@@ -43,6 +43,7 @@ formation <name>:
 			end [polar] [radius|width|height] <x#> <y#>
 			angle [<angle#>]
 			slots <nr#>
+				regulated
 			spacing [radius|width|height] <nr#>
 	...
 	arc
@@ -57,6 +58,7 @@ formation <name>:
 			start [polar] [radius|width|height] <x#> <y#>
 			angle [<angle#>]
 			slots <nr#>
+				regulated
 	...
 ```
 
@@ -91,6 +93,7 @@ Meaning of the keywords:
    - `slots <nr#>`: The amount of slots on a line. (Default is 1, meaning that the line is just a single point on the start location.)
       - Or the amount of slots to increase/decrease on each growth step when given in a line repeat section.
       - Ships/slots are distributed evenly over the line between the start and the end coordiate.
+      - The keyword `regulated` indicates that the slots increase will only happen when the resulting space between ships is at least the same amount as on the original line.
    - `skip [first] [last]` Indicates if the first and/or last slot in the line needs to be skipped.
    - `centered` Indicates that the line grows from the center instead of the start position.
    - `repeat`: Section for repeating a line when the formation needs to grow.
@@ -112,6 +115,7 @@ Meaning of the keywords:
    - `slots <nr#>`: The amount of slots on an arc. (Default is 1, meaning that the arc is a single point at the start location.)
       - Or the amount of slots to increase/decrease on each growth step when given in an arc repeat section.
       - Ships/slots are distributed evenly over the arc between the start and the end coordiate.
+      - The keyword `regulated` indicates that the slots increase will only happen when the resulting space between ships is at least the same amount as on the original line.
    - `skip [first] [last]` Indicates if the first and/or last slot in the arc needs to be skipped.
    - `centered` Indicates that the arc grows from the center instead of the start position.
    - `repeat`: Section for repeating an arc when the formation needs to grow.
