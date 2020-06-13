@@ -21,7 +21,7 @@ Out of scope for this specification are:
 ## Signs and axis units for formation position coordinates.
 - (x,y) coordinates are relative to the center of the formation(pattern), with coordinate 0,0 being the center, with positive x being towards the right side of the formation and positive y being towards the front of the formation.
 - (angle, distance) polar coordinates have angle 0 facing towards the front of the formation and angle 90 towards the right of the formation.
-- Coordinate (x,y and distance) axises are by default in pixels, but there are also keywords that allos the radius, the width and/or the height of the largest ship in the formation to be used as axis unit.
+- Coordinate (x,y and distance) axises are by default in pixels, but there are also keywords that allows the radius, the width and/or the height of the largest ship in the formation to be used as axis unit.
    - Using coordinates measured in ship sizes allows for using a single formation definition for multiple sizes of ships (fighters to city ships).
 
 
