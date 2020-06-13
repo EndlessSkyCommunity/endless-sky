@@ -35,9 +35,7 @@ formation <name>:
 	line
 		start [polar] [radius|width|height] <x#> <y#>
 		end [polar] [radius|width|height] <x#> <y#>
-		angle [<angle#>]
 		slots <nr#>
-		spacing [radius|width|height] <nr#>
 		skip [first] [last]
 		repeat
 			start [polar] [radius|width|height] <x#> <y#>
@@ -89,15 +87,9 @@ Meaning of the keywords:
       - For lines this is relative to the center of the formation.
          - For repeat lines this coordinate is relative to the previous end coordinate.
       - The keywords `polar`, `radius`, `width` and `height` work the same as for the `start` keyword.
-   - `angle [<angle#>]` Gives the direction in which the line grows (0 to 360 degrees). (The default value is 180.)
-      - An angle can also be implicitly given by specifying a begin and end-point.
-      - Repeat lines are normally in the same direction as the original line, but if an angle is given for repeat lines, then this gives the additional direction change for repeat lines.
-   - `spacing [radius|width|height] <nr#>`: The amount of space between slots/ships on a line (by default in pixels, unless `radius`, `width` or `height` was given).
-      - The default spacing is radius 2; so twice the radius of the largest ship in the formation.
-         - If a line has an end-coordinate, slots and no spacing, then spacing is automatically calculated (instead of the default being used).
-      - Ships are `<spacing#>` distance apart. The last ship in the line is at `<slot#> * <spacing#>` distance from the first.
    - `slots <nr#>`: The amount of slots on a line. (Default is 1, meaning that the line is a single point.)
       - Or the amount of slots to increase/decrease on each growth step when given in a line repeat section.
+      - Ships are distributed evenly over the slots between the start and the end coordiate.
    - `skip [first] [last]` Indicates if the first and/or last slot in the line needs to be skipped.
    - `repeat`: Section for repeating a line when the formation needs to grow.
       - Repeat lines that reach a size of 0 will not repeat further.
