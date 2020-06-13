@@ -41,7 +41,6 @@ formation <name>:
 		repeat
 			start [polar] [radius|width|height] <x#> <y#>
 			end [polar] [radius|width|height] <x#> <y#>
-			angle [<angle#>]
 			slots <nr#>
 				regulated
 			alternating
