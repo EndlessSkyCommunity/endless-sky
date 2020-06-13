@@ -149,7 +149,7 @@ Meaning of the keywords:
 
 ## Turning behaviour
 - The front of an active formation is aligned with the movement vector of the ship/object/planet/point that the formation is formed around.
-   - If the formation is around a lead ship that has a facing, then one third of a degree delta is added for every degree that the lead ship turns.
+   - If the formation is around a lead ship that has a facing/heading different from its velocity/movement-vector, then one third of a degree delta is added for every degree that the lead ships heading mismatches.
       - This is up to a maximum of 90 degrees for the lead-ship (and thus 30 degrees for the formation).
    - If the formation is formed around a ship/object that is not moving, then the front is aligned with the facing direction of the lead-ship/object.
       - Planets have an orbit specified, the facing direction could be calculated based on the orbit.
