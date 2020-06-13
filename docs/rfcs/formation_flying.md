@@ -19,9 +19,10 @@ Out of scope for this specification are:
 
 # Formation definitions
 ## Signs and axis units for formation position coordinates.
-- (x,y) coordinates are relative to the center of the formation(pattern), with coordinate 0,0 being the center, with positive x being towards the right side of the formation and positive y being towards the front of the formation.
-- (angle, distance) polar coordinates have angle 0 facing towards the front of the formation and angle 90 towards the right of the formation.
-- Coordinate (x,y and distance) axises are by default in pixels, but there are also keywords that allows the radius, the width and/or the height of the largest ship in the formation to be used as axis unit.
+- (x,y) coordinates are relative to the ship or other object around which a formation gets formed. Coordinate 0,0 would refer to the center of the ship or object around which the formation gets formed.
+   - positive x is towards the right side of the ship or object around which the formation gets formed and positive y being towards the front of the ship or object around which the formation gets formed.
+- (angle, distance) polar coordinates have angle 0 facing towards the front of the ship or object around which the formation gets formed and angle 90 would be towards the right side of the ship or object around which the formation gets formed.
+- Coordinate (x,y and distance) axises are by default in pixels, but there are also keywords that allows the radius, the width and/or the height of the largest ship participating in the formation to be used as axis unit.
    - Using coordinates measured in ship sizes allows for using a single formation definition for multiple sizes of ships (fighters to city ships).
 
 
@@ -29,8 +30,8 @@ Out of scope for this specification are:
 The basic structure of a definition of a formation in the data-files would look like:
 ```
 formation <name>:
-	symmetry [x] [y]
-		rotational <nr#>
+	flippable [x] [y]
+	rotatable <angle#>
 	line
 		start [polar] [radius|width|height] <x#> <y#>
 		end [polar] [radius|width|height] <x#> <y#>
@@ -62,14 +63,15 @@ formation <name>:
 
 Meaning of the keywords:
 - `formation <name>`: Begins a new definition for a formation with name `<name>`.
-- `symmetry [x] [y]`: Indicates if a formation should be considered symmetric. Symmetric formations allow for nicer and more desired behaviour on turns.
-   - `x`: Indicates that a formation can be mirrored along the x(/horizontal/transverse)-axis and still be the same formation.
-   - `y`: Indicates that a formation can be mirrored along the y(/vertical/longitudinal)-axis and still be the same formation.
-   - `rotational <nr#>`: Indicates rotational symmetry (nr is in range 0 to 360). Rotational symetric formations don't need to turn fully to become aligned with the leadship/reference again.
-   - Example: A delta (triangluar) formation would have a 120 degrees rotational symmetry. It can turn 120 degrees and still have roughly the same shape as when turning 0 degrees.
-   - Example: A delta (triangular) formation would also have longitudinal symmetry, it can be mirrored along the longitudinal axis and would still be roughly the same shape.
-   - Mirror, flip and rotate actions are all around the center of the formation, so only symmetric properties around the center should be considered.
-   - Example: A delta-tailing (triangle behind the flagship) formation should only be considered `transverse` symmetric.
+- `flippable [x] [y]`: Indicates if a formation can be mirrored/flipped along axises through the center and still be considered the same valid formation.
+   - `x`: Indicates that a formation can be flipped/mirrored along the x(/horizontal/transverse)-axis and still be the same valid formation.
+   - `y`: Indicates that a formation can be flipped/mirrored along the y(/vertical/longitudinal)-axis and still be the same valid formation.
+   - Example: A delta (triangular) formation would have longitudinal symmetry, it can be flipped/mirrored along the longitudinal axis (`flippable y`) and would still be roughly the same shape.
+- `rotatable <angle#>`: Indicates if a formation can be rotated and still be the same valid formation. (angle is in rage of 0 to 360 degrees)
+   - Rotatable formations don't need to turn fully to become aligned with the leadship/reference again. This allows for nicer, more desired and more elegant behavior when the lead ship makes large changes in heading/velocity.  
+   - Example: A delta (triangluar) formation around the lead-ship would have a 120 degrees rotational symmetry and be set to 120 degrees rotatable. It can turn 120 degrees and still have roughly the same shape as when turning 0 degrees.
+   - Example: A delta-tailing (triangle behind the flagship) formation should however only be considered `transverse` symmetric, since most players would like the tailing formations to only be behind them.
+   - Example: A formation that "writes text by forming letters and words" could be rotatable for 1 degree or less, basically causing the heading/velocity of the lead ship to be ignored and ships just staying in the "text positions".
 - `line`: Begins a line.
    - `start [polar] <x#> <y#>` The location where to start a line within a formation. (The default value is x=0 and y=0.)
       - x and y give the coordinate in carthesian coordinates in pixels.
@@ -86,12 +88,12 @@ Meaning of the keywords:
       - If a line has an end-coordinate and slots and spacing set, then the end coordinate is only used to determine the direction.
       - For lines this is relative to the center of the formation.
          - For repeat lines this coordinate is relative to the previous end coordinate.
-      - The keyword `polar` works the same as for the `start` keyword.
+      - The keywords `polar`, `radius`, `width` and `height` work the same as for the `start` keyword.
    - `angle [<angle#>]` Gives the direction in which the line grows (0 to 360 degrees). (The default value is 180.)
       - An angle can also be implicitly given by specifying a begin and end-point.
       - Repeat lines are normally in the same direction as the original line, but if an angle is given for repeat lines, then this gives the additional direction change for repeat lines.
    - `spacing <nr#>`: The amount of space between slots/ships on a line (by default in pixels, unless `radius`, `width` or `height` was given).
-      - The default spacing is 2; so twice the radius of the largest ship in the formation.
+      - The default spacing is radius 2; so twice the radius of the largest ship in the formation.
          - If a line has an end-coordinate, slots and no spacing, then spacing is automatically calculated (instead of the default being used).
       - Ships are `<spacing#>` distance apart. The last ship in the line is at `<slot#> * <spacing#>` distance from the first.
    - `slots <nr#>`: The amount of slots on a line. (Default is 1, meaning that the line is a single point.)
