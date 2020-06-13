@@ -37,6 +37,7 @@ formation <name>:
 		end [polar] [radius|width|height] <x#> <y#>
 		slots <nr#>
 		skip [first] [last]
+		centered
 		repeat
 			start [polar] [radius|width|height] <x#> <y#>
 			end [polar] [radius|width|height] <x#> <y#>
@@ -50,6 +51,7 @@ formation <name>:
 		angle [<angle#>]
 		slots <nr#>
 		skip [first] [last]
+		centered
 		repeat
 			anchor [polar] [radius|width|height] <x#> <y#>
 			start [polar] [radius|width|height] <x#> <y#>
@@ -90,6 +92,7 @@ Meaning of the keywords:
       - Or the amount of slots to increase/decrease on each growth step when given in a line repeat section.
       - Ships/slots are distributed evenly over the line between the start and the end coordiate.
    - `skip [first] [last]` Indicates if the first and/or last slot in the line needs to be skipped.
+   - `centered` Indicates that the line grows from the center instead of the start position.
    - `repeat`: Section for repeating a line when the formation needs to grow.
       - Repeat lines that reach a size of 0 will not repeat further.
 - `arc`: Begins a partial or full circle.
@@ -110,6 +113,7 @@ Meaning of the keywords:
       - Or the amount of slots to increase/decrease on each growth step when given in an arc repeat section.
       - Ships/slots are distributed evenly over the arc between the start and the end coordiate.
    - `skip [first] [last]` Indicates if the first and/or last slot in the arc needs to be skipped.
+   - `centered` Indicates that the arc grows from the center instead of the start position.
    - `repeat`: Section for repeating an arc when the formation needs to grow.
       - Repeat arcs that reach a size of 0 will not repeat further.
 
