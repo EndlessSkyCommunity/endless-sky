@@ -45,6 +45,7 @@ formation <name>:
 			slots <nr#>
 				regulated
 			alternating
+		...
 	...
 	arc
 		anchor [polar] [radius|width|height] <x#> <y#>
@@ -61,6 +62,7 @@ formation <name>:
 				regulated
 			alternating
 	...
+		...
 ```
 
 Meaning of the keywords:
@@ -101,6 +103,7 @@ Meaning of the keywords:
       - Repeat lines that reach a size of 0 will not repeat further.
       - The keyword 'alternating' indicates that every 1st, 3rd, and every other uneven repeating line will fill from end to start instead of from start to end.
          - This 'alternating' keyword can be combined with centered and will still be relevant for some regular formations when ships move to earlier positions.
+      - A single line can have multiple repeat sections.
 - `arc`: Begins a partial or full circle.
    - Angle start and end positions are always interpreted clockwise from start to end (to avoid ambiguity).
    - `start [polar] [radius|width|height] <x#> <y#>` The location where to start an arc within a formation.
@@ -124,6 +127,7 @@ Meaning of the keywords:
    - `repeat`: Section for repeating an arc when the formation needs to grow.
       - Repeat arcs that reach a size of 0 will not repeat further.
       - The keyword 'alternating' indicates that every uneven repeating arc will fill from end to start instead of from start to end, similar to this keyword on lines.
+      - A single arc can have multiple repeat sections.
 
 
 
