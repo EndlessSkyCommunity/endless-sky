@@ -104,8 +104,8 @@ Meaning of the keywords:
    - `centered` Indicates that the line grows from the center instead of the start position.
    - `repeat`: Section for repeating a line when the formation needs to grow.
       - Repeat lines that reach a size of 0 will not repeat further.
-      - The keyword 'alternating' indicates that every 1st, 3rd, and every other uneven repeating line will fill from end to start instead of from start to end.
-         - This 'alternating' keyword can be combined with centered and will still be relevant for some regular formations when ships move to earlier positions.
+      - The keyword `alternating` indicates that every 1st, 3rd, and every other uneven repeating line will fill from end to start instead of from start to end.
+         - The alternating keyword can be combined with centered and will still be relevant for some regular formations when ships move to earlier positions.
       - A single line can have multiple repeat sections.
       - The keyword `originating` indicates that all positions added in the repeat section should be placed before the start position of the original line.
          - This effectively makes the line longer in front of the the start position.
