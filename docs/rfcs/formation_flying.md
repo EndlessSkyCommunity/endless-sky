@@ -22,7 +22,7 @@ Out of scope for this specification are:
 - (x,y) coordinates are relative to the ship or other object around which a formation gets formed. Coordinate 0,0 would refer to the center of the ship or object around which the formation gets formed.
    - positive x is towards the right side of the ship or object around which the formation gets formed and positive y being towards the front of the ship or object around which the formation gets formed.
 - (angle, distance) polar coordinates have angle 0 facing towards the front of the ship or object around which the formation gets formed and angle 90 would be towards the right side of the ship or object around which the formation gets formed.
-- Coordinate (x,y and distance) axises are by default in pixels, but there are also keywords that allows the radius, the width and/or the height of the largest ship participating in the formation to be used as axis unit.
+- Coordinate (x,y and distance) axises are by default in pixels, but there are also keywords that allows the diameter, the width and/or the height of the largest ship participating in the formation to be used as axis unit.
    - Using coordinates measured in ship sizes allows for using a single formation definition for multiple sizes of ships (fighters to city ships).
 
 
@@ -33,14 +33,14 @@ formation <name>:
 	flippable [x] [y]
 	rotatable <angle#>
 	line
-		start [polar] [radius|width|height] <x#> <y#>
-		end [polar] [radius|width|height] <x#> <y#>
+		start [polar] [diameter|width|height] <x#> <y#>
+		end [polar] [diameter|width|height] <x#> <y#>
 		slots <nr#>
 		skip [first] [last]
 		centered
 		repeat
-			start [polar] [radius|width|height] <x#> <y#>
-			end [polar] [radius|width|height] <x#> <y#>
+			start [polar] [diameter|width|height] <x#> <y#>
+			end [polar] [diameter|width|height] <x#> <y#>
 			slots <nr#>
 				regulated
 			alternating
@@ -49,15 +49,15 @@ formation <name>:
 		...
 	...
 	arc
-		anchor [polar] [radius|width|height] <x#> <y#>
-		start [polar] [radius|width|height] <x#> <y#>
+		anchor [polar] [diameter|width|height] <x#> <y#>
+		start [polar] [diameter|width|height] <x#> <y#>
 		angle [<angle#>]
 		slots <nr#>
 		skip [first] [last]
 		centered
 		repeat
-			anchor [polar] [radius|width|height] <x#> <y#>
-			start [polar] [radius|width|height] <x#> <y#>
+			anchor [polar] [diameter|width|height] <x#> <y#>
+			start [polar] [diameter|width|height] <x#> <y#>
 			angle [<angle#>]
 			slots <nr#>
 				regulated
@@ -80,10 +80,10 @@ Meaning of the keywords:
    - Example: A delta-tailing (triangle behind the flagship) formation should however only be considered `transverse` symmetric, since most players would like the tailing formations to only be behind them.
    - Example: A formation that "writes text by forming letters and words" could be rotatable for 1 degree or less, basically causing the heading/velocity of the lead ship to be ignored and ships just staying in the "text positions".
 - `line`: Begins a line.
-   - `start [polar] [radius|width|height] <x#> <y#>` The location where to start a line within a formation. (The default value is x=0 and y=0.)
+   - `start [polar] [diameter|width|height] <x#> <y#>` The location where to start a line within a formation. (The default value is x=0 and y=0.)
       - x and y give the coordinate in carthesian coordinates in pixels.
          - If the keyword `polar` is given, then this coordinate is given as polar coordinate with x being the angle (0 to 360 degrees) and y being a distance.
-         - If the keyword `radius` is given, then this coordinate is not in pixels, but in radiusses of the largest ship in the formation.
+         - If the keyword `diameter` is given, then this coordinate is not in pixels, but in diameters of the largest ship in the formation.
          - If the keyword `width` is given, then this coordiate is not in pixels, but in widths of the largest ship in the formation.
          - If the keyword `height` is given, then this coordinate is not in pixels, butin heights of the largest ship in the formation.
       - For the first ring lines this coordinate is relative to the center of the formation.
@@ -91,10 +91,10 @@ Meaning of the keywords:
       - If the start keyword is given multiple times, then the values will be added.
          - This can be usefull if the coordinates should be calculated partially based on pixels and partially on ship sizes.
          - This can also be usefull if the x-coordinates should depend on ships-width and y-coordinates on ships-height.
-   - `end [polar] [radius|width|height] <x#> <y#>` The location where to end a line. (Default is the start location, resulting in only 1 slot on the line.)
+   - `end [polar] [diameter|width|height] <x#> <y#>` The location where to end a line. (Default is the start location, resulting in only 1 slot on the line.)
       - For lines this is relative to the center of the formation.
          - For repeat lines this coordinate is relative to the previous end coordinate.
-      - The keywords `polar`, `radius`, `width` and `height` work the same as for the `start` keyword.
+      - The keywords `polar`, `diameter`, `width` and `height` work the same as for the `start` keyword.
       - Giving this keyword multiple times works the same as for the start keyword.
    - `slots <nr#>`: The amount of slots on a line. (Default is 1, meaning that the line is just a single point on the start location.)
       - Or the amount of slots to increase/decrease on each growth step when given in a line repeat section.
@@ -115,7 +115,7 @@ Meaning of the keywords:
 
 - `arc`: Begins a partial or full circle.
    - Angle start and end positions are always interpreted clockwise from start to end (to avoid ambiguity).
-   - `start [polar] [radius|width|height] <x#> <y#>` The location where to start an arc within a formation.
+   - `start [polar] [diameter|width|height] <x#> <y#>` The location where to start an arc within a formation.
       - This is coordinate is relative to the anchor point for the arc and provides the angle as well as the radius.
         - For repeat arcs this coordinate contains the differences (in angle and distance) compared to the previous coordinate.
         - For repeat arcs the newly calculated coordinate is relative to the repeat anchor location.
@@ -125,7 +125,7 @@ Meaning of the keywords:
       - The arc is clockwise if the number is in the range between 0 and 360.
       - The arc is counter-clockwise if the number is in the range between -360 and 0.
       - For repeat arcs, if an angle is given then this gives the delta for the end-angle at which to stop.
-   - `anchor [polar] [radius|width|height] <x#> <y#>`: The location of the anchor for the arc (the center of the circle if the arc were a full circle).
+   - `anchor [polar] [diameter|width|height] <x#> <y#>`: The location of the anchor for the arc (the center of the circle if the arc were a full circle).
       - If given in a repeat section, then this gives the delta to apply to the anchor compared to the previous arc.
       - Defaults to 0,0 if not given, except for repeat sections where the default is applying the original anchor again.
       - Giving this keyword multiple times works the same as for the start keyword for lines.
