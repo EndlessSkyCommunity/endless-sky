@@ -44,8 +44,6 @@ formation <name>:
 			slots <nr#>
 				regulated
 			alternating
-			originating
-			extending
 		...
 	...
 	arc
@@ -62,8 +60,6 @@ formation <name>:
 			slots <nr#>
 				regulated
 			alternating
-			originating
-			extending
 		...
 	...
 ```
@@ -107,11 +103,6 @@ Meaning of the keywords:
       - The keyword `alternating` indicates that every 1st, 3rd, and every other uneven repeating line will fill from end to start instead of from start to end.
          - The alternating keyword can be combined with centered and will still be relevant for some regular formations when ships move to earlier positions.
       - A single line can have multiple repeat sections.
-      - The keyword `originating` indicates that all positions added in the repeat section should be placed before the start position of the original line.
-         - This effectively makes the line longer in front of the the start position.
-         - This is mostly relevant for centered lines, where the repeat section moves the center position.
-         - This can also help in giving a formation nicer behavior when ships move from later positions to earlier positions.
-      - The keyword `extending` works the same as originating, but adds the repeat section after the last position of the original line (but before any later lines).
 
 - `arc`: Begins a partial or full circle.
    - Angle start and end positions are always interpreted clockwise from start to end (to avoid ambiguity).
@@ -139,7 +130,6 @@ Meaning of the keywords:
       - Repeat arcs that reach a size of 0 will not repeat further.
       - The keyword 'alternating' indicates that every uneven repeating arc will fill from end to start instead of from start to end, similar to this keyword on lines.
       - A single arc can have multiple repeat sections.
-      - The keywords `originating` and `extending` work the same as for lines.
 
 
 
