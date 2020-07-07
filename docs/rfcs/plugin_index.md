@@ -2,13 +2,11 @@
 
 This is a specification for the creation and format of a central Plugin Index, as discussed in [endless-sky-plugins#21](https://github.com/EndlessSkyCommunity/endless-sky-plugins/pull/21).
 
-
 ## Intended users
 
 Intended first-level users are applications that can query the index in order to display, install or update Plugins. Examples include [ESLauncher2](https://github.com/EndlessSkyCommunity/ESLauncher2/), Endless Sky's website (as discussed in [endless-sky.github.io#21](https://github.com/endless-sky/endless-sky.github.io/pull/21)) and Endless Sky itself (as discussed in [ES-#707](https://github.com/endless-sky/endless-sky/issues/707)).
 
 Second-level users are players that want a convenient way to discover or install Plugins.
-
 
 ## Scope limits
 
@@ -22,14 +20,14 @@ Out of scope for this specification are:
 
 - The Plugin Index takes the form of a Git repository. For first-level users, everything important is on the `master`-branch.
 - The repository contains:
-  - `plugins.yaml`, a human- and machine-readable YAML-file containing a list of Plugins, hereafter referred to as "index file".
-  - Scripts that automatically read from the index file and convert it to other machine-readable formats, for maximum compatibility.
+  - A folder that contains a human- and machine-readable YAML-file for each Plugin, hereafter referred to as the Plugin's "index file".
+  - Scripts that automatically convert the index files to other machine-readable formats, for maximum compatibility.
   - A folder containing the files generated from the index files.
-  - A script that is able to check Plugins listed in the index file for new versions.
+  - A script that is able to check for new Plugin versions.
 
-## The Index File
+## The Index Files
 
-The index file contains a list of Plugins. Each Plugin is a map with the following contents. Unless otherwise stated, the associated values are Strings.
+Each Plugin has its own index file, which contains a map with the following contents. Unless otherwise stated, the associated values are Strings.
 
 - `name`: A unique name identifying the Plugin
 - `authors`: One or more authors of the Plugin, for example `Somename, SomeOtherName & Contributors`
@@ -54,5 +52,3 @@ The generated files should be updated by a CI service upon every change to the i
 - A JSON-file, containing all Plugins
 - A number of JSON-files, each named after a plugin which it contains
 - A .txt file in a format readable by Endless Sky, containing all Plugins.
-
-    
