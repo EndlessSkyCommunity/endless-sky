@@ -38,7 +38,9 @@ Each Plugin has its own index file, which contains a map with the following cont
 - `url`: A valid URL pointing directly (redirects are allowed) at a Zip-archive containing release `version` of the Plugin.
 - `iconUrl`: A valid URL pointing directly (redirects are allowed) at a PNG- or JPEG-image that is used as the Plugin's thumbnail. The image should preferably be 160x160 pixels large and may have a transparent background.
 - `autoupdate`: A map containing information that can be used by aforementioned update script to check for new versions and automatically update the Plugin's key-value pairs accordingly.
-  - `type`: A String identifying the method used to check for new versions. Examples may include `git`, which checks the git repository specified in `update_url` for newer tags, or `github-release`, which checks the github repository specified in `update_url` for newer releases.
+  - `type`: An enum identifying the method used to check for new versions. Possible values:
+    - `tag`: Clones `update_url` as git repository and checks for new tags.
+    - `commit`: Clones `update_url` as git repository and checks the default branch for new commits.
   - `update_url`: A valid URL complementing `type`. May be omitted, in which case `homepage` shall be used instead.
   - Any other key-value pairs will be interpreted as update keys:
     - They may contain `$version` as a substitution key
