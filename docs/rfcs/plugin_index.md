@@ -38,9 +38,9 @@ The generated files should be updated by a CI service upon every change to the i
 
 Each Plugin has its own index file, which contains a map with the following contents. Unless otherwise stated, the associated values are Strings.
 
-- `name`: A unique name identifying the Plugin
-- `authors`: One or more authors of the Plugin, for example `Somename, SomeOtherName & Contributors`
-- `homepage`: A valid URL pointing at a page containing more Information about the Plugin.
+- `name`: A unique name identifying the Plugin.
+- `authors`: One or more authors of the Plugin, for example `Somename, SomeOtherName & Contributors`.
+- `homepage`: A valid URL pointing at a page containing more information about the Plugin.
 - `license`: A license identifier in accordance with the [SPDX license list](https://spdx.org/licenses/).
 - `version`: The Plugin's version, as currently indexed.
 - `description`:  A short-to-medium length text describing the Plugin, similar to the Plugin's `about.txt`.
@@ -49,8 +49,9 @@ Each Plugin has its own index file, which contains a map with the following cont
 - `autoupdate`: A map containing information that can be used by aforementioned update script to check for new versions and automatically update the Plugin's key-value pairs accordingly (See the Example below).
   - `type`: An enum identifying the method used to check for new versions. Possible values:
     - `tag`: Clones `update_url` as git repository and checks for new tags.
-    - `commit`: Clones `update_url` as git repository and checks the default branch for new commits.
+    - `commit`: Clones `update_url` as git repository and checks `branch` for new commits.
   - `update_url`: A valid URL complementing `type`. May be omitted, in which case `homepage` shall be used instead.
+  - `branch`: Allows for special branches to be used when `type` is `commit`. If omitted, the default branch will be used instead.
   - Any other key-value pairs will be interpreted as update keys:
     - They may contain `$version` as a substitution key
     - Upon detecting a new version, all occurences of `$version` will be replaced with the version detected using `type`.
@@ -78,7 +79,7 @@ A typical index file might look like this:
 
 Now let's say `@HelpfulContributor` releases a new version `v2.0`. They do so by pushing a new tag to their git repository.
 
-The Plugin Index's CI will periodically run the autoupdate script over all index file. In this case, the script will check `homepage` (because `update_url` wasn't specified) for a new tag. Once found, it replaces the `$version` in our update keys with the name of the tag (`v2.0`). The Plugin's `url` and `iconUrl` are subsequently overridden with the resulting strings.
+The Plugin Index's CI will periodically run the autoupdate script over all index file. In this case, the script will check `homepage` (because `update_url` wasn't specified) for a new tag. Once found, it replaces the `$version` in our update keys with the name of the tag (`v2.0`). The Plugin's `url` and `iconUrl` are subsequently ovewritten with the resulting strings.
 
 Thus, the index file would now look like this:
 ```yaml
@@ -92,7 +93,6 @@ Thus, the index file would now look like this:
 - iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/v2.0/icon.png # Dito
 - autoupdate:
   - type: tag
-  - branch: some-special-branch
   - url: https://github.com/HelpfulContributor/ES-Plugin/archive/$version.zipsubstitution
   - iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/$version/icon.png
 ```
