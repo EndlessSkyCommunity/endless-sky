@@ -43,7 +43,8 @@ Each Plugin has its own Manifest, which contains a map with the following conten
 - `homepage`: A valid URL pointing at a page containing more information about the Plugin.
 - `license`: A license identifier in accordance with the [SPDX license list](https://spdx.org/licenses/).
 - `version`: The Plugin's version, as currently indexed.
-- `description`:  A short-to-medium length text describing the Plugin, similar to the Plugin's `about.txt`.
+- `shortDescription`:  A short text describing the Plugin. **Should** be less than 150 and **must** be less than 200 characters.
+- `description`:  A text of arbitrary length describing the Plugin, similar to the Plugin's `about.txt`.
 - `url`: A valid URL pointing directly (redirects are allowed) at a Zip-archive containing release `version` of the Plugin.
 - `iconUrl`: A valid URL pointing directly (redirects are allowed) at a PNG- or JPEG-image that is used as the Plugin's thumbnail. The image should preferably be 160x160 pixels large and may have a transparent background.
 - `autoupdate`: A map containing information that can be used by aforementioned update script to check for new versions and automatically update the Plugin's key-value pairs accordingly (See the Example below).
@@ -67,7 +68,13 @@ A typical Manifest might look like this:
 - homepage: https://github.com/HelpfulContributor/ES-Plugin
 - license: GPL-3.0-or-later
 - version: v1.1
-- description: A small plugin for Endless Sky expression my compassion for the game!
+- shortDescription: A small plugin for Endless Sky expression my compassion for the game!
+- description: >- # One of the many ways to do multiline-strings in YAML. This version allows for linebreaks, but strips them away while parsing. See https://yaml-multiline.info/
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant. Mauris augue neque gravida in. Ultricies integer quis auctor elit.
+    Suspendisse ultrices gravida dictum fusce ut placerat. Sollicitudin tempor id eu nisl nunc mi. Molestie at elementum eu facilisis sed odio morbi quis commodo.
+    Justo donec enim diam vulputate ut pharetra sit amet aliquam. Ut venenatis tellus in metus vulputate eu scelerisque felis.
+    Elementum curabitur vitae nunc sed velit. Sit amet consectetur adipiscing elit duis tristique sollicitudin nibh sit. Feugiat scelerisque varius morbi enim.
 - url: https://github.com/HelpfulContributor/ES-Plugin/archive/v1.1.zip
 - iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/v1.1/icon.png
 - autoupdate:
@@ -88,7 +95,13 @@ Thus, the Manifest would now look like this:
 - homepage: https://github.com/HelpfulContributor/ES-Plugin
 - license: GPL-3.0-or-later
 - version: v2.0 # Changed automatically
-- description: A small plugin for Endless Sky expression my compassion for the game!
+- shortDescription: A small plugin for Endless Sky expression my compassion for the game!
+- description: >-
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant. Mauris augue neque gravida in. Ultricies integer quis auctor elit.
+    Suspendisse ultrices gravida dictum fusce ut placerat. Sollicitudin tempor id eu nisl nunc mi. Molestie at elementum eu facilisis sed odio morbi quis commodo.
+    Justo donec enim diam vulputate ut pharetra sit amet aliquam. Ut venenatis tellus in metus vulputate eu scelerisque felis.
+    Elementum curabitur vitae nunc sed velit. Sit amet consectetur adipiscing elit duis tristique sollicitudin nibh sit. Feugiat scelerisque varius morbi enim.
 - url: https://github.com/HelpfulContributor/ES-Plugin/archive/v2.0.zip # Changed because there was an update key with the same name
 - iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/v2.0/icon.png # Dito
 - autoupdate:
