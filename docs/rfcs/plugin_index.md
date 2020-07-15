@@ -20,23 +20,23 @@ Out of scope for this specification are:
 
 - The Plugin Index takes the form of a Git repository. For first-level users, everything important is on the `master`-branch.
 - The repository contains:
-  - A folder that contains a human- and machine-readable YAML-file for each Plugin, hereafter referred to as the Plugin's "index file".
-  - Scripts that automatically convert the index files to other machine-readable formats, for maximum compatibility.
-  - A folder containing the files generated from the index files.
+  - A folder that contains a human- and machine-readable YAML-file for each Plugin, hereafter referred to as the Plugin's "Manifest".
+  - Scripts that automatically convert the Manifests to other machine-readable formats, for maximum compatibility.
+  - A folder containing the files generated from the Manifests.
   - A script that is able to check for new Plugin versions.
 
 
 ## The generated files
 
-The generated files should be updated by a CI service upon every change to the index file. They may take the following forms (or others):
+The generated files should be updated by a CI service upon every change to the Manifest. They may take the following forms (or others):
 - A JSON-file, containing all Plugins
 - A number of JSON-files, each named after a plugin which it contains
 - A .txt file in a format readable by Endless Sky, containing all Plugins.
 
 
-## The Index Files
+## The Manifest
 
-Each Plugin has its own index file, which contains a map with the following contents. Unless otherwise stated, the associated values are Strings.
+Each Plugin has its own Manifest, which contains a map with the following contents. Unless otherwise stated, the associated values are Strings.
 
 - `name`: A unique name identifying the Plugin.
 - `authors`: One or more authors of the Plugin, for example `Somename, SomeOtherName & Contributors`.
@@ -60,7 +60,7 @@ Each Plugin has its own index file, which contains a map with the following cont
 
 ### Examples
 
-A typical index file might look like this:
+A typical Manifest might look like this:
 ```yaml
 - name: My Awesome Plugin!
 - authors: HelpfulContributor
@@ -79,9 +79,9 @@ A typical index file might look like this:
 
 Now let's say `@HelpfulContributor` releases a new version `v2.0`. They do so by pushing a new tag to their git repository.
 
-The Plugin Index's CI will periodically run the autoupdate script over all index file. In this case, the script will check `homepage` (because `update_url` wasn't specified) for a new tag. Once found, it replaces the `$version` in our update keys with the name of the tag (`v2.0`). The Plugin's `url` and `iconUrl` are subsequently ovewritten with the resulting strings.
+The Plugin Index's CI will periodically run the autoupdate script over all Manifest. In this case, the script will check `homepage` (because `update_url` wasn't specified) for a new tag. Once found, it replaces the `$version` in our update keys with the name of the tag (`v2.0`). The Plugin's `url` and `iconUrl` are subsequently ovewritten with the resulting strings.
 
-Thus, the index file would now look like this:
+Thus, the Manifest would now look like this:
 ```yaml
 - name: My Awesome Plugin!
 - authors: HelpfulContributor
@@ -97,4 +97,4 @@ Thus, the index file would now look like this:
   - iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/$version/icon.png
 ```
 
-This changed index file can then be PR'd back to the Plugin Index's master branch.
+This changed Manifest can then be PR'd back to the Plugin Index's master branch.
