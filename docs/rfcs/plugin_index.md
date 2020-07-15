@@ -68,7 +68,7 @@ A typical Manifest might look like this:
 - homepage: https://github.com/HelpfulContributor/ES-Plugin
 - license: GPL-3.0-or-later
 - version: v1.1
-- shortDescription: A small plugin for Endless Sky expression my compassion for the game!
+- shortDescription: A small plugin for Endless Sky expressing my compassion for the game!
 - description: >- # One of the many ways to do multiline-strings in YAML. This version allows for linebreaks, but strips them away while parsing. See https://yaml-multiline.info/
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     Ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant. Mauris augue neque gravida in. Ultricies integer quis auctor elit.
@@ -95,7 +95,7 @@ Thus, the Manifest would now look like this:
 - homepage: https://github.com/HelpfulContributor/ES-Plugin
 - license: GPL-3.0-or-later
 - version: v2.0 # Changed automatically
-- shortDescription: A small plugin for Endless Sky expression my compassion for the game!
+- shortDescription: A small plugin for Endless Sky expressing my compassion for the game!
 - description: >-
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     Ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant. Mauris augue neque gravida in. Ultricies integer quis auctor elit.
