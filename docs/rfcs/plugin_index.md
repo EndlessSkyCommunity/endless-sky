@@ -1,4 +1,9 @@
-# Plugin Index
+- Feature Name: `plugin_index`
+- Affected audience: Developers
+- RFC PR: [EndlessSkyCommunity/endless-sky#53](https://github.com/EndlessSkyCommunity/endless-sky/pull/53)
+- Relevant Issues/RFCs: [endless-sky-#707](https://github.com/endless-sky/endless-sky/issues/707)
+
+## Summary
 
 This is a specification for the creation and format of a central Plugin Index, as discussed in [endless-sky-plugins#21](https://github.com/EndlessSkyCommunity/endless-sky-plugins/pull/21).
 
