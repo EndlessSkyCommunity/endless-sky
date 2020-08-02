@@ -1,9 +1,9 @@
 - Feature Name: `plugin_index`
-- Affected audience: Developers
+- Affected audience: Plugin Authors, Game/Tool Developers
 - RFC PR: [EndlessSkyCommunity/endless-sky#53](https://github.com/EndlessSkyCommunity/endless-sky/pull/53)
 - Relevant Issues/RFCs: [endless-sky-#707](https://github.com/endless-sky/endless-sky/issues/707)
 
-## Summary
+# Summary
 
 This is a specification for the creation and format of a central Plugin Index, as discussed in [endless-sky-plugins#21](https://github.com/EndlessSkyCommunity/endless-sky-plugins/pull/21).
 
@@ -21,7 +21,9 @@ Out of scope for this specification are:
 - Fields for version-incompatibility are not included, but can be added later by adding new keys to the Plugin map.
 
 
-# Structure
+# Detailed Design
+
+## Structure
 
 - The Plugin Index takes the form of a Git repository. For first-level users, everything important is on the `master`-branch.
 - The repository contains:
