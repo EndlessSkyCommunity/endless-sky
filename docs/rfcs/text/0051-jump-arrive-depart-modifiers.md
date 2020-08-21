@@ -1,7 +1,16 @@
-# Hyperspace and Jump arrival and departure modifiers
+- Feature Name: Hyperspace and Jump arrival and departure modifiers
+- Affected audience: Game Developers, Content Creators, Plugin Authors
+- RFC PR: [ESC-51](https://github.com/EndlessSkyCommunity/endless-sky/pull/51)
+- Relevant Issues/RFCs: [Feature Request](https://github.com/endless-sky/endless-sky/issues/4334)
 
-This is a proposal for a list of keywords for the feature requested in https://github.com/endless-sky/endless-sky/issues/4334 and for possible follow-up features if we can foresee them.
+# Summary
+This is a proposal for a list of keywords that sets limits on the locations where players and NPCs can arrive into a system and depart from a system.
 
+# Motivation
+The arrival distance modifiers could improve space battles (because long range weapons make more sense when fleets start further away from eachother).
+The arrive and departure distance modifiers were also present in Escape Velocity, so adding those features will also improve the options for using Endless Sky for a port of Escape Velocity.
+
+# Detailed Design
 ## System and Planet Arrival/departure
 
 ```arrival <distance> ["link"] ["jump"]```
@@ -75,3 +84,13 @@ arrive focusable <value>
 ```
 (Planet property)
 Allow automatically aiming for this planet when arriving in the system. The default value if this value is not given is true.
+
+# Drawbacks
+The `combat visibility` option could be stronger, for example by incorporating hyperspace link communication between friendly factions.
+
+# Alternatives
+The keywords might be named differently and we might change the workings of one or more features (instead of some maximum ranges, use minimum ranges).
+
+# Unresolved Questions
+As indicated above, `combat visiblity` still has quite some room for improvement.
+Players might also want to set the arrive distances manualy. That is not included in this RFC (neither why we don't allow it and neither how it would work if we do allow it).
