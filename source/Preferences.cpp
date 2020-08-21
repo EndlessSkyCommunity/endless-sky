@@ -54,8 +54,11 @@ void Preferences::Load()
 	settings["Show planet labels"] = true;
 	settings["Show hyperspace flash"] = true;
 	settings["Draw background haze"] = true;
+	settings["Draw starfield"] = true;
 	settings["Hide unexplored map regions"] = true;
 	settings["Turrets focus fire"] = true;
+	settings["Ship outlines in shops"] = true;
+	settings["Interrupt fast-forward"] = true;
 	
 	DataFile prefs(Files::Config() + "preferences.txt");
 	for(const DataNode &node : prefs)
@@ -83,7 +86,7 @@ void Preferences::Save()
 	
 	out.Write("volume", Audio::Volume() / VOLUME_SCALE);
 	out.Write("window size", Screen::RawWidth(), Screen::RawHeight());
-	out.Write("zoom", Screen::Zoom());
+	out.Write("zoom", Screen::UserZoom());
 	out.Write("scroll speed", scrollSpeed);
 	out.Write("view zoom", zoomIndex);
 	

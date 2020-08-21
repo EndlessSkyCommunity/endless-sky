@@ -36,10 +36,13 @@ public:
 	virtual void Step() override;
 	virtual void Draw() override;
 	
+	// The player info panel allow fast-forward to stay active.
+	virtual bool AllowFastForward() const override;
+	
 	
 protected:
 	// Only override the ones you need; the default action is to return false.
-	virtual bool KeyDown(SDL_Keycode key, Uint16 mod, const Command &command) override;
+	virtual bool KeyDown(SDL_Keycode key, Uint16 mod, const Command &command, bool isNewPress) override;
 	virtual bool Click(int x, int y, int clicks) override;
 	virtual bool Hover(int x, int y) override;
 	virtual bool Drag(double dx, double dy) override;

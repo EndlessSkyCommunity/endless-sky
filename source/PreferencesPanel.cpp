@@ -52,6 +52,7 @@ namespace {
 	const string REACTIVATE_HELP = "Reactivate first-time help";
 	const string SCROLL_SPEED = "Scroll speed";
 	const string FIGHTER_REPAIR = "Repair fighters in";
+	const string SHIP_OUTLINES = "Ship outlines in shops";
 }
 
 
@@ -93,7 +94,7 @@ void PreferencesPanel::Draw()
 
 
 
-bool PreferencesPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command)
+bool PreferencesPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &command, bool isNewPress)
 {
 	if(static_cast<unsigned>(editing) < zones.size())
 	{
@@ -141,12 +142,9 @@ bool PreferencesPanel::Click(int x, int y, int clicks)
 		{
 			if(zone.Value() == ZOOM_FACTOR)
 			{
-				int newZoom = Screen::Zoom() + ZOOM_FACTOR_INCREMENT;
-				if(newZoom > ZOOM_FACTOR_MAX)
-					newZoom = ZOOM_FACTOR_MIN;
+				int newZoom = Screen::UserZoom() + ZOOM_FACTOR_INCREMENT;
 				Screen::SetZoom(newZoom);
-				// Make sure there is enough vertical space for the full UI.
-				if(Screen::Height() < 700)
+				if(newZoom > ZOOM_FACTOR_MAX || Screen::Zoom() != newZoom)
 				{
 					// Notify the user why setting the zoom any higher isn't permitted.
 					// Only show this if it's not possible to zoom the view at all, as
@@ -161,13 +159,15 @@ bool PreferencesPanel::Click(int x, int y, int clicks)
 				point += .5 * Point(Screen::RawWidth(), Screen::RawHeight());
 				SDL_WarpMouseInWindow(nullptr, point.X(), point.Y());
 			}
-			if(zone.Value() == VIEW_ZOOM_FACTOR)
+			else if(zone.Value() == VIEW_ZOOM_FACTOR)
 			{
 				// Increase the zoom factor unless it is at the maximum. In that
 				// case, cycle around to the lowest zoom factor.
 				if(!Preferences::ZoomViewIn())
 					while(Preferences::ZoomViewOut()) {}
 			}
+			
+			// Update saved preferences.
 			if(zone.Value() == EXPEND_AMMO)
 				Preferences::ToggleAmmoUsage();
 			else if(zone.Value() == TURRET_TRACKING)
@@ -192,7 +192,10 @@ bool PreferencesPanel::Click(int x, int y, int clicks)
 	
 	for(const auto &zone : pluginZones)
 		if(zone.Contains(point))
+		{
 			selectedPlugin = zone.Value();
+			break;
+		}
 	
 	return true;
 }
@@ -231,19 +234,15 @@ bool PreferencesPanel::Scroll(double dx, double dy)
 	
 	if(hoverPreference == ZOOM_FACTOR)
 	{
-		int zoom = Screen::Zoom();
+		int zoom = Screen::UserZoom();
 		if(dy < 0. && zoom > ZOOM_FACTOR_MIN)
 			zoom -= ZOOM_FACTOR_INCREMENT;
 		if(dy > 0. && zoom < ZOOM_FACTOR_MAX)
 			zoom += ZOOM_FACTOR_INCREMENT;
 		
 		Screen::SetZoom(zoom);
-		// Make sure there is enough vertical space for the full UI.
-		while(Screen::Height() < 700 && zoom > ZOOM_FACTOR_MIN)
-		{
-			zoom -= ZOOM_FACTOR_INCREMENT;
-			Screen::SetZoom(zoom);
-		}
+		if(Screen::Zoom() != zoom)
+			Screen::SetZoom(Screen::Zoom());
 		
 		// Convert to raw window coordinates, at the new zoom level.
 		Point point = hoverPoint * (Screen::Zoom() / 100.);
@@ -286,7 +285,7 @@ void PreferencesPanel::DrawControls()
 	const Color &bright = *GameData::Colors().Get("bright");
 	
 	// Check for conflicts.
-	Color red(.3, 0., 0., .3);
+	Color red(.3f, 0.f, 0.f, .3f);
 	
 	Table table;
 	table.AddColumn(-115, Table::LEFT);
@@ -300,7 +299,7 @@ void PreferencesPanel::DrawControls()
 		"Navigation",
 		"Weapons",
 		"Targeting",
-		"Menus",
+		"Interface",
 		"Fleet"
 	};
 	const string *category = CATEGORIES;
@@ -329,6 +328,7 @@ void PreferencesPanel::DrawControls()
 		Command::MAP,
 		Command::INFO,
 		Command::FULLSCREEN,
+		Command::FASTFORWARD,
 		Command::NONE,
 		Command::DEPLOY,
 		Command::FIGHT,
@@ -362,7 +362,7 @@ void PreferencesPanel::DrawControls()
 			bool isEditing = (index == editing);
 			if(isConflicted || isEditing)
 			{
-				table.SetHighlight(66, 120);
+				table.SetHighlight(56, 120);
 				table.DrawHighlight(isEditing ? dim: red);
 			}
 			
@@ -370,7 +370,7 @@ void PreferencesPanel::DrawControls()
 			bool isHovering = (index == hover && !isEditing);
 			if(!isHovering && index == selected)
 			{
-				table.SetHighlight(-120, 64);
+				table.SetHighlight(-120, 54);
 				table.DrawHighlight(back);
 			}
 			
@@ -439,7 +439,9 @@ void PreferencesPanel::DrawSettings()
 		"Render motion blur",
 		"Reduce large graphics",
 		"Draw background haze",
+		"Draw starfield",
 		"Show hyperspace flash",
+		SHIP_OUTLINES,
 		"",
 		"Other",
 		"Clickable radar display",
@@ -448,7 +450,8 @@ void PreferencesPanel::DrawSettings()
 		"Rehire extra crew when lost",
 		SCROLL_SPEED,
 		"Show escort systems on map",
-		"Warning siren"
+		"Warning siren",
+		"Interrupt fast-forward"
 	};
 	bool isCategory = true;
 	for(const string &setting : SETTINGS)
@@ -482,8 +485,8 @@ void PreferencesPanel::DrawSettings()
 		string text;
 		if(setting == ZOOM_FACTOR)
 		{
-			isOn = true;
-			text = to_string(Screen::Zoom());
+			isOn = Screen::UserZoom() == Screen::Zoom();
+			text = to_string(Screen::UserZoom());
 		}
 		else if(setting == VIEW_ZOOM_FACTOR)
 		{
@@ -501,6 +504,11 @@ void PreferencesPanel::DrawSettings()
 		{
 			isOn = true;
 			text = Preferences::Has(FIGHTER_REPAIR) ? "parallel" : "series";
+		}
+		else if(setting == SHIP_OUTLINES)
+		{
+			isOn = true;
+			text = Preferences::Has(SHIP_OUTLINES) ? "fancy" : "fast";
 		}
 		else if(setting == REACTIVATE_HELP)
 		{
@@ -568,7 +576,7 @@ void PreferencesPanel::DrawPlugins()
 	
 	const int MAX_TEXT_WIDTH = 230;
 	const Font &font = FontSet::Get(14);
-	for(const pair<string, string> &plugin : GameData::PluginAboutText())
+	for(const auto &plugin : GameData::PluginAboutText())
 	{
 		pluginZones.emplace_back(table.GetCenterPoint(), table.GetRowSize(), plugin.first);
 		

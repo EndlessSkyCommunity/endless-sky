@@ -17,15 +17,17 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 #include "Fleet.h"
 #include "LocationFilter.h"
 #include "Personality.h"
+#include "Phrase.h"
 
-#include <string>
 #include <list>
 #include <map>
 #include <memory>
+#include <string>
 
 class DataNode;
 class DataWriter;
 class Government;
+class Planet;
 class PlayerInfo;
 class Ship;
 class ShipEvent;
@@ -48,6 +50,11 @@ public:
 	// Note: the Save() function can assume this is an instantiated mission, not
 	// a template, so fleets will be replaced by individual ships already.
 	void Save(DataWriter &out) const;
+	
+	// Update or check spawning and despawning for this NPC.
+	void UpdateSpawning(const PlayerInfo &player);
+	bool PassedSpawn() const;
+	bool PassedDespawn() const;
 	
 	// Get the ships associated with this set of NPCs.
 	const std::list<std::shared_ptr<Ship>> Ships() const;
@@ -73,11 +80,22 @@ private:
 	LocationFilter location;
 	const System *system = nullptr;
 	bool isAtDestination = false;
+	// Start out landed on this planet.
+	const Planet *planet = nullptr;
 	
 	// Dialog or conversation to show when all requirements for this NPC are met:
 	std::string dialogText;
+	const Phrase *stockDialogPhrase = nullptr;
+	Phrase dialogPhrase;
+	
 	Conversation conversation;
 	const Conversation *stockConversation = nullptr;
+	
+	// Conditions that must be met in order for this NPC to be placed or despawned:
+	bool passedSpawnConditions = false;
+	bool passedDespawnConditions = false;
+	ConditionSet toSpawn;
+	ConditionSet toDespawn;
 	
 	// The ships may be listed individually or referred to as a fleet, and may
 	// be customized or just refer to stock objects:

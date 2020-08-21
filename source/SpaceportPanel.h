@@ -21,7 +21,6 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 class PlayerInfo;
 
 
-
 // GUI panel to be shown when you are in a spaceport. This just draws the port
 // description, but can also pop up conversation panels or dialogs offering
 // missions that are marked as originating in the spaceport.
@@ -41,6 +40,9 @@ private:
 	
 	// Current news item (if any):
 	bool hasNews = false;
+	bool hasPortrait = false;
+	int portraitWidth;
+	int normalWidth;
 	Information newsInfo;
 	WrappedText newsMessage;
 };

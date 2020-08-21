@@ -20,6 +20,7 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 #include "GameData.h"
 #include "Government.h"
 #include "Messages.h"
+#include "Planet.h"
 #include "PlayerInfo.h"
 #include "Random.h"
 #include "Ship.h"
@@ -84,6 +85,8 @@ void NPC::Load(const DataNode &node)
 			else
 				location.Load(child);
 		}
+		else if(child.Token(0) == "planet" && child.Size() >= 2)
+			planet = GameData::Planets().Get(child.Token(1));
 		else if(child.Token(0) == "succeed" && child.Size() >= 2)
 			succeedIf = child.Value(1);
 		else if(child.Token(0) == "fail" && child.Size() >= 2)
@@ -98,24 +101,40 @@ void NPC::Load(const DataNode &node)
 			personality.Load(child);
 		else if(child.Token(0) == "dialog")
 		{
-			for(int i = 1; i < child.Size(); ++i)
+			bool hasValue = (child.Size() > 1);
+			// Dialog text may be supplied from a stock named phrase, a
+			// private unnamed phrase, or directly specified.
+			if(hasValue && child.Token(1) == "phrase")
 			{
-				if(!dialogText.empty())
-					dialogText += "\n\t";
-				dialogText += child.Token(i);
+				if(!child.HasChildren() && child.Size() == 3)
+					stockDialogPhrase = GameData::Phrases().Get(child.Token(2));
+				else
+					child.PrintTrace("Skipping unsupported dialog phrase syntax:");
 			}
-			for(const DataNode &grand : child)
-				for(int i = 0; i < grand.Size(); ++i)
-				{
-					if(!dialogText.empty())
-						dialogText += "\n\t";
-					dialogText += grand.Token(i);
-				}
+			else if(!hasValue && child.HasChildren() && (*child.begin()).Token(0) == "phrase")
+			{
+				const DataNode &firstGrand = (*child.begin());
+				if(firstGrand.Size() == 1 && firstGrand.HasChildren())
+					dialogPhrase.Load(firstGrand);
+				else
+					firstGrand.PrintTrace("Skipping unsupported dialog phrase syntax:");
+			}
+			else
+				Dialog::ParseTextNode(child, 1, dialogText);
 		}
 		else if(child.Token(0) == "conversation" && child.HasChildren())
 			conversation.Load(child);
 		else if(child.Token(0) == "conversation" && child.Size() > 1)
 			stockConversation = GameData::Conversations().Get(child.Token(1));
+		else if(child.Token(0) == "to" && child.Size() >= 2)
+		{
+			if(child.Token(1) == "spawn")
+				toSpawn.Load(child);
+			else if(child.Token(1) == "despawn")
+				toDespawn.Load(child);
+			else
+				child.PrintTrace("Skipping unrecognized attribute:");
+		}
 		else if(child.Token(0) == "ship")
 		{
 			if(child.HasChildren() && child.Size() == 2)
@@ -193,8 +212,31 @@ void NPC::Save(DataWriter &out) const
 		if(mustAccompany)
 			out.Write("accompany");
 		
+		// Only save out spawn conditions if they have yet to be met.
+		// This is so that if a player quits the game and returns, NPCs that
+		// were spawned do not then become despawned because they no longer
+		// pass the spawn conditions.
+		if(!toSpawn.IsEmpty() && !passedSpawnConditions)
+		{
+			out.Write("to", "spawn");
+			out.BeginChild();
+			{
+				toSpawn.Save(out);
+			}
+			out.EndChild();
+		}
+		if(!toDespawn.IsEmpty())
+		{
+			out.Write("to", "despawn");
+			out.BeginChild();
+			{
+				toDespawn.Save(out);
+			}
+			out.EndChild();
+		}
+		
 		if(government)
-			out.Write("government", government->GetName());
+			out.Write("government", government->GetTrueName());
 		personality.Save(out);
 		
 		if(!dialogText.empty())
@@ -227,6 +269,39 @@ void NPC::Save(DataWriter &out) const
 		}
 	}
 	out.EndChild();
+}
+
+
+
+// Update spawning and despawning for this NPC.
+void NPC::UpdateSpawning(const PlayerInfo &player)
+{
+	// The conditions are tested every time this function is called until
+	// they pass. This is so that a change in a player's conditions don't
+	// cause an NPC to "un-spawn" or "un-despawn." Despawn conditions are
+	// only checked after the spawn conditions have passed so that an NPC
+	// doesn't "despawn" before spawning in the first place.
+	if(!passedSpawnConditions)
+		passedSpawnConditions = toSpawn.Test(player.Conditions());
+	
+	if(passedSpawnConditions && !toDespawn.IsEmpty() && !passedDespawnConditions)
+		passedDespawnConditions = toDespawn.Test(player.Conditions());
+}
+
+
+
+// Return if spawned conditions have passed, without updating.
+bool NPC::PassedSpawn() const
+{
+	return passedSpawnConditions;
+}
+
+
+
+// Return if despawned conditions have passed, without updating.
+bool NPC::PassedDespawn() const
+{
+	return passedDespawnConditions;
 }
 
 
@@ -309,6 +384,11 @@ void NPC::Do(const ShipEvent &event, PlayerInfo &player, UI *ui, bool isVisible)
 
 bool NPC::HasSucceeded(const System *playerSystem) const
 {
+	// If this NPC has been despawned or was never spawned in the first place
+	// then ignore its objectives.
+	if(!passedSpawnConditions || passedDespawnConditions)
+		return true;
+	
 	if(HasFailed())
 		return false;
 	
@@ -329,11 +409,16 @@ bool NPC::HasSucceeded(const System *playerSystem) const
 				// A ship that was disabled, captured, or destroyed is considered 'immobile'.
 				isImmobile = (it->second
 					& (ShipEvent::DISABLE | ShipEvent::CAPTURE | ShipEvent::DESTROY));
-				// if this NPC is 'derelict' and has no ASSIST on record, it is immobile.
+				// If this NPC is 'derelict' and has no ASSIST on record, it is immobile.
 				isImmobile |= ship->GetPersonality().IsDerelict()
 					&& !(it->second & ShipEvent::ASSIST);
 			}
-			bool isHere = (!ship->GetSystem() || ship->GetSystem() == playerSystem);
+			bool isHere = false;
+			// If this ship is being carried, check the parent's system.
+			if(!ship->GetSystem() && ship->CanBeCarried() && ship->GetParent())
+				isHere = ship->GetParent()->GetSystem() == playerSystem;
+			else
+				isHere = (!ship->GetSystem() || ship->GetSystem() == playerSystem);
 			if((isHere && !isImmobile) ^ mustAccompany)
 				return false;
 		}
@@ -371,7 +456,12 @@ bool NPC::IsLeftBehind(const System *playerSystem) const
 
 
 bool NPC::HasFailed() const
-{					
+{
+	// If this NPC has been despawned or was never spawned in the first place
+	// then ignore its objectives.
+	if(!passedSpawnConditions || passedDespawnConditions)
+		return false;
+	
 	for(const auto &it : actions)
 	{
 		if(it.second & failIf)
@@ -402,12 +492,20 @@ NPC NPC::Instantiate(map<string, string> &subs, const System *origin, const Syst
 	result.mustEvade = mustEvade;
 	result.mustAccompany = mustAccompany;
 	
+	result.passedSpawnConditions = passedSpawnConditions;
+	result.passedDespawnConditions = passedDespawnConditions;
+	result.toSpawn = toSpawn;
+	result.toDespawn = toDespawn;
+	
 	// Pick the system for this NPC to start out in.
 	result.system = system;
 	if(!result.system && !location.IsEmpty())
 		result.system = location.PickSystem(origin);
 	if(!result.system)
 		result.system = (isAtDestination && destination) ? destination : origin;
+	// If a planet was specified in the template, it must be in this system.
+	if(planet && result.system->FindStellar(planet))
+		result.planet = planet;
 	
 	// Convert fleets into instances of ships.
 	for(const shared_ptr<Ship> &ship : ships)
@@ -438,6 +536,12 @@ NPC NPC::Instantiate(map<string, string> &subs, const System *origin, const Syst
 		
 		if(personality.IsEntering())
 			Fleet::Enter(*result.system, *ship);
+		else if(result.planet)
+		{
+			// A valid planet was specified in the template, so these NPCs start out landed.
+			ship->SetSystem(result.system);
+			ship->SetPlanet(result.planet);
+		}
 		else
 			Fleet::Place(*result.system, *ship);
 	}
@@ -447,6 +551,9 @@ NPC NPC::Instantiate(map<string, string> &subs, const System *origin, const Syst
 		subs["<npc>"] = result.ships.front()->Name();
 	
 	// Do string replacement on any dialog or conversation.
+	string dialogText = stockDialogPhrase ? stockDialogPhrase->Get()
+		: (!dialogPhrase.Name().empty() ? dialogPhrase.Get()
+		: this->dialogText);
 	if(!dialogText.empty())
 		result.dialogText = Format::Replace(dialogText, subs);
 	
