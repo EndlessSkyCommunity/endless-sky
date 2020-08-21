@@ -31,7 +31,7 @@ If a maxium is given, then a ship needs to be no more than distance away from th
 
 If an angle is given, then the ship needs to be at the proper distance, but also in the proper direction of leaving (within the range given by angle). Angle is a number between 0 (which would make it impossible to jump) and 180 (which would remove any angle restrition).
 For example if planet Amazon would have a angle restriction of 45 degrees for jumps, then a jump to Almach (on the right) could only happen from the Area marked "Jump Area" in this picture.
-![Jump Area Example](./jump_arrive_depart_modifiers_angle.png)
+![Jump Area Example](../images/jump_arrive_depart_modifiers_angle.png)
 
 ### Multiple properties
 
