@@ -28,6 +28,7 @@ namespace {
 	bool showUnderlines = false;
 	
 	const char *vertexCode =
+		"// vertex font shader\n"
 		// "scale" maps pixel coordinates to GL coordinates (-1 to 1).
 		"uniform vec2 scale;\n"
 		// The (x, y) coordinates of the top left corner of the glyph.
@@ -51,6 +52,7 @@ namespace {
 		"}\n";
 	
 	const char *fragmentCode =
+		"// fragment font shader\n"
 		// The user must supply a texture and a color (white by default).
 		"uniform sampler2D tex;\n"
 		"uniform vec4 color = vec4(1, 1, 1, 1);\n"
@@ -310,7 +312,7 @@ string Font::TruncateMiddle(const string &str, int width) const
 		bool nextWorks = (nextWidth <= width);
 		if(prevWorks != nextWorks && abs(nextChars - prevChars) == 1)
 		{
-			leftChars = min(prevChars,nextChars) / 2;
+			leftChars = min(prevChars, nextChars) / 2;
 			rightChars = min(prevChars, nextChars) - leftChars;
 			return str.substr(0, leftChars) + "..." + str.substr(str.size() - rightChars);
 		}
@@ -391,7 +393,7 @@ void Font::CalculateAdvances(ImageBuffer &image)
 		{
 			int maxD = 0;
 			int glyphWidth = 0;
-			uint32_t *begin = reinterpret_cast<uint32_t *>(image.Pixels());
+			uint32_t *begin = image.Pixels();
 			for(int y = 0; y < height; ++y)
 			{
 				// Find the last non-empty pixel in the previous glyph.

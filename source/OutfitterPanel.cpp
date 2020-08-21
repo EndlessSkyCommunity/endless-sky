@@ -73,8 +73,13 @@ OutfitterPanel::OutfitterPanel(PlayerInfo &player)
 void OutfitterPanel::Step()
 {
 	CheckRefill();
-	DoHelp("outfitter");
 	ShopPanel::Step();
+	if(GetUI()->IsTop(this) && !checkedHelp) {
+		if(!DoHelp("outfitter") && !DoHelp("outfitter 2") && !DoHelp("outfitter 3")) {
+			// All help messages have now been displayed.
+			checkedHelp = true;
+		}
+	}
 }
 
 
@@ -295,7 +300,7 @@ void OutfitterPanel::Buy(bool fromCargo)
 		// Special case: licenses.
 		if(IsLicense(selectedOutfit->Name()))
 		{
-			int &entry = player.Conditions()[LicenseName(selectedOutfit->Name())];
+			auto &entry = player.Conditions()[LicenseName(selectedOutfit->Name())];
 			if(entry <= 0)
 			{
 				entry = true;
@@ -825,13 +830,13 @@ void OutfitterPanel::Refill()
 		for(const Outfit *outfit : toRefill)
 		{
 			int neededAmmo = ship->Attributes().CanAdd(*outfit, numeric_limits<int>::max());
-			if(neededAmmo)
+			if(neededAmmo > 0)
 			{
 				// Fill first from any stockpiles in cargo.
 				int fromCargo = player.Cargo().Remove(outfit, neededAmmo);
 				neededAmmo -= fromCargo;
 				// Then, buy at reduced (or full) price.
-				int available = outfitter.Has(outfit) ? neededAmmo : max<int>(0, player.Stock(outfit));
+				int available = outfitter.Has(outfit) ? neededAmmo : min<int>(neededAmmo, max<int>(0, player.Stock(outfit)));
 				if(neededAmmo && available > 0)
 				{
 					int64_t price = player.StockDepreciation().Value(outfit, day, available);

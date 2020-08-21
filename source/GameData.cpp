@@ -45,8 +45,6 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 #include "Politics.h"
 #include "Random.h"
 #include "RingShader.h"
-#include "Sale.h"
-#include "Set.h"
 #include "Ship.h"
 #include "Sprite.h"
 #include "SpriteQueue.h"
@@ -215,20 +213,45 @@ bool GameData::BeginLoad(const char * const *argv)
 // Check for objects that are referred to but never defined.
 void GameData::CheckReferences()
 {
+	// Parse all GameEvents for object definitions & references.
+	auto deferred = map<string, set<string>>{};
+	const auto eventDefinitionNodes = set<string>{
+		"fleet",
+		"galaxy",
+		"government",
+		"outfitter",
+		"news",
+		"planet",
+		"shipyard",
+		"system"
+	};
+	for(const auto &it : events)
+	{
+		if(it.second.Name().empty())
+			Files::LogError("Warning: event \"" + it.first + "\" is referred to, but never defined.");
+		else
+		{
+			for(const DataNode &node : it.second.Changes())
+				if(node.Size() >= 2)
+				{
+					const string &key = node.Token(0);
+					if(eventDefinitionNodes.count(key))
+						deferred[key].emplace(node.Token(1));
+				}
+		}
+	}
+	
 	for(const auto &it : conversations)
 		if(it.second.IsEmpty())
 			Files::LogError("Warning: conversation \"" + it.first + "\" is referred to, but never defined.");
 	for(const auto &it : effects)
 		if(it.second.Name().empty())
 			Files::LogError("Warning: effect \"" + it.first + "\" is referred to, but never defined.");
-	for(const auto &it : events)
-		if(it.second.Name().empty())
-			Files::LogError("Warning: event \"" + it.first + "\" is referred to, but never defined.");
 	for(const auto &it : fleets)
-		if(!it.second.GetGovernment())
+		if(!it.second.GetGovernment() && !deferred["fleet"].count(it.first))
 			Files::LogError("Warning: fleet \"" + it.first + "\" is referred to, but never defined.");
 	for(const auto &it : governments)
-		if(it.second.GetName().empty())
+		if(it.second.GetTrueName().empty() && !deferred["government"].count(it.first))
 			Files::LogError("Warning: government \"" + it.first + "\" is referred to, but never defined.");
 	for(const auto &it : minables)
 		if(it.second.Name().empty())
@@ -239,17 +262,23 @@ void GameData::CheckReferences()
 	for(const auto &it : outfits)
 		if(it.second.Name().empty())
 			Files::LogError("Warning: outfit \"" + it.first + "\" is referred to, but never defined.");
+	for(const auto &it : outfitSales)
+		if(it.second.empty() && !deferred["outfitter"].count(it.first))
+			Files::LogError("Warning: outfitter \"" + it.first + "\" is referred to, but has no outfits.");
 	for(const auto &it : phrases)
 		if(it.second.Name().empty())
 			Files::LogError("Warning: phrase \"" + it.first + "\" is referred to, but never defined.");
 	for(const auto &it : planets)
-		if(it.second.Name().empty())
+		if(it.second.TrueName().empty() && !deferred["planet"].count(it.first))
 			Files::LogError("Warning: planet \"" + it.first + "\" is referred to, but never defined.");
 	for(const auto &it : ships)
 		if(it.second.ModelName().empty())
 			Files::LogError("Warning: ship \"" + it.first + "\" is referred to, but never defined.");
+	for(const auto &it : shipSales)
+		if(it.second.empty() && !deferred["shipyard"].count(it.first))
+			Files::LogError("Warning: shipyard \"" + it.first + "\" is referred to, but has no ships.");
 	for(const auto &it : systems)
-		if(it.second.Name().empty())
+		if(it.second.Name().empty() && !deferred["system"].count(it.first))
 			Files::LogError("Warning: system \"" + it.first + "\" is referred to, but never defined.");
 }
 
@@ -503,7 +532,7 @@ void GameData::Change(const DataNode &node)
 	else if(node.Token(0) == "outfitter" && node.Size() >= 2)
 		outfitSales.Get(node.Token(1))->Load(node, outfits);
 	else if(node.Token(0) == "planet" && node.Size() >= 2)
-		planets.Get(node.Token(1))->Load(node, shipSales, outfitSales);
+		planets.Get(node.Token(1))->Load(node);
 	else if(node.Token(0) == "shipyard" && node.Size() >= 2)
 		shipSales.Get(node.Token(1))->Load(node, ships);
 	else if(node.Token(0) == "system" && node.Size() >= 2)
@@ -525,7 +554,12 @@ void GameData::Change(const DataNode &node)
 void GameData::UpdateNeighbors()
 {
 	for(auto &it : systems)
+	{
+		// Skip systems that have no name.
+		if(it.first.empty() || it.second.Name().empty())
+			continue;
 		it.second.UpdateNeighbors(systems);
+	}
 }
 
 
@@ -628,6 +662,13 @@ const Set<Outfit> &GameData::Outfits()
 
 
 
+const Set<Sale<Outfit>> &GameData::Outfitters()
+{
+	return outfitSales;
+}
+
+
+
 const Set<Person> &GameData::Persons()
 {
 	return persons;
@@ -652,6 +693,13 @@ const Set<Planet> &GameData::Planets()
 const Set<Ship> &GameData::Ships()
 {
 	return ships;
+}
+
+
+
+const Set<Sale<Ship>> &GameData::Shipyards()
+{
+	return shipSales;
 }
 
 
@@ -905,7 +953,7 @@ void GameData::LoadFile(const string &path, bool debugMode)
 		else if(key == "phrase" && node.Size() >= 2)
 			phrases.Get(node.Token(1))->Load(node);
 		else if(key == "planet" && node.Size() >= 2)
-			planets.Get(node.Token(1))->Load(node, shipSales, outfitSales);
+			planets.Get(node.Token(1))->Load(node);
 		else if(key == "ship" && node.Size() >= 2)
 		{
 			// Allow multiple named variants of the same ship model.
@@ -1002,10 +1050,12 @@ void GameData::PrintShipTable()
 		<< "mass" << '\t' << "crew" << '\t' << "cargo" << '\t' << "bunks" << '\t'
 		<< "fuel" << '\t' << "outfit" << '\t' << "weapon" << '\t' << "engine" << '\t'
 		<< "speed" << '\t' << "accel" << '\t' << "turn" << '\t'
-		<< "e_gen" << '\t' << "e_use" << '\t' << "h_gen" << '\t' << "h_max" << '\n';
+		<< "energy generation" << '\t' << "max energy usage" << '\t' << "energy capacity" << '\t'
+		<< "idle/max heat" << '\t' << "max heat generation" << '\t' << "max heat dissipation" << '\t'
+		<< "gun mounts" << '\t' << "turret mounts" << '\n';
 	for(auto &it : ships)
 	{
-		// Skip variants.
+		// Skip variants and unnamed / partially-defined ships.
 		if(it.second.ModelName() != it.first)
 			continue;
 		
@@ -1014,9 +1064,10 @@ void GameData::PrintShipTable()
 		cout << ship.Cost() << '\t';
 		
 		const Outfit &attributes = ship.Attributes();
+		auto mass = attributes.Mass() ? attributes.Mass() : 1.;
 		cout << attributes.Get("shields") << '\t';
 		cout << attributes.Get("hull") << '\t';
-		cout << attributes.Mass() << '\t';
+		cout << mass << '\t';
 		cout << attributes.Get("required crew") << '\t';
 		cout << attributes.Get("cargo space") << '\t';
 		cout << attributes.Get("bunks") << '\t';
@@ -1025,27 +1076,55 @@ void GameData::PrintShipTable()
 		cout << ship.BaseAttributes().Get("outfit space") << '\t';
 		cout << ship.BaseAttributes().Get("weapon capacity") << '\t';
 		cout << ship.BaseAttributes().Get("engine capacity") << '\t';
-		cout << 60. * attributes.Get("thrust") / attributes.Get("drag") << '\t';
-		cout << 3600. * attributes.Get("thrust") / attributes.Mass() << '\t';
-		cout << 60. * attributes.Get("turn") / attributes.Mass() << '\t';
+		cout << (attributes.Get("drag") ? (60. * attributes.Get("thrust") / attributes.Get("drag")) : 0) << '\t';
+		cout << 3600. * attributes.Get("thrust") / mass << '\t';
+		cout << 60. * attributes.Get("turn") / mass << '\t';
 		
-		double energy = attributes.Get("thrusting energy")
-			+ attributes.Get("turning energy");
-		double heat = attributes.Get("heat generation") - attributes.Get("cooling")
-			+ attributes.Get("thrusting heat") + attributes.Get("turning heat");
+		double energyConsumed = attributes.Get("energy consumption")
+			+ max(attributes.Get("thrusting energy"), attributes.Get("reverse thrusting energy"))
+			+ attributes.Get("turning energy")
+			+ attributes.Get("afterburner energy")
+			+ attributes.Get("fuel energy")
+			+ (attributes.Get("hull energy") * (1 + attributes.Get("hull energy multiplier")))
+			+ (attributes.Get("shield energy") * (1 + attributes.Get("shield energy multiplier")))
+			+ attributes.Get("cooling energy")
+			+ attributes.Get("cloaking energy");
+		
+		double heatProduced = attributes.Get("heat generation") - attributes.Get("cooling")
+			+ max(attributes.Get("thrusting heat"), attributes.Get("reverse thrusting heat"))
+			+ attributes.Get("turning heat")
+			+ attributes.Get("afterburner heat")
+			+ attributes.Get("fuel heat")
+			+ (attributes.Get("hull heat") * (1 + attributes.Get("hull heat multiplier")))
+			+ (attributes.Get("shield heat") * (1 + attributes.Get("shield heat multiplier")))
+			+ attributes.Get("solar heat")
+			+ attributes.Get("cloaking heat");
+		
 		for(const auto &oit : ship.Outfits())
 			if(oit.first->IsWeapon() && oit.first->Reload())
 			{
 				double reload = oit.first->Reload();
-				energy += oit.second * oit.first->FiringEnergy() / reload;
-				heat += oit.second * oit.first->FiringHeat() / reload;
+				energyConsumed += oit.second * oit.first->FiringEnergy() / reload;
+				heatProduced += oit.second * oit.first->FiringHeat() / reload;
 			}
-		cout << 60. * attributes.Get("energy generation") << '\t';
-		cout << 60. * energy << '\t';
-		cout << 60. * heat << '\t';
-		// Maximum heat is 100 degrees per ton. Bleed off rate is 1/1000
-		// per 60th of a second, so:
-		cout << 60. * ship.HeatDissipation() * ship.MaximumHeat() << '\n';
+		cout << 60. * (attributes.Get("energy generation") + attributes.Get("solar collection")) << '\t';
+		cout << 60. * energyConsumed << '\t';
+		cout << attributes.Get("energy capacity") << '\t';
+		cout << ship.IdleHeat() / max(1., ship.MaximumHeat()) << '\t';
+		cout << 60. * heatProduced << '\t';
+		// Maximum heat is 100 degrees per ton. Bleed off rate is 1/1000 per 60th of a second, so:
+		cout << 60. * ship.HeatDissipation() * ship.MaximumHeat() << '\t';
+
+		int numTurrets = 0;
+		int numGuns = 0;
+		for(auto &hardpoint : ship.Weapons())
+		{
+			if(hardpoint.IsTurret())
+				++numTurrets;
+			else
+				++numGuns;
+		}
+		cout << numGuns << '\t' << numTurrets << '\n';
 	}
 	cout.flush();
 }

@@ -54,6 +54,7 @@ namespace {
 void SpriteShader::Init()
 {
 	static const char *vertexCode =
+		"// vertex sprite shader\n"
 		"uniform vec2 scale;\n"
 		"uniform vec2 position;\n"
 		"uniform mat2 transform;\n"
@@ -71,6 +72,7 @@ void SpriteShader::Init()
 		"}\n";
 	
 	static const char *fragmentCode =
+		"// fragment sprite shader\n"
 		"uniform sampler2DArray tex;\n"
 		"uniform float frame;\n"
 		"uniform float frameCount;\n"
@@ -201,7 +203,7 @@ void SpriteShader::Add(const Item &item, bool withBlur)
 	// Special case: check if the blur should be applied or not.
 	static const float UNBLURRED[2] = {0.f, 0.f};
 	glUniform2fv(blurI, 1, withBlur ? item.blur : UNBLURRED);
-	// Clipping has the oppostie sense in the shader.
+	// Clipping has the opposite sense in the shader.
 	glUniform1f(clipI, 1.f - item.clip);
 	glUniform1f(alphaI, item.alpha);
 	

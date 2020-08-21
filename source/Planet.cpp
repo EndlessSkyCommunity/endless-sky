@@ -31,12 +31,25 @@ using namespace std;
 namespace {
 	const string WORMHOLE = "wormhole";
 	const string PLANET = "planet";
+	
+	// Planet attributes in the form "requires: <attribute>" restrict the ability of ships to land
+	// unless the ship has all required attributes.
+	void SetRequiredAttributes(const set<string> &attributes, set<string> &required)
+	{
+		static const string PREFIX = "requires: ";
+		static const string PREFIX_END = "requires:!";
+		required.clear();
+		for_each(attributes.lower_bound(PREFIX), attributes.lower_bound(PREFIX_END), [&](const string &attribute)
+		{
+			required.emplace_hint(required.cend(), attribute.substr(PREFIX.length()));
+		});
+	}
 }
 
 
 
 // Load a planet's description from a file.
-void Planet::Load(const DataNode &node, const Set<Sale<Ship>> &ships, const Set<Sale<Outfit>> &outfits)
+void Planet::Load(const DataNode &node)
 {
 	if(node.Size() < 2)
 		return;
@@ -124,16 +137,16 @@ void Planet::Load(const DataNode &node, const Set<Sale<Ship>> &ships, const Set<
 		else if(key == "shipyard")
 		{
 			if(remove)
-				shipSales.erase(ships.Get(value));
+				shipSales.erase(GameData::Shipyards().Get(value));
 			else
-				shipSales.insert(ships.Get(value));
+				shipSales.insert(GameData::Shipyards().Get(value));
 		}
 		else if(key == "outfitter")
 		{
 			if(remove)
-				outfitSales.erase(outfits.Get(value));
+				outfitSales.erase(GameData::Outfitters().Get(value));
 			else
-				outfitSales.insert(outfits.Get(value));
+				outfitSales.insert(GameData::Outfitters().Get(value));
 		}
 		// Handle the attributes which cannot be "removed."
 		else if(remove)
@@ -160,7 +173,10 @@ void Planet::Load(const DataNode &node, const Set<Sale<Ship>> &ships, const Set<
 		else if(key == "bribe")
 			bribe = child.Value(valueIndex);
 		else if(key == "security")
+		{
+			customSecurity = true;
 			security = child.Value(valueIndex);
+		}
 		else if(key == "tribute")
 		{
 			tribute = child.Value(valueIndex);
@@ -204,8 +220,10 @@ void Planet::Load(const DataNode &node, const Set<Sale<Ship>> &ships, const Set<
 		else
 			attributes.erase(AUTO_ATTRIBUTES[i]);
 	}
-
+	
+	// Precalculate commonly used values that can only change due to Load().
 	inhabited = (HasSpaceport() || requiredReputation || !defenseFleets.empty()) && !attributes.count("uninhabited");
+	SetRequiredAttributes(Attributes(), requiredAttributes);
 }
 
 
@@ -376,6 +394,13 @@ double Planet::Security() const
 
 
 
+bool Planet::HasCustomSecurity() const
+{
+	return customSecurity;
+}
+
+
+
 const System *Planet::GetSystem() const
 {
 	return (systems.empty() ? nullptr : systems.front());
@@ -454,22 +479,23 @@ const vector<const System *> &Planet::WormholeSystems() const
 // land on this planet.
 bool Planet::IsAccessible(const Ship *ship) const
 {
-	// Check whether any of this planet's attributes are in the form of the
-	// string "requires: <attribute>"; if so the ship must have that attribute.
-	static const string PREFIX = "requires: ";
-	static const string PREFIX_END = "requires:!";
-	auto it = attributes.lower_bound(PREFIX);
-	auto end = attributes.lower_bound(PREFIX_END);
-	if(it == end)
+	// If there are no required attributes, then any ship may land here.
+	if(IsUnrestricted())
 		return true;
 	if(!ship)
 		return false;
 	
-	for( ; it != end; ++it)
-		if(!ship->Attributes().Get(it->substr(PREFIX.length())))
-			return false;
-	
-	return true;
+	const auto &shipAttributes = ship->Attributes();
+	return all_of(requiredAttributes.cbegin(), requiredAttributes.cend(),
+			[&](const string &attr) -> bool { return shipAttributes.Get(attr); });
+}
+
+
+
+// Check if this planet has any required attributes that restrict landability.
+bool Planet::IsUnrestricted() const
+{
+	return requiredAttributes.empty();
 }
 
 
