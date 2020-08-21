@@ -1,30 +1,31 @@
-# Formation flying
-
-This is a specification for a feature to create formations and apply such formations to groups of ships (as discussed in [ES-#4438](https://github.com/endless-sky/endless-sky/issues/4438), [ES-#302](https://github.com/endless-sky/endless-sky/issues/302), [ES-#4471](https://github.com/endless-sky/endless-sky/pull/4471) and others). The formations themselves are named and specified using lines and arcs that are moved, rotated, extended and repeated. The formations are used on ships and fleets by referring to the formation-name from the ships or fleet.
-
-
-## Intended users of the feature
-Intended users:
-- Content creators that want to create new formations.
-- Scenario writers that use formations for NPC fleets in missions (by editing datafiles directly).
-- Players that set formations on ships they own (in-game by using pre-defined formations).
+- Feature Name: Formation Flying
+- Affected audience: Game Developers, Content Creators, Plugin Authors, Players
+- RFC PR: https://github.com/EndlessSkyCommunity/endless-sky/pull/52
+- Relevant Issues/RFCs: [ES-#302 Early feature request](https://github.com/endless-sky/endless-sky/issues/302), [ES-#4438 Initial Lines/Arcs Proposal](https://github.com/endless-sky/endless-sky/issues/4438), [ES-#4471 Lines/Arcs Implementation](https://github.com/endless-sky/endless-sky/pull/4471), [ES-#4606 Lines/Arcs Editor (rejected)](https://github.com/endless-sky/endless-sky/issues/4606)
 
 
-## Scope limit
-Out of scope for this specification are:
-- Behaviours for when to break formations (through ship personalities or otherwise, this is a topic that deserves its own separate specification/RFC).
-- The actual UI elements for players to assign ships to formations. In scope is that is should be possible to create such UI elements, but the actual UI is not in this base specification.
-- An in-game (or out-of-game) graphical formations editor (as discussed in [ES-#4606](https://github.com/endless-sky/endless-sky/issues/4606)).
+
+# Summary
+This is a specification for a feature to create formations and apply such formations to groups of ships. The formations themselves are named and specified using lines and arcs that are moved, rotated, extended and repeated. The formations are used on ships and fleets by referring to the formation-name from the ships or fleet.
+
+Formations can be formed around a lead-ship, but also around objects like planets, wormholes or fixed locations in space.
+
+For examples of formation defintions see formations.txt in [ES-#4471](https://github.com/endless-sky/endless-sky/pull/4471). The screenshots and movie in that PR also show how the formations could look in-game (and are actually generated using an older version of this specification/RFC).
 
 
-# Formation definitions
+
+# Motivation
+Having ships forming formations and flying in formation looks cool. Defensive or offensive formations could also make a tactical sense for NPCs or players in some space battles. And formations around fixed locations can help for story content and/or make sense as defensive positions.
+
+
+
+# Detailed Design (defining formation patterns)
 ## Signs and axis units for formation position coordinates.
 - (x,y) coordinates are relative to the ship or other object around which a formation gets formed. Coordinate 0,0 would refer to the center of the ship or object around which the formation gets formed.
    - positive x is towards the right side of the ship or object around which the formation gets formed and positive y being towards the front of the ship or object around which the formation gets formed.
 - (angle, distance) polar coordinates have angle 0 facing towards the front of the ship or object around which the formation gets formed and angle 90 would be towards the right side of the ship or object around which the formation gets formed.
 - Coordinate (x,y and distance) axises are by default in pixels, but there are also keywords that allows the diameter, the width and/or the height of the largest ship participating in the formation to be used as axis unit.
    - Using coordinates measured in ship sizes allows for using a single formation definition for multiple sizes of ships (fighters to city ships).
-
 
 ## Keywords and definitions
 The basic structure of a definition of a formation in the data-files would look like:
@@ -133,7 +134,7 @@ Meaning of the keywords:
 
 
 
-# Formations usage (flying behavior)
+# Detailed Design (formations usage, flying behavior)
 ## When to form
 - Ships should go into formation when they have a formation set and when their personaly behaviour indicates to go into formation.
    - Default behaviours to go into formation are when idle or when ordered to gather.
@@ -144,7 +145,6 @@ Meaning of the keywords:
       - This is the players flagship for player-owner ships and the first ship in the fleet for NPC fleets.
 - Formations for ships can be set for individual ships, for fleets and for governments.
    - If formations are set on multiple levels, then the most specific level applies, so a formation set on fleet level overrules a formation set on government level.
-
 
 ## Taking formation positions
 - Ships can have a formation-pattern and a formation-ring set to indicate their position in the formation.
@@ -162,7 +162,6 @@ Meaning of the keywords:
       - If the largest ship leaves a formation, then all positions are updated based on the second-largest ship.
    - Ships that are at their formation position align their facing direction with the ship/object/planet/point that leads the formation
       - If the lead has no facing direction, then the ships align with the front of the formation.
-
 
 ## Turning behaviour
 - The front of an active formation is aligned with the movement vector of the ship/object/planet/point that the formation is formed around.
@@ -184,7 +183,6 @@ Meaning of the keywords:
 If the lead ships movement direction changes 180 degrees (because the lead ship is reversing course), then it would be undesired that all ships in the formation would immediately fly to their new positions, since each ship would then pass through the center of the formation (causing the formation to collapse and expand around the lead-ship).
 
 This collapsing and re-expanding looks somewhat unprofessional and can be undesired for protective formations that are around one or more targets to be protected. If the formation is used to screen for missiles, then a single missile just after collapsing the formation can do damage to a large number of formation members (including the protected ships in the middle of the formation).
-
 
 ## Data format and keywords for flying
 
@@ -238,6 +236,31 @@ Meaning of the keywords
 - `reference ships <filter ...>`: Form formation around the ships which match filter criteria according to locationFilter syntax.
 - `reference object [<system-name>] <name>`: Form formation around a planet, spacestation or wormhole with name '<name>'. System-name is optional and can be given if it is required to uniquely identify an object. Not to be used by players, but can be usefull for defense fleets around a planet or for NPC pirates forming an ambush around a wormhole. Note that objects need to have a `direction` to make this option work nicely. Direction can be random (easy) or based on orbit around the star (a little bit more complex).
 
-# Examples
-## External examples
-For examples of formation defintions see formations.txt in [ES-#4471](https://github.com/endless-sky/endless-sky/pull/4471). The screenshots and movie in that PR also show how the formations will look in-game.
+
+
+# Drawbacks
+Using formations on ships and fleets is relatively easy when using this specification, but specifying formation patters directly in the textual format is quite complex.
+
+Some effort is already ongoing to develop a visual formation editor for this specification. Such editor might mitigate the complexity drawback by making the creation of formation-patterns simpler by providing a what-you-see-is-what-you-get point-and-click input instead of textual input.
+
+
+
+# Alternatives
+The current specification/format was chosen because it is very expressive, but this power came with the cost of quite some complexity in specifying formation-patterns. We could want to choose an alternative specification that is less expressive and less complex because it would be simpler to use.
+
+Some alternatives that could result in a simpler, but also less expressive, specification format:
+- Formations with only fixed positions
+- Formations with only fixed positions and ship-types per position.
+- Formations with only relative positions.
+- Formations based on basic shapes (circle, triangle, rectangle, square).
+- Only a single formation around a ship.
+- Only a single formation per type of ship.
+- Set formation information not centrally, but only on the following-ship.
+- Don't include the option to form formations around other things than lead-ships.
+
+
+
+# Unresolved Questions
+- Behaviours for when to break formations (through ship personalities or otherwise) are not in this specification/RFC. This is a topic that deserves its own separate specification/RFC.
+- The actual UI elements for players to assign ships to formations is not in this specification/RFC. In scope is that is should be possible to create such UI elements, but the actual UI is not in this RFC/specification.
+- An in-game (or out-of-game) graphical formations editor is not described in this specification/RFC.
