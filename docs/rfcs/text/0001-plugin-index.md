@@ -85,10 +85,10 @@ description: >- # One of the many ways to do multiline-strings in YAML. This ver
 url: https://github.com/HelpfulContributor/ES-Plugin/archive/v1.1.zip
 iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/v1.1/icon.png
 autoupdate:
-- type: tag
+  type: tag
 # We can omit `update_url`, since `homepage` also resolves to a valid git URL.
-- url: https://github.com/HelpfulContributor/ES-Plugin/archive/$version.zip # Specifies what to set `url` to if an update has been found. Notice the $version substitution
-- iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/$version/icon.png # Dito
+  url: https://github.com/HelpfulContributor/ES-Plugin/archive/$version.zip # Specifies what to set `url` to if an update has been found. Notice the $version substitution
+  iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/$version/icon.png # Dito
 ```
 
 Now let's say `@HelpfulContributor` releases a new version `v2.0`. They do so by pushing a new tag to their git repository.
@@ -112,9 +112,9 @@ description: >-
 url: https://github.com/HelpfulContributor/ES-Plugin/archive/v2.0.zip # Changed because there was an update key with the same name
 iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/v2.0/icon.png # Dito
 autoupdate:
-- type: tag
-- url: https://github.com/HelpfulContributor/ES-Plugin/archive/$version.zipsubstitution
-- iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/$version/icon.png
+  type: tag
+  url: https://github.com/HelpfulContributor/ES-Plugin/archive/$version.zipsubstitution
+  iconUrl: https://raw.githubusercontent.com/HelpfulContributor/ES-Plugin/$version/icon.png
 ```
 
 This changed Manifest can then be PR'd back to the Plugin Index's master branch.
