@@ -67,7 +67,7 @@ private:
 	
 	
 private:
-	std::vector<Point> outline;
+	std::vector<std::vector<Point>> outlines;
 	double radius;
 };
 
